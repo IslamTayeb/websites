@@ -945,12 +945,12 @@
     display: inline-block;
     width: 0.62em;
     height: 0.42em;
-    margin: 0 0.04em;
+    margin: 0 0.14em;
     vertical-align: 0.1em;
     overflow: visible;
     fill: none;
     stroke: currentColor;
-    stroke-width: 2.2;
+    stroke-width: 2.5;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
@@ -958,6 +958,6 @@
   strong .text-arrow,
   .font-semibold .text-arrow,
   .font-bold .text-arrow {
-    stroke-width: 2.7;
+    stroke-width: 3.4;
   }
 }
