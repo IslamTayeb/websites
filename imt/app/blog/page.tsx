@@ -1,3 +1,4 @@
+import { WithTextArrows } from '@/components/primitives/glyphs';
 import type { Metadata } from 'next';
 import { RoybBand } from '@/components/primitives/royb-band';
 import { BorderedPanel, Section } from '@/components/primitives/section';
@@ -66,7 +67,7 @@ export default async function BlogIndexPage() {
                         data-rail-hover-source="true"
                         className="text-base font-semibold leading-tight text-foreground"
                       >
-                        {post.manifest.title}
+                        <WithTextArrows text={post.manifest.title} />
                       </ExternalLink>
                       <PostTags kind={post.manifest.kind} />
                     </span>

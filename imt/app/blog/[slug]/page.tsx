@@ -1,3 +1,4 @@
+import { WithTextArrows } from '@/components/primitives/glyphs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArticleProse } from '@/components/primitives/article-prose';
@@ -54,7 +55,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             data-testid="blog-article-title"
             className="text-3xl font-bold leading-tight tracking-tight text-foreground text-balance site-desktop:text-4xl"
           >
-            {post.manifest.title}
+            <WithTextArrows text={post.manifest.title} />
           </h1>
           <time
             dateTime={post.manifest.publishedAt}

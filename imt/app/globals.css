@@ -941,4 +941,23 @@
     background: #c4b070;
     color: #1a1a1a;
   }
+  .text-arrow {
+    display: inline-block;
+    width: 0.62em;
+    height: 0.42em;
+    margin: 0 0.04em;
+    vertical-align: 0.1em;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  h1 .text-arrow,
+  strong .text-arrow,
+  .font-semibold .text-arrow,
+  .font-bold .text-arrow {
+    stroke-width: 2.7;
+  }
 }

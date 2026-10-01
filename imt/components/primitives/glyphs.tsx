@@ -38,3 +38,23 @@ export function SparkleGlyph({ size = 16, className = '' }: GlyphProps) {
     </svg>
   );
 }
+
+const textArrowPath = 'M1 6h17M13 1l5 5-5 5';
+
+// Open Sans has no U+2192, so the fallback font's long hairline arrow shows up instead.
+// This draws one sized to the surrounding text; .text-arrow in globals.css matches its weight.
+export const textArrowSvg = `<svg class="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→"><path d="${textArrowPath}"/></svg>`;
+
+export function TextArrow() {
+  return (
+    <svg className="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→">
+      <path d={textArrowPath} />
+    </svg>
+  );
+}
+
+export function WithTextArrows({ text }: { text: string }) {
+  return text
+    .split('→')
+    .flatMap((part, i) => (i ? [<TextArrow key={i} />, part] : [part]));
+}
