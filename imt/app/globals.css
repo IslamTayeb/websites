@@ -79,6 +79,7 @@
   --rail-gutter: 2rem;
   --rail-marker-size: 0.75rem;
   --page-rule: oklch(0.18 0.004 60);
+  --chart-context: #a5a3a1;
   --page-shadow: rgb(28 28 28 / 34%);
   --tag-background: color-mix(
     in oklch,
@@ -121,6 +122,7 @@
   --kbd-inset-highlight: inset 0 1px 0 rgb(255 255 255 / 10%);
   --kbd-shadow: 0 1px 0 rgb(0 0 0 / 70%);
   --page-rule: oklch(0.45 0 0);
+  --chart-context: #6b6b6b;
   --page-shadow: rgb(0 0 0 / 76%);
   --tag-background: color-mix(
     in oklch,
@@ -164,6 +166,7 @@
     --kbd-inset-highlight: inset 0 1px 0 rgb(255 255 255 / 10%);
     --kbd-shadow: 0 1px 0 rgb(0 0 0 / 70%);
     --page-rule: oklch(0.45 0 0);
+    --chart-context: #6b6b6b;
     --page-shadow: rgb(0 0 0 / 76%);
     --tag-background: color-mix(
       in oklch,
