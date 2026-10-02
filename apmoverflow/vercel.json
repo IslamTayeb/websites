@@ -160,6 +160,16 @@
       "permanent": true
     },
     {
+      "source": "/one-to-zero",
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/one-to-zero/",
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
       "source": "/typhon-260515",
       "destination": "https://imt.sh/blog/typhon-260515",
       "permanent": true

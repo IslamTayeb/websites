@@ -551,6 +551,10 @@
     background: #fafafa;
     padding: 10px;
   }
+  .article-prose figure svg {
+    pointer-events: none;
+    user-select: none;
+  }
   .article-prose figure.article-media-unframed img {
     background: transparent;
     padding: 0;
