@@ -10,7 +10,6 @@ import {
 } from '@playwright/test';
 import { externalWriting } from '../data/external-writing';
 import { heroParagraphs, profile } from '../data/profile';
-import { getListedPosts } from '../lib/blog/posts';
 
 const root = process.cwd();
 const port = 3011;
@@ -2387,10 +2386,7 @@ async function assertHome(page: Page) {
   assert.deepEqual(result.writingNewTags, []);
   assert.deepEqual(
     result.writingPostTags.map((tag) => [tag.kind, tag.label]),
-    [
-      ['technical', 'technical'],
-      ['technical', 'technical'],
-    ]
+    [['technical', 'technical']]
   );
   assert.ok(
     result.writingPostTags.every(
@@ -2697,7 +2693,7 @@ async function assertHome(page: Page) {
   assert.equal(result.footerBorderTopWidth, 1);
   assert.ok(result.bodyText.includes('show more on Scholar...'));
   assert.ok(result.bodyText.includes('show more on blog...'));
-  assert.equal(result.footerUpdateText, 'Last updated Sep 6, 2026');
+  assert.equal(result.footerUpdateText, 'Last updated Oct 4, 2026');
   assert.ok(result.footerQuoteText.includes('plz enjoy game'));
   assert.ok(result.footerQuoteText.includes('rrtyui'));
   assert.ok(!result.footerText.includes('Links:'));
@@ -3022,9 +3018,9 @@ async function assertMobileFooterAlignment(page: Page) {
     `mobile footer should not overflow horizontally: ${result.footerScrollWidth} / ${result.footerClientWidth}`
   );
   assert.equal(result.updateWhiteSpace, 'nowrap');
-  assert.equal(result.updateText, 'Last updated Sep 6, 2026');
+  assert.equal(result.updateText, 'Last updated Oct 4, 2026');
   assert.equal(result.updateFontSize, 14);
-  assert.equal(result.footerVisibleText, 'Last updated Sep 6, 2026');
+  assert.equal(result.footerVisibleText, 'Last updated Oct 4, 2026');
   assert.equal(result.quoteDisplay, 'none');
   assert.ok(!result.footerVisibleText.includes('plz enjoy game'));
   assert.ok(!result.footerVisibleText.includes('rrtyui'));
@@ -5314,11 +5310,10 @@ async function main() {
     await assertVisibleOneLineDescriptions(blog);
     await screenshot(blog, 'blog-index');
 
-    const [firstPost] = await getListedPosts();
     const article = await browser.newPage({
       viewport: { width: 1280, height: 900 },
     });
-    await article.goto(`${baseUrl}/blog/${firstPost.manifest.slug}`, {
+    await article.goto(`${baseUrl}/blog/on-agent-memory-fidelity`, {
       waitUntil: 'networkidle',
     });
     const articleBand = await assertRoybBandPlacement(article);
