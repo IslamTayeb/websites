@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     default: siteMetadata.title,
     template: `%s | ${siteMetadata.title}`,
   },
-  description: siteMetadata.description,
   alternates: {
     canonical: '/',
   },
@@ -45,7 +44,6 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: siteMetadata.title,
-    description: siteMetadata.description,
     url: siteMetadata.url,
     siteName: siteMetadata.title,
     type: 'website',
@@ -54,7 +52,6 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: siteMetadata.title,
-    description: siteMetadata.description,
     images: [siteMetadata.socialImage],
   },
 };

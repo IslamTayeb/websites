@@ -9,7 +9,6 @@ export function absoluteSiteUrl(pathOrUrl = '/') {
 export const siteMetadata = {
   url: canonicalSiteUrl,
   title: 'Islam Tayeb',
-  description: 'Islam Tayeb: systems, ML tooling, and research.',
   blogDescription: 'APM Overflow writing inside imt.sh.',
   socialImage: {
     url: absoluteSiteUrl('/static/og-moon.png'),

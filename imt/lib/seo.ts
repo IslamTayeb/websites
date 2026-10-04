@@ -20,8 +20,6 @@ export function buildPostMetadata(post: BlogPost): Metadata {
 
   return {
     title: post.manifest.title,
-    // null, not undefined: posts carry no description and must not inherit the site-wide one
-    description: null,
     alternates: {
       canonical: canonicalUrl,
     },

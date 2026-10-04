@@ -14,13 +14,11 @@ const postDotClassName = 'bg-foreground/75';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: siteMetadata.blogDescription,
   alternates: {
     canonical: absoluteSiteUrl('/blog'),
   },
   openGraph: {
     title: 'Blog',
-    description: siteMetadata.blogDescription,
     url: absoluteSiteUrl('/blog'),
     type: 'website',
     images: [siteMetadata.socialImage],
@@ -28,7 +26,6 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: 'Blog',
-    description: siteMetadata.blogDescription,
     images: [siteMetadata.socialImage],
   },
 };
