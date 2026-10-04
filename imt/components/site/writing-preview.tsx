@@ -1,4 +1,3 @@
-import { WithTextArrows } from '@/components/primitives/glyphs';
 import { getListedPosts, postHref } from '@/lib/blog/posts';
 import { formatMonthYear } from '@/lib/blog/date';
 import { ExternalLink } from '@/components/primitives/external-link';
@@ -41,7 +40,7 @@ export async function WritingPreview() {
                         data-rail-hover-source="true"
                         className="font-semibold text-foreground"
                       >
-                        <WithTextArrows text={post.manifest.title} />
+                        {post.manifest.title}
                       </ExternalLink>
                       <PostTags kind={post.manifest.kind} />
                     </span>

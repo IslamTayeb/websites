@@ -1,6 +1,6 @@
 I don't think AI is making enough money yet to justify what's been invested in it. The default AI business model that comes to mind has been B2B SaaS, but from the data I mined, I think investors are scrambling to find what else this AI thing is good for.
 
-I believe the lack of ROI mostly comes from the shape of B2B SaaS. Taking a workflow from 10 steps to 1 (10<svg class="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→"><path d="M1 6h17M13 1l5 5-5 5"/></svg>1) is capped at the human operator's speed. However, taking the person (your customer) out entirely (1<svg class="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→"><path d="M1 6h17M13 1l5 5-5 5"/></svg>0) lets you engineer the pipeline to the speed of software. To do that, you have to become the business, and maybe put the AI in a robotic body if the work is physical. You stop being Software-as-a-Service and become the Service.
+I believe the lack of ROI mostly comes from the shape of B2B SaaS. Taking a workflow from 10 steps to 1 (10→1) is capped at the human operator's speed. However, taking the person (your customer) out entirely (1→0) lets you engineer the pipeline to the speed of software. To do that, you have to become the business, and maybe put the AI in a robotic body if the work is physical. You stop being Software-as-a-Service and become the Service.
 
 Summer '25, when I wasn't fucking around Japantown, I interned at [Soff](https://www.ycombinator.com/companies/soff), a YC startup that sold AI software to help manufacturers quote orders faster. Berni, the CEO, told me last month that Soff now makes steel. They rebranded to [Westgate Supply](https://westgatesupply.com/) and are now a real distributor.
 
@@ -10,7 +10,7 @@ That is the ceiling on the whole B2B AI pitch: we make your business' employees 
 
 Investors know this too. Matter of fact, I think investors have a gut feeling that AI is vaguely useful, but are sweating because it might not be [$3 *Trillion* useful](https://techcrunch.com/2026/07/09/can-ai-answer-the-3-trillion-question/). About $1.5 trillion is going into AI infrastructure this year, Sequoia’s math says the industry needs $3 trillion back, and the two biggest labs together run at under $100 billion. I see two places that investors[^1] are looking.
 
-One is the physical world. I got all companies that YC lists publicly and tracked industry labels by batch.[^2] B2B peaked at 69% in 2023 and has fallen about three points a year since. Industrials were 2% of the W23 batch. By S26 they were 23% (<a id="ref-fig-1" href="#fig-1">Fig.&nbsp;1</a>). YC’s request for startups says it plainly: [“AI is moving into the physical world.”](https://www.ycombinator.com/rfs) I believe this 1<svg class="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→"><path d="M1 6h17M13 1l5 5-5 5"/></svg>0 idea is one of the last shots they have at making generational  money from AI before the market admits that copilots will never pay for $1.5 trillion of data centers.
+One is the physical world. I got all companies that YC lists publicly and tracked industry labels by batch.[^2] B2B peaked at 69% in 2023 and has fallen about three points a year since. Industrials were 2% of the W23 batch. By S26 they were 23% (<a id="ref-fig-1" href="#fig-1">Fig.&nbsp;1</a>). YC’s request for startups says it plainly: [“AI is moving into the physical world.”](https://www.ycombinator.com/rfs) I believe this 1→0 idea is one of the last shots they have at making generational  money from AI before the market admits that copilots will never pay for $1.5 trillion of data centers.
 
 <figure class="article-media article-media-unframed" id="fig-1">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 350" width="100%" class="imt" role="img"><style>
@@ -62,7 +62,7 @@ The second bet is Soff’s. If your AI can do most of an accountant’s work, th
 
 To be clear, nobody is retreating from AI. Spending on chips, data centers, and models is still enormous. But I think founders and investors are scrambling to find good ways to make long-term revenue to justify the trillions invested. The first answer was B2B SaaS, but that's not producing enough.
 
-In almost every operation today, the slowest part is people. Take the last person out and the whole thing runs at machine speed, which is why the money is moving toward this 1<svg class="text-arrow" viewBox="0 0 20 12" role="img" aria-label="→"><path d="M1 6h17M13 1l5 5-5 5"/></svg>0 direction.
+In almost every operation today, the slowest part is people. Take the last person out and the whole thing runs at machine speed, which is why the money is moving toward this 1→0 direction.
 
 ---
 

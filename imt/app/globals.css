@@ -3,10 +3,38 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  /* Open Sans has no U+2192. This face holds only IBM Plex Sans's arrow, so it can sit first in the stack. */
+  font-family: 'Plex Arrow';
+  src: url('/static/fonts/ibm-plex-sans-arrow-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2192;
+}
+@font-face {
+  /* Open Sans has no U+2192. This face holds only IBM Plex Sans's arrow, so it can sit first in the stack. */
+  font-family: 'Plex Arrow';
+  src: url('/static/fonts/ibm-plex-sans-arrow-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2192;
+}
+@font-face {
+  /* Open Sans has no U+2192. This face holds only IBM Plex Sans's arrow, so it can sit first in the stack. */
+  font-family: 'Plex Arrow';
+  src: url('/static/fonts/ibm-plex-sans-arrow-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2192;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-open-sans), Arial, sans-serif;
-  --font-reading: var(--font-open-sans), Arial, sans-serif;
+  --font-sans: 'Plex Arrow', var(--font-open-sans), Arial, sans-serif;
+  --font-reading: 'Plex Arrow', var(--font-open-sans), Arial, sans-serif;
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     monospace;
@@ -951,24 +979,5 @@
   .article-prose code.mellow-sadcore {
     background: #c4b070;
     color: #1a1a1a;
-  }
-  .text-arrow {
-    display: inline-block;
-    width: 0.62em;
-    height: 0.42em;
-    margin: 0 0.14em;
-    vertical-align: 0.1em;
-    overflow: visible;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  h1 .text-arrow,
-  strong .text-arrow,
-  .font-semibold .text-arrow,
-  .font-bold .text-arrow {
-    stroke-width: 3.4;
   }
 }
