@@ -2,7 +2,6 @@
   "slug": "on-agent-memory-fidelity",
   "source": "on-agent-memory-fidelity.md",
   "title": "On Agent Memory Fidelity (Decant)",
-  "summary": "Why agent context should be structured, summarized, and selectively hidden.",
   "publishedAt": "2026-06-07T12:48:00Z",
   "updatedAt": "2026-06-15T12:48:00Z",
   "kind": "technical",

@@ -531,10 +531,6 @@ async function main() {
   for (const post of posts) {
     assert.ok(post.manifest.title, `${post.manifest.slug} needs a title`);
     assert.ok(
-      post.manifest.summary,
-      `${post.manifest.slug} needs a public summary`
-    );
-    assert.ok(
       post.html.includes('<p') || post.html.includes('<h'),
       `${post.manifest.slug} should render article content`
     );

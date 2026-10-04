@@ -2,7 +2,6 @@
   "slug": "effect-of-explanation-and-confidence-fields-on-llm-extraction",
   "source": "effect-of-explanation-and-confidence-fields-on-llm-extraction.md",
   "title": "Effect of explanation and confidence fields on LLM extraction",
-  "summary": "Testing whether extra fields change LLM extraction quality.",
   "publishedAt": "2026-06-03T06:11Z",
   "updatedAt": "2026-06-03T06:11Z",
   "listed": false,

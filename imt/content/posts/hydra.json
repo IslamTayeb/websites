@@ -2,7 +2,6 @@
   "slug": "hydra",
   "source": "hydra.md",
   "title": "Hydra",
-  "summary": "Async checking and rollback for LLM code generation over Clang.",
   "publishedAt": "2026-05-08T13:01Z",
   "updatedAt": "2026-05-08T13:01Z",
   "listed": false,

@@ -20,13 +20,13 @@ export function buildPostMetadata(post: BlogPost): Metadata {
 
   return {
     title: post.manifest.title,
-    description: post.manifest.summary,
+    // null, not undefined: posts carry no description and must not inherit the site-wide one
+    description: null,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
       title: post.manifest.title,
-      description: post.manifest.summary,
       url: canonicalUrl,
       type: 'article',
       publishedTime: datetime(post.manifest.publishedAt),
@@ -36,7 +36,6 @@ export function buildPostMetadata(post: BlogPost): Metadata {
     twitter: {
       card: 'summary',
       title: post.manifest.title,
-      description: post.manifest.summary,
       images: [socialImage],
     },
     robots: post.manifest.listed
@@ -68,7 +67,6 @@ export function buildBlogPostingJsonLd(post: BlogPost) {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.manifest.title,
-    description: post.manifest.summary,
     url: canonicalUrl,
     mainEntityOfPage: canonicalUrl,
     datePublished: datetime(post.manifest.publishedAt),

@@ -38,7 +38,6 @@ export async function buildAtomFeed() {
     <link href="${href}" rel="alternate" />
     <published>${datetime(post.manifest.publishedAt)}</published>
     <updated>${datetime(post.manifest.updatedAt)}</updated>
-    <summary>${escapeHtml(post.manifest.summary)}</summary>
   </entry>`;
     })
     .join('\n  ')}
@@ -66,7 +65,6 @@ export async function buildRssFeed() {
       <title>${escapeHtml(post.manifest.title)}</title>
       <link>${href}</link>
       <guid isPermaLink="true">${href}</guid>
-      <description>${escapeHtml(post.manifest.summary)}</description>
       <pubDate>${toRssDate(post.manifest.publishedAt)}</pubDate>
     </item>`;
       })

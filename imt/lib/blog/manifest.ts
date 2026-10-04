@@ -24,7 +24,6 @@ export type PostManifest = {
   slug: string;
   source: string;
   title: string;
-  summary: string;
   publishedAt: string;
   updatedAt: string;
   listed: boolean;
@@ -41,7 +40,6 @@ const allowedTopLevelFields = new Set([
   'slug',
   'source',
   'title',
-  'summary',
   'publishedAt',
   'updatedAt',
   'listed',
@@ -208,15 +206,6 @@ export function validatePostManifest(raw: unknown, manifestPath: string) {
   validateStringField(issues, raw.slug, 'slug');
   validateStringField(issues, raw.source, 'source');
   validateStringField(issues, raw.title, 'title');
-  validateStringField(issues, raw.summary, 'summary');
-  if (isNonEmptyString(raw.summary)) {
-    if (raw.summary.length > 96) {
-      issues.push('summary must be 96 characters or fewer');
-    }
-    if (/[\r\n]/.test(raw.summary)) {
-      issues.push('summary must be a single line');
-    }
-  }
   validateDateField(issues, raw.publishedAt, 'publishedAt');
   validateDateField(issues, raw.updatedAt, 'updatedAt');
 
@@ -274,7 +263,6 @@ export function validatePostManifest(raw: unknown, manifestPath: string) {
     slug: String(raw.slug),
     source: String(raw.source),
     title: String(raw.title),
-    summary: String(raw.summary),
     publishedAt: String(raw.publishedAt),
     updatedAt: String(raw.updatedAt),
     listed: typeof raw.listed === 'boolean' ? raw.listed : true,

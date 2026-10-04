@@ -2,7 +2,6 @@
   "slug": "agent-self-reflection",
   "source": "agent-self-reflection.md",
   "title": "Agent Self Reflection",
-  "summary": "Whether agents should explain decisions before, during, or after acting.",
   "publishedAt": "2026-06-03T06:04Z",
   "updatedAt": "2026-06-03T06:04Z",
   "listed": false,
