@@ -4037,7 +4037,7 @@ async function assertBlogIndex(page: Page) {
   assert.ok(
     result.bodyText.includes('Finding the Right Answer Was Never the Point')
   );
-  assert.ok(result.bodyText.includes('894 words (4 mins)'));
+  assert.ok(result.bodyText.includes('900 words (4 mins)'));
   assert.doesNotMatch(
     result.bodyText,
     /\b\d+(?:\.\d+)?k\b/,

@@ -100,8 +100,13 @@ function withoutFootnoteDefinitions(markdown: string) {
 function readingMeta(markdown: string) {
   const body = withoutFootnoteDefinitions(markdown)
     .replace(/```[\s\S]*?```/g, ' ')
+    // inline charts and embeds are markup, not words
+    .replace(/<(svg|script|style)\b[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
-    .replace(/\[[^\]]+\]\([^)]+\)/g, ' ')
+    .replace(/\[\^[^\]]+\]/g, '')
+    // a link's text is read, its URL is not
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/[#>*_`|:-]/g, ' ');
   const words = body
     .split(/\s+/)
