@@ -54,7 +54,7 @@ export async function buildRssFeed() {
   <channel>
     <title>Islam Tayeb / Blog</title>
     <link>${siteUrl}/blog</link>
-    <description>${siteMetadata.blogDescription}</description>
+    <description></description>
     <lastBuildDate>${updated ? toRssDate(updated) : new Date(0).toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/blog/rss.xml" rel="self" type="application/rss+xml" />
     ${posts
