@@ -18,6 +18,12 @@ const blocked = [
   'canvas',
   'dither',
 ];
+// Narrow, reviewed exceptions: file -> tokens it may contain.
+const allowed = {
+  // No-op subscription used only as a hydration flag so the prerendered 404
+  // can show the requested path without a hydration mismatch.
+  'components/site/not-found-path.tsx': ['useSyncExternalStore'],
+};
 const extensions = new Set(['.ts', '.tsx', '.css']);
 const issues = [];
 
@@ -31,7 +37,11 @@ for (const dir of scannedDirs) {
     const relative = path.relative(root, fullPath);
 
     for (const token of blocked) {
-      if (text.includes(token)) {
+      // Skip prose like "transitioned" (token followed by lowercase letters)
+      // while still catching `transition-colors`, `canvasRef`, `useEffect(`.
+      const pattern = new RegExp(`\\b${token}(?![a-z])`);
+
+      if (pattern.test(text) && !allowed[relative]?.includes(token)) {
         issues.push(`${relative}: contains "${token}"`);
       }
     }

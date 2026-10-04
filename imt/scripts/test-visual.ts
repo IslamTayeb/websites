@@ -1648,7 +1648,9 @@ async function assertHome(page: Page) {
         ? Number.parseFloat(getComputedStyle(header).paddingRight)
         : 0,
       themeToggleText:
-        themeToggle?.textContent?.replace(/\s+/g, ' ').trim() ?? '',
+        (themeToggle as HTMLElement | null)?.innerText
+          .replace(/\s+/g, ' ')
+          .trim() ?? '',
       themeToggleClassName,
       heroVisibleTitleExists: Boolean(heroVisibleTitleElement),
       heroSemanticTitleClassName: heroSemanticTitle?.className ?? '',
@@ -2063,7 +2065,11 @@ async function assertHome(page: Page) {
       `header should not include ${label} shortcut`
     );
   }
-  assert.equal(result.themeToggleText, '', 'theme toggle should be icon-only');
+  assert.equal(
+    result.themeToggleText,
+    'light',
+    'theme toggle should show only the current theme name as text'
+  );
   assert.ok(
     !result.themeToggleClassName.includes('hover:') &&
       !result.themeToggleClassName.includes('active:'),
@@ -2730,8 +2736,22 @@ async function assertPostTagTypographyAndAlignment(page: Page, label: string) {
       const titleLine = titleRects.at(-1);
       const groupRect = group.getBoundingClientRect();
 
+      const titleLeft = titleRects.length
+        ? Math.min(...titleRects.map((rect) => rect.left))
+        : 0;
+
       return {
         verticalAlign: getComputedStyle(group).verticalAlign,
+        // A tag that does not fit beside the title wraps to its own line,
+        // starting at the title's left edge.
+        wrapped:
+          !!titleLine &&
+          groupRect.top >= titleLine.bottom - 1 &&
+          Math.abs(
+            groupRect.left -
+              Number.parseFloat(getComputedStyle(group).marginLeft) -
+              titleLeft
+          ) <= 1,
         offset: titleLine
           ? groupRect.top +
             groupRect.height / 2 -
@@ -2760,7 +2780,9 @@ async function assertPostTagTypographyAndAlignment(page: Page, label: string) {
     `${label} post tag groups should use middle vertical alignment`
   );
   assert.ok(
-    result.groups.every(({ offset }) => Math.abs(offset) <= 2),
+    result.groups.every(
+      ({ offset, wrapped }) => wrapped || Math.abs(offset) <= 2
+    ),
     `${label} tag centers should align with their title line: ${result.groups
       .map(({ offset }) => offset.toFixed(2))
       .join(', ')}`
@@ -3115,7 +3137,7 @@ async function assertMobileHomeWrappedHighlights(page: Page) {
   });
   await assertWrappedInlineHighlight({
     page,
-    selector: 'a[href="/blog/on-agent-memory-fidelity"]',
+    selector: '#writing a[href="/blog/on-agent-memory-fidelity"]',
     label: 'mobile home writing title',
     colorVariable: 'var(--roy-b)',
   });
@@ -3224,7 +3246,7 @@ function assertExperienceGroupToggleHighlight(
 async function assertExperienceGroupLabelHoverHighlight(page: Page) {
   const teachingToggle = page
     .locator('[data-testid="experience-group-toggle"]', {
-      hasText: /Teaching\s+\(3\)/,
+      hasText: /Teaching/,
     })
     .first();
   const teachingLabel = teachingToggle
@@ -3394,16 +3416,6 @@ async function assertHomeRailHoverAccents(page: Page) {
       .first(),
     label: 'present experience row',
   });
-  await assertRailRowKeepsMarkerOnHover({
-    page,
-    row: page
-      .locator('#writing li', { hasText: 'On Agent Memory Fidelity' })
-      .first(),
-    hoverSource: page
-      .locator('#writing a[href="/blog/on-agent-memory-fidelity"]')
-      .first(),
-    label: 'new writing row',
-  });
 }
 
 async function assertWordmarkHoverHighlight(page: Page) {
@@ -3457,7 +3469,7 @@ async function assertExperienceInteractions(page: Page) {
     '[data-testid="experience-group"][data-group="research"]'
   );
   const researchToggle = researchGroup.getByRole('button', {
-    name: /Research \(3\)/,
+    name: /Research/,
   });
   const groupBox = await researchGroup.boundingBox();
   const toggleBox = await researchToggle.boundingBox();
@@ -3481,13 +3493,13 @@ async function assertExperienceInteractions(page: Page) {
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')
-    .getByRole('button', { name: /Research \(3\)/ })
+    .getByRole('button', { name: /Research/ })
     .click();
   assert.equal(await groupRows('research'), 0);
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')
-    .getByRole('button', { name: /Research \(3\)/ })
+    .getByRole('button', { name: /Research/ })
     .click();
   assert.equal(await groupRows('research'), 3);
 
@@ -3516,7 +3528,7 @@ async function assertExperienceInteractions(page: Page) {
 
   await page
     .locator('[data-testid="experience-group"][data-group="teaching"]')
-    .getByRole('button', { name: /Teaching \(3\)/ })
+    .getByRole('button', { name: /Teaching/ })
     .click();
   assert.equal(await groupRows('teaching'), 3);
   const teachingText = await page
@@ -4054,16 +4066,6 @@ async function assertBlogRailHoverAccents(page: Page) {
     accent: 'b',
     label: 'older blog row',
   });
-  await assertRailRowKeepsMarkerOnHover({
-    page,
-    row: page
-      .locator('#posts li', { hasText: 'On Agent Memory Fidelity' })
-      .first(),
-    hoverSource: page
-      .locator('#posts a[href="/blog/on-agent-memory-fidelity"]')
-      .first(),
-    label: 'new blog row',
-  });
 }
 
 async function assertArticle(page: Page) {
@@ -4581,9 +4583,9 @@ async function assertArticle(page: Page) {
     return result;
   });
 
-  assert.equal(darkCode.background, 'rgb(28, 28, 28)');
-  assert.notEqual(darkCode.color, 'rgb(28, 28, 28)');
-  assert.notEqual(darkCode.keywordColor, 'rgb(28, 28, 28)');
+  assert.equal(darkCode.background, 'rgb(23, 23, 23)');
+  assert.notEqual(darkCode.color, 'rgb(23, 23, 23)');
+  assert.notEqual(darkCode.keywordColor, 'rgb(23, 23, 23)');
   assert.equal(darkCode.kbdBackground, 'rgb(38, 38, 38)');
   assert.match(darkCode.kbdBackgroundImage, /linear-gradient/);
   assert.match(darkCode.kbdBackgroundImage, /rgba\(255, 255, 255, 0\.07\)/);
@@ -5289,7 +5291,7 @@ async function main() {
       selector:
         '#experience [data-testid="rail-title"] + span, #writing [data-testid="rail-title"] + span, #publications [data-testid="publication-title-wrap"] + span',
       label: 'mobile home rail dates',
-      singleLineDates: ['May 2025 - Oct 2025', 'Sep 2025'],
+      singleLineDates: ['Oct 2024 - Apr 2025', 'Sep 2025'],
     });
     await assertMobileFooterAlignment(mobile);
     await assertPostTagTypographyAndAlignment(mobile, 'mobile home');

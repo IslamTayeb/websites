@@ -134,8 +134,8 @@ Use meaningful commit messages that describe the why.
   `show less...`.
 - **Rail hover accents:** Neutral rail dots should hover/focus to the owning
   section color only when the primary title hyperlink is hovered/focused. Rail
-  connector lines stay grey. Already-colored state markers such as `New`,
-  `Present`, and `Incoming` stay fixed.
+  connector lines stay grey. Already-colored state markers such as `Present`
+  and `Incoming` stay fixed.
 - **Experience org marks:** Experience rows replace the square dot with the
   organization's mark from `components/primitives/org-marks.tsx`, keyed by
   `orgKey` in `data/experience.ts`. Marks are monochrome `currentColor`, take
@@ -162,7 +162,8 @@ Use meaningful commit messages that describe the why.
   index, and article pages should render at font-weight 600.
 - **Blog post tags:** Use the validated `kind` field in a post's JSON manifest
   for durable labels such as `technical`; currently only Decant and Harmonia
-  are tagged. Render manifest and computed `New` labels through the shared
+  are tagged. Off-site writing gets the `external` tag; there is no `New` tag.
+  Render all post labels through the shared
   `PostTags`/`Tag` primitives; keep tag text regular-weight, vertically aligned
   with its title line, and colored to match non-neutral tones. Do not hand-style
   labels in individual rails.
