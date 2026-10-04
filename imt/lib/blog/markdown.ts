@@ -122,7 +122,7 @@ function readingMeta(markdown: string) {
 
           return `${formatted}K`;
         })()
-      : `${words}`;
+      : `${Math.round(words / 10) * 10}`;
   const minutes = Math.max(1, Math.round(words / 250));
 
   return `${rounded} words (${minutes} mins)`;
