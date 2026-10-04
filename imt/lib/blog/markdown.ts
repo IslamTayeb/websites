@@ -375,18 +375,12 @@ function withTransparentIframeAttrs(html: string) {
     const isHarmoniaIframe =
       /\bsrc="https:\/\/islamtayeb\.github\.io\/harmonia\//i.test(nextAttrs);
 
-    if (isHarmoniaIframe) {
-      const srcMatch = nextAttrs.match(/\bsrc=(["'])(.*?)\1/i);
+    if (isHarmoniaIframe && !/\bdata-harmonia-iframe=/i.test(nextAttrs)) {
+      nextAttrs += ' data-harmonia-iframe="true"';
+    }
 
-      if (srcMatch && !/\bdata-harmonia-src=/i.test(nextAttrs)) {
-        nextAttrs += ` data-harmonia-src="${escapeHtml(srcMatch[2])}"`;
-      }
-
-      nextAttrs = nextAttrs.replace(/\s+src=(["'])(.*?)\1/i, '');
-
-      if (!/\bdata-harmonia-iframe=/i.test(nextAttrs)) {
-        nextAttrs += ' data-harmonia-iframe="true"';
-      }
+    if (!/\bloading=/i.test(nextAttrs)) {
+      nextAttrs += ' loading="lazy"';
     }
 
     if (!/\ballowtransparency=/i.test(nextAttrs)) {

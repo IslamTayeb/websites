@@ -72,37 +72,23 @@ const themeInitScript = `
       : 'light';
   }
 
-  function themedHarmoniaSrc(src, theme) {
-    try {
-      var url = new URL(src, window.location.href);
-      url.searchParams.set('theme', theme);
-      return url.href;
-    } catch (_) {
-      return src;
+  var harmoniaOrigin = 'https://islamtayeb.github.io';
+
+  // Harmonia embeds restyle themselves from a postMessage, so a theme change
+  // never reloads them. Each embed announces itself once its plot is drawn.
+  function postHarmoniaTheme(iframe) {
+    var theme = currentTheme();
+    iframe.setAttribute('data-harmonia-theme', theme);
+
+    if (iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ harmoniaTheme: theme }, harmoniaOrigin);
     }
   }
 
   function syncHarmoniaIframes() {
-    var theme = currentTheme();
     document
       .querySelectorAll('iframe[data-harmonia-iframe="true"]')
-      .forEach(function (iframe) {
-        var baseSrc = iframe.getAttribute('data-harmonia-src');
-
-        if (!baseSrc) {
-          return;
-        }
-
-        var nextSrc = themedHarmoniaSrc(baseSrc, theme);
-
-        if (iframe.getAttribute('src') !== nextSrc) {
-          iframe.setAttribute('src', nextSrc);
-        }
-
-        if (iframe.getAttribute('data-harmonia-theme') !== theme) {
-          iframe.setAttribute('data-harmonia-theme', theme);
-        }
-      });
+      .forEach(postHarmoniaTheme);
   }
 
   try {
@@ -124,18 +110,23 @@ const themeInitScript = `
 
   window.__syncHarmoniaIframes = syncHarmoniaIframes;
 
-  if (window.MutationObserver && document.body) {
-    new MutationObserver(syncHarmoniaIframes).observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-  }
+  window.addEventListener('message', function (event) {
+    if (
+      event.origin !== harmoniaOrigin ||
+      !event.data ||
+      event.data.harmoniaReady !== true
+    ) {
+      return;
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', syncHarmoniaIframes);
-  } else {
-    syncHarmoniaIframes();
-  }
+    document
+      .querySelectorAll('iframe[data-harmonia-iframe="true"]')
+      .forEach(function (iframe) {
+        if (iframe.contentWindow === event.source) {
+          postHarmoniaTheme(iframe);
+        }
+      });
+  });
 })();
 `;
 

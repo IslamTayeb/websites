@@ -55,11 +55,7 @@ function HeroSegment({ segment }: { segment: TextSegment }) {
   }
 
   return (
-    <ExternalLink
-      href={segment.href}
-      section="r"
-      className="text-foreground"
-    >
+    <ExternalLink href={segment.href} section="r" className="text-foreground">
       {segment.text}
     </ExternalLink>
   );

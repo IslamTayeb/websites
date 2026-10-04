@@ -4783,9 +4783,8 @@ async function assertHarmoniaArticle(page: Page) {
         allowTransparency: iframe.getAttribute('allowtransparency') ?? '',
         styleAttr: iframe.getAttribute('style') ?? '',
         isHarmonia: iframe.getAttribute('data-harmonia-iframe') ?? '',
-        baseSrc: iframe.getAttribute('data-harmonia-src') ?? '',
         src: iframe.getAttribute('src') ?? '',
-        theme: iframe.getAttribute('data-harmonia-theme') ?? '',
+        loading: iframe.getAttribute('loading') ?? '',
         background: getComputedStyle(iframe).backgroundColor,
         opacity: getComputedStyle(iframe).opacity,
       })),
@@ -4864,9 +4863,9 @@ async function assertHarmoniaArticle(page: Page) {
       (iframe) =>
         iframe.allowTransparency === 'true' &&
         iframe.isHarmonia === 'true' &&
-        iframe.baseSrc.startsWith('https://islamtayeb.github.io/harmonia/') &&
-        iframe.src.includes('theme=light') &&
-        iframe.theme === 'light' &&
+        iframe.src.startsWith('https://islamtayeb.github.io/harmonia/') &&
+        !iframe.src.includes('theme=') &&
+        iframe.loading === 'lazy' &&
         !/background\s*:/i.test(iframe.styleAttr) &&
         iframe.background === 'rgba(0, 0, 0, 0)' &&
         iframe.opacity === '1'
@@ -4876,40 +4875,71 @@ async function assertHarmoniaArticle(page: Page) {
 }
 
 async function assertHarmoniaIframeDarkTheme(page: Page) {
-  await page.getByTestId('theme-toggle').click();
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll('iframe[data-harmonia-iframe="true"]')].every(
-      (iframe) =>
-        iframe.getAttribute('data-harmonia-theme') === 'dark' &&
-        (iframe.getAttribute('src') ?? '').includes('theme=dark')
+  const harmoniaFrame = () =>
+    page
+      .frames()
+      .find((frame) =>
+        frame.url().startsWith('https://islamtayeb.github.io/harmonia/')
+      );
+  const embedTheme = () =>
+    harmoniaFrame()?.evaluate(() =>
+      document.documentElement.getAttribute('data-harmonia-theme')
+    );
+  const srcsBefore = await page.evaluate(() =>
+    [...document.querySelectorAll('iframe[data-harmonia-iframe="true"]')].map(
+      (iframe) => iframe.getAttribute('src') ?? ''
     )
   );
 
-  const result = await page.evaluate(() =>
-    [
-      ...document.querySelectorAll<HTMLIFrameElement>(
-        'iframe[data-harmonia-iframe="true"]'
-      ),
-    ].map((iframe) => ({
-      src: iframe.getAttribute('src') ?? '',
-      theme: iframe.getAttribute('data-harmonia-theme') ?? '',
-    }))
+  await page
+    .locator('iframe[data-harmonia-iframe="true"]')
+    .first()
+    .scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    () =>
+      document
+        .querySelector('iframe[data-harmonia-iframe="true"]')
+        ?.getAttribute('data-harmonia-theme') === 'light'
   );
-
-  assert.ok(result.length >= 1, 'Harmonia should render theme-aware iframes');
-  assert.ok(
-    result.every(
-      (iframe) => iframe.theme === 'dark' && iframe.src.includes('theme=dark')
-    ),
-    'Harmonia iframes should receive the dark theme argument after toggling'
+  assert.equal(
+    await embedTheme(),
+    null,
+    'a loaded Harmonia embed should start in its light theme'
   );
 
   await page.getByTestId('theme-toggle').click();
   await page.waitForFunction(() =>
     [...document.querySelectorAll('iframe[data-harmonia-iframe="true"]')].every(
-      (iframe) =>
-        iframe.getAttribute('data-harmonia-theme') === 'light' &&
-        (iframe.getAttribute('src') ?? '').includes('theme=light')
+      (iframe) => iframe.getAttribute('data-harmonia-theme') === 'dark'
+    )
+  );
+  await page.waitForTimeout(250);
+  assert.equal(
+    await embedTheme(),
+    'dark',
+    'the loaded Harmonia embed should switch to dark from a postMessage'
+  );
+
+  const srcsAfter = await page.evaluate(() =>
+    [...document.querySelectorAll('iframe[data-harmonia-iframe="true"]')].map(
+      (iframe) => iframe.getAttribute('src') ?? ''
+    )
+  );
+
+  assert.ok(
+    srcsBefore.length >= 1,
+    'Harmonia should render theme-aware iframes'
+  );
+  assert.deepEqual(
+    srcsAfter,
+    srcsBefore,
+    'toggling the theme should not reload Harmonia iframes'
+  );
+
+  await page.getByTestId('theme-toggle').click();
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll('iframe[data-harmonia-iframe="true"]')].every(
+      (iframe) => iframe.getAttribute('data-harmonia-theme') === 'light'
     )
   );
 }

@@ -659,12 +659,12 @@ async function main() {
       );
       assert.match(
         post.html,
-        /<figure class="article-media iframe-figure"><iframe (?=[^>]*data-harmonia-src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/genre\/genre_family_pie\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><\/figure>/,
+        /<figure class="article-media iframe-figure"><iframe (?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/genre\/genre_family_pie\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><\/figure>/,
         'bare Harmonia iframes should become figure-wrapped media'
       );
       assert.match(
         post.html,
-        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*data-harmonia-src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/genre_trends_proportion\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Genre trends by quarter<\/em><\/figcaption><\/figure>/,
+        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/genre_trends_proportion\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Genre trends by quarter<\/em><\/figcaption><\/figure>/,
         'captioned Harmonia iframes should keep their own captioned figures'
       );
       assert.match(
