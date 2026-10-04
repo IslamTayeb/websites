@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { Open_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import { PageviewScript } from '@/components/site/pageview-script';
 import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
@@ -12,6 +13,32 @@ import './globals.css';
 const openSans = Open_Sans({
   variable: '--font-open-sans',
   subsets: ['latin'],
+});
+
+// Open Sans has no U+2192. These subsets hold only IBM Plex Sans's arrow (under 1 KB each).
+// Loading them through next/font preloads them like Open Sans, so the arrow is ready at first
+// paint instead of swapping in a frame later and nudging the title's width.
+const plexArrow = localFont({
+  variable: '--font-plex-arrow',
+  src: [
+    {
+      path: '../public/static/fonts/ibm-plex-sans-arrow-400.woff2',
+      weight: '400',
+    },
+    {
+      path: '../public/static/fonts/ibm-plex-sans-arrow-600.woff2',
+      weight: '600',
+    },
+    {
+      path: '../public/static/fonts/ibm-plex-sans-arrow-700.woff2',
+      weight: '700',
+    },
+  ],
+  display: 'block',
+  preload: true,
+  fallback: [],
+  adjustFontFallback: false,
+  declarations: [{ prop: 'unicode-range', value: 'U+2192' }],
 });
 
 export const metadata: Metadata = {
@@ -136,7 +163,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={openSans.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${openSans.variable} ${plexArrow.variable}`}
+    >
       <body className="font-sans text-foreground antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <div data-testid="site-page" className="site-page flex flex-col px-5">
