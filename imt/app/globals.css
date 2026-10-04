@@ -872,6 +872,10 @@
     @apply m-0 list-decimal;
     padding-left: 2em;
   }
+  .article-prose .footnotes .footnote-postscript {
+    @apply m-0 mb-3;
+    padding-left: calc(2em + 0.25rem);
+  }
   .article-prose .footnotes li {
     @apply mb-3 pl-1;
   }

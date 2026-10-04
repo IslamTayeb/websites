@@ -599,6 +599,10 @@ export function renderMarkdown(markdown: string, manifest: PostManifest) {
       /<p>\s*(<video\b[\s\S]*?<\/video>)\s*<\/p>\s*<p>\s*<em>([\s\S]*?)<\/em>\s*<\/p>/g,
       '<figure class="article-media video-figure">$1<figcaption><em>$2</em></figcaption></figure>'
     )
+    .replace(
+      /<hr>\s*<p>(P\.S\.[\s\S]*?)<\/p>\s*<hr class="footnotes-sep">\s*<section class="footnotes">/g,
+      '<hr class="footnotes-sep"><section class="footnotes"><p class="footnote-postscript">$1</p>'
+    )
     .replace(/<hr>\s*<hr class="footnotes-sep">/g, '<hr class="footnotes-sep">')
     .replace(
       /<hr>\s*(<section class="footnotes">)/g,
