@@ -117,11 +117,11 @@ It assumes clusters are "regions of the data that are denser than the surroundin
 
 After standardizing features, running HAC, and listening to a lot of my questionable music taste, I landed on 5 clusters.
 
-- <code class="hard-rap">Hard-Rap</code> (733 songs, [playlist](https://open.spotify.com/playlist/2r09O8jpBHFbsPFR9KtVBh)): High-energy rap dominated by trap and cloud rap. Loud, profane, and confrontational. Main character energy.
-- <code class="narrative-rap">Narrative-Rap</code> (226 songs, [playlist](https://open.spotify.com/playlist/0YR44cIs9Frfp4V7g0eovT)): Songs that tell stories. Lyrically dense, emotionally heavy. Kendrick's Duckworth type stories, BROCKHAMPTON's confessionals, Earl's introspection. Music you have to whip out the Genius article for.
-- <code class="jazz-fusion">Jazz-Fusion</code> (91 songs, [playlist](https://open.spotify.com/playlist/1Yd9WxdGakzTnwpooWP89m)): Instrumental, relaxed, head-nodding music. Soundtracks, ambient, downtempo, Japanese jazz fusion.
-- <code class="rhythm-game-edm">Rhythm-Game-EDM</code> (47 songs, [playlist](https://open.spotify.com/playlist/2UycjhM5qkU9EULPUpxMzi)): EDM, osu! music. Breakcore, hardcore, chiptune. 180+ BPM, complex time signatures, very electronic.
-- <code class="mellow">Mellow</code> (156 songs, [playlist](https://open.spotify.com/playlist/67kgiiBpRUEqGHmzifMKVh)): Soft, reflective, acoustic-leaning. Late night drives. Rain on windows. The playlist you put on when you're in your feelings but not trying to wallow.
+- [<code class="hard-rap">Hard-Rap</code>](https://open.spotify.com/playlist/2r09O8jpBHFbsPFR9KtVBh) (733 songs): High-energy rap dominated by trap and cloud rap. Loud, profane, and confrontational. Main character energy.
+- [<code class="narrative-rap">Narrative-Rap</code>](https://open.spotify.com/playlist/0YR44cIs9Frfp4V7g0eovT) (226 songs): Songs that tell stories. Lyrically dense, emotionally heavy. Kendrick's Duckworth type stories, BROCKHAMPTON's confessionals, Earl's introspection. Music you have to whip out the Genius article for.
+- [<code class="jazz-fusion">Jazz-Fusion</code>](https://open.spotify.com/playlist/1Yd9WxdGakzTnwpooWP89m) (91 songs): Instrumental, relaxed, head-nodding music. Soundtracks, ambient, downtempo, Japanese jazz fusion.
+- [<code class="rhythm-game-edm">Rhythm-Game-EDM</code>](https://open.spotify.com/playlist/2UycjhM5qkU9EULPUpxMzi) (47 songs): EDM, osu! music. Breakcore, hardcore, chiptune. 180+ BPM, complex time signatures, very electronic.
+- [<code class="mellow">Mellow</code>](https://open.spotify.com/playlist/67kgiiBpRUEqGHmzifMKVh) (156 songs): Soft, reflective, acoustic-leaning. Late night drives. Rain on windows. The playlist you put on when you're in your feelings but not trying to wallow.
 
 ### Audio vs. Lyrics Covariance
 

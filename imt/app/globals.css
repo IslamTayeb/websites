@@ -953,4 +953,20 @@
     background: #c4b070;
     color: #1a1a1a;
   }
+  .article-prose a > code[class] {
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.15em;
+  }
+  .article-prose a:hover > code[class],
+  .article-prose a:focus-visible > code[class] {
+    text-decoration-line: none;
+    filter: brightness(0.9);
+  }
+  .article-prose a:active > code[class] {
+    text-decoration-line: none;
+    filter: brightness(0.8);
+  }
 }
