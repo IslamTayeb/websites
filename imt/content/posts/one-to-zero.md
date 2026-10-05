@@ -2,7 +2,7 @@ I don't think AI is making enough money yet to justify what's been invested in i
 
 I believe the lack of ROI mostly comes from the shape of B2B SaaS. Taking a workflow from 10 steps to 1 (10→1) is capped at the human operator's speed. However, taking the person (your customer) out entirely (1→0) lets you engineer the pipeline to the speed of software. To do that, you have to become the business, and maybe put the AI in a robotic body if the work is physical. You stop being Software-as-a-Service and become the Service.
 
-Summer '25, when I wasn't fucking around Japantown, I interned at [Soff](https://www.ycombinator.com/companies/soff), a YC startup that sold AI software to help manufacturers quote orders faster. Berni, the CEO, told me last month that Soff now makes steel. They rebranded to [Westgate Supply](https://westgatesupply.com/) and are now a real distributor.
+Summer '25, when I wasn't frolicking around Japantown, I interned at [Soff](https://www.ycombinator.com/companies/soff), a YC startup that sold AI software to help manufacturers quote orders faster. Berni, the CEO, told me last month that Soff now makes steel. They rebranded to [Westgate Supply](https://westgatesupply.com/) and are now a real distributor.
 
 The sales reps we worked with spent 3 hours a day building quotes by hand. We eventually got good at extracting info from orders and quoting them, but deals still took days. The rep still had to review the agent's numbers, send it internally, and follow up regularly with the buyer.
 
