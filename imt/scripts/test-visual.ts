@@ -4677,11 +4677,9 @@ async function assertHarmoniaArticle(page: Page) {
     const paragraphs = [
       ...document.querySelectorAll<HTMLElement>('.article-prose p'),
     ].map((paragraph) => paragraph.textContent?.trim() ?? '');
-    const mellowListItems = [
-      ...document.querySelectorAll<HTMLElement>('.article-prose ul li'),
-    ].filter((item) => item.textContent?.includes('Mellow-'));
     const outputHeader = [...document.querySelectorAll<HTMLElement>('th')].find(
-      (header) => header.textContent?.replace(/\s+/g, ' ').trim() === 'Output'
+      (header) =>
+        header.textContent?.replace(/\s+/g, ' ').trim() === 'Neutral Value'
     );
     const outputHeaderStyle = outputHeader
       ? getComputedStyle(outputHeader)
@@ -4714,16 +4712,6 @@ async function assertHarmoniaArticle(page: Page) {
     ];
     const h4 = document.querySelector<HTMLElement>('.article-prose h4');
     const h4Style = h4 ? getComputedStyle(h4) : null;
-    const tablePair = document.querySelector<HTMLElement>(
-      '.article-table-pair'
-    );
-    const tablePairStyle = tablePair ? getComputedStyle(tablePair) : null;
-    const keyVisualizations = document.querySelector<HTMLElement>(
-      '.key-visualizations'
-    );
-    const keyVisualizationsStyle = keyVisualizations
-      ? getComputedStyle(keyVisualizations)
-      : null;
     const iframes = [
       ...document.querySelectorAll<HTMLIFrameElement>('.article-prose iframe'),
     ];
@@ -4740,8 +4728,6 @@ async function assertHarmoniaArticle(page: Page) {
       hasRepeatedHdbscanStart: paragraphs.some((text) =>
         text.startsWith('HDBSCAN assumes')
       ),
-      mellowListCount: mellowListItems.length,
-      mellowListParentTag: mellowListItems[0]?.parentElement?.tagName ?? '',
       outputHeight: outputHeaderRect?.height ?? 0,
       outputLineHeight,
       outputPaddingY,
@@ -4776,11 +4762,6 @@ async function assertHarmoniaArticle(page: Page) {
         };
       }),
       proseRight: proseRect?.right ?? 0,
-      tablePairDisplay: tablePairStyle?.display ?? '',
-      tablePairFlexDirection: tablePairStyle?.flexDirection ?? '',
-      keyVisualizationsDisplay: keyVisualizationsStyle?.display ?? '',
-      keyVisualizationsFlexDirection:
-        keyVisualizationsStyle?.flexDirection ?? '',
       iframeData: iframes.map((iframe) => ({
         allowTransparency: iframe.getAttribute('allowtransparency') ?? '',
         styleAttr: iframe.getAttribute('style') ?? '',
@@ -4794,24 +4775,21 @@ async function assertHarmoniaArticle(page: Page) {
   });
 
   assert.equal(result.hasPronounParagraph, true);
-  assert.equal(result.h4Text, 'Genre Fusion (Dim 13)');
+  assert.equal(result.h4Text, "Problem 1: Zero isn't always neutral");
   assert.equal(result.h4Transform, 'none');
   assert.equal(result.h4LetterSpacing, 'normal');
   assert.ok(
     result.h4FontFamily.includes('Open Sans'),
     'Harmonia subheads should use the sans title font'
   );
-  assert.ok(result.bodyText.includes('math.pi'));
-  assert.ok(!result.bodyText.includes('π'));
+  assert.ok(result.bodyText.includes('(1 - instrumentalness)'));
   assert.equal(result.hasRepeatedHdbscanStart, false);
-  assert.equal(result.mellowListCount, 2);
-  assert.equal(result.mellowListParentTag, 'UL');
   assert.equal(result.outputWhiteSpace, 'nowrap');
   assert.equal(result.outputWordBreak, 'normal');
   assert.equal(result.outputOverflowWrap, 'normal');
   assert.ok(
     result.outputHeight <= result.outputLineHeight + result.outputPaddingY + 2,
-    'Output table header should not split across multiple lines'
+    'Neutral Value table header should not split across multiple lines'
   );
   assert.ok(
     result.tableCellWordBreaks.every((wordBreak) => wordBreak === 'normal'),
@@ -4855,11 +4833,11 @@ async function assertHarmoniaArticle(page: Page) {
     result.tableWrapData.every((wrap) => wrap.right <= result.proseRight + 1),
     'article table wrappers should stay inside prose width'
   );
-  assert.equal(result.tablePairDisplay, 'flex');
-  assert.equal(result.tablePairFlexDirection, 'column');
-  assert.equal(result.keyVisualizationsDisplay, 'flex');
-  assert.equal(result.keyVisualizationsFlexDirection, 'column');
-  assert.ok(result.iframeData.length >= 1, 'Harmonia should render iframes');
+  assert.equal(
+    result.iframeData.length,
+    4,
+    'Harmonia should render its four iframes'
+  );
   assert.ok(
     result.iframeData.every(
       (iframe) =>

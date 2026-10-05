@@ -637,14 +637,9 @@ async function main() {
         /<p>It assumes clusters are/,
         'Harmonia HDBSCAN follow-up paragraph should start with a pronoun'
       );
-      assert.match(
-        post.html,
-        /<ul>\s*<li>\s*<p><strong><code class="mellow-hopecore">Mellow-Hopecore<\/code>/,
-        'Harmonia mellow subclusters should render as bullet points'
-      );
       assert.equal(
         countMatches(post.html, /class="article-media iframe-figure"/g),
-        13,
+        4,
         'Harmonia should render each iframe as a separate media figure'
       );
       assert.equal(
@@ -652,19 +647,9 @@ async function main() {
         countMatches(post.html, /<iframe\b/g),
         'Harmonia should not leave bare iframe elements outside article media figures'
       );
-      assert.equal(
-        countMatches(post.html, /class="article-table-pair"/g),
-        2,
-        'Harmonia table pairs should normalize to shared article table pairs'
-      );
       assert.match(
         post.html,
-        /<figure class="article-media iframe-figure"><iframe (?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/genre\/genre_family_pie\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><\/figure>/,
-        'bare Harmonia iframes should become figure-wrapped media'
-      );
-      assert.match(
-        post.html,
-        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/genre_trends_proportion\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Genre trends by quarter<\/em><\/figcaption><\/figure>/,
+        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/cluster_trends\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Cluster share of additions by quarter<\/em><\/figcaption><\/figure>/,
         'captioned Harmonia iframes should keep their own captioned figures'
       );
       assert.match(
