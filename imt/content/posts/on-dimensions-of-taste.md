@@ -12,7 +12,7 @@ P.S. This post's timing coincides with [Anna's Archive's Spotify scrape](https:/
 
 * * *
 
-## Part 0: Embedding the Audio
+## Embedding the Audio
 
 My first instinct was to use existing music embedding models. If vision has *CLIP* and language has *BERT*, surely music has something similar.
 
@@ -41,7 +41,7 @@ I differentiate my music as genre soup (jazz fusion, experimental hip hop) vs. o
 
 That gives me **19 audio dimensions** total.
 
-## Part 1: Embedding the Lyrics
+## Embedding the Lyrics
 
 Audio features alone weren't enough. Two songs can sound similar but have completely different lyrical content. Given that 60%+ of my library is rap, lyric features needed significant weight.
 
@@ -87,7 +87,7 @@ This fixed the scattering problem. After this change, Fred Again's *leavemealone
 
 That gives me **33 dimensions total**: 19 audio, 12 lyrics, 2 metadata. The next step: group them.
 
-## Part 2: Clustering
+## Clustering
 
 With 33 interpretable dimensions, I needed a clustering algorithm. I tried 3. Do note that I (mostly) ignored things like silhouette scores (data wasn't well-separated enough) or elbow methods.
 
@@ -107,7 +107,7 @@ It assumes clusters are "regions of the data that are denser than the surroundin
 
 **Final approach:** *HAC* for main clustering (*k=5*). Good enough: 90% of clusters matched my intuition on shuffle.
 
-## Part 3: Analysis
+## Analysis
 
 ### The Clusters
 
@@ -189,7 +189,7 @@ Over fall break, a few friends and I ended up on a Spotify playlist of popular o
 
 Connor gave me Latin folk. Christian gave me Takanaka on the aux. My brother's Blue Lock edits at 2am sent me down the phonk hole. Claire and that night in the Cube reopened a dormant folder. Each person carved out a slot, and the slots stuck.
 
-## Part 4: Afterword
+## Afterword
 
 *59%* of my library is <code class="hard-rap">Hard-Rap</code>.
 
