@@ -119,33 +119,23 @@ After standardizing features, running HAC, and listening to a lot of my question
 
 #### <code class="hard-rap">Hard-Rap</code> (Cluster 0, [Playlist](https://open.spotify.com/playlist/2r09O8jpBHFbsPFR9KtVBh)) — 733 songs, 58.5%
 
-**Top 3 defining features:** High `lyric_arousal`, high `lyric_explicit`, high `lyric_mood_aggressive`.
-
-**What it sounds like:** Main character energy.
+High-energy rap dominated by trap and cloud rap. Loud, profane, and confrontational. Main character energy.
 
 #### <code class="narrative-rap">Narrative-Rap</code> (Cluster 1, [Playlist](https://open.spotify.com/playlist/0YR44cIs9Frfp4V7g0eovT)) — 226 songs, 18.0%
 
-**Top 3 defining features:** High `lyric_mood_sad`, low `lyric_valence`, high `lyric_narrative`.
-
-**What it sounds like:** Kendrick's Duckworth type stories, BROCKHAMPTON's confessionals, Earl's introspection. Music you have to whip out the Genius article for.
+Songs that tell stories. Lyrically dense, emotionally heavy. Kendrick's Duckworth type stories, BROCKHAMPTON's confessionals, Earl's introspection. Music you have to whip out the Genius article for.
 
 #### <code class="jazz-fusion">Jazz-Fusion</code> (Cluster 2, [Playlist](https://open.spotify.com/playlist/1Yd9WxdGakzTnwpooWP89m)) — 91 songs, 7.3%
 
-**Top 3 defining features:** High instrumentalness (0.80 average), low lyric vocabulary (because there are no lyrics), high relaxation.
-
-**What it sounds like:** Soundtracks, ambient, downtempo, Japanese jazz fusion. The kind of music that makes you nod along while working.
+Instrumental, relaxed, head-nodding music. Soundtracks, ambient, downtempo, Japanese jazz fusion.
 
 #### <code class="rhythm-game-edm">Rhythm-Game-EDM</code> (Cluster 3, [Playlist](https://open.spotify.com/playlist/2UycjhM5qkU9EULPUpxMzi)) — 47 songs, 3.8%
 
-**Top 3 defining features:** High `instrumentalness`, low `approachability`, high `engagement`.
-
-**What it sounds like:** 180+ BPM, complex time signatures, very electronic.
+EDM, osu! music. Breakcore, hardcore, chiptune. 180+ BPM, complex time signatures, very electronic.
 
 #### <code class="mellow">Mellow</code> (Cluster 4, [Playlist](https://open.spotify.com/playlist/67kgiiBpRUEqGHmzifMKVh)) — 156 songs, 12.5%
 
-**Top 3 defining features:** High `electronic_acoustic` production, high `mood_sad`, low `mood_party`.
-
-**What it sounds like:** Late night drives. Rain on windows. The playlist you put on when you're in your feelings but not trying to wallow.
+Soft, reflective, acoustic-leaning. Late night drives. Rain on windows. The playlist you put on when you're in your feelings but not trying to wallow.
 
 ### Audio vs. Lyrics Covariance
 
