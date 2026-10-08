@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { contactLinks } from '@/data/links';
-import { newsItems } from '@/data/news';
+import { NEWS_ROW_LIMIT, newsItems } from '@/data/news';
 import { heroParagraphs, type TextSegment } from '@/data/profile';
 import { ExternalLink } from '@/components/primitives/external-link';
 import { RailItem, RailList } from '@/components/primitives/rail';
@@ -82,9 +82,12 @@ function HeroStory() {
 }
 
 function News() {
+  // Only the newest few items show; older news falls off the hero.
+  const visibleNews = newsItems.slice(0, NEWS_ROW_LIMIT);
+
   return (
     <RailList testId="hero-news" className="mt-3">
-      {newsItems.map((item, index) => {
+      {visibleNews.map((item, index) => {
         const isLatest = index === 0;
         const text = item.segments.map((segment) => segment.text).join('');
 
@@ -98,7 +101,7 @@ function News() {
               <HeroSegment key={segmentIndex} segment={segment} />
             ))}
             meta={item.date}
-            connector={index < newsItems.length - 1 ? 'solid' : 'none'}
+            connector={index < visibleNews.length - 1 ? 'solid' : 'none'}
           />
         );
       })}

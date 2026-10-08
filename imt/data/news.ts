@@ -6,8 +6,20 @@ export type NewsItem = {
   date: string;
 };
 
-// Newest first. Kept to a few lines; each renders as a single rail row.
+// The hero renders only the newest NEWS_ROW_LIMIT items.
+export const NEWS_ROW_LIMIT = 3;
+
+// Newest first; each renders as a single rail row. Older items past
+// NEWS_ROW_LIMIT are dropped from the page, so prune them here.
 export const newsItems: NewsItem[] = [
+  {
+    segments: [
+      { text: 'Posted ' },
+      { text: '10→1 vs 1→0', href: '/blog/one-to-zero' },
+      { text: ', on taking the customer out of the loop' },
+    ],
+    date: 'Oct 2026',
+  },
   {
     segments: [
       { text: 'Presented at the ' },
@@ -27,17 +39,6 @@ export const newsItems: NewsItem[] = [
         href: 'https://www.anthropic.com/news/ai-for-science-program',
       },
       { text: ', thx for the compute!' },
-    ],
-    date: 'Jun 2026',
-  },
-  {
-    segments: [
-      { text: 'Posted ' },
-      {
-        text: 'On Agent Memory Fidelity',
-        href: '/blog/on-agent-memory-fidelity',
-      },
-      { text: ', on giving agents adaptive, reversible forgetting' },
     ],
     date: 'Jun 2026',
   },
