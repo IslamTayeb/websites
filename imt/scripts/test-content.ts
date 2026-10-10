@@ -523,7 +523,7 @@ async function main() {
     {
       title: 'Finding the Right Answer Was Never the Point',
       href: 'https://www.dukechronicle.com/article/daf941cd-e431-4e71-a282-5f7da9a56c28',
-      meta: '900 words (4 mins)',
+      meta: '0.9K words (4 mins)',
       date: 'Nov 2024',
     },
   ]);
@@ -536,7 +536,7 @@ async function main() {
     );
     assert.match(
       post.readingMeta,
-      /^\d+(?:\.\d+)?K? words \(\d+ mins\)$/,
+      /^\d+(?:\.\d+)?K words \(\d+ mins\)$/,
       `${post.manifest.slug} should use canonical reading metadata`
     );
     assert.doesNotMatch(

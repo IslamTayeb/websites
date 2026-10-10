@@ -123,9 +123,10 @@ Use meaningful commit messages that describe the why.
 - **Rail detail scale:** Publication author/type rows and writing word/time
   metadata use `text-base` Open Sans reading copy. Rail dates remain compact
   `text-sm` mono.
-- **Reading metadata format:** Abbreviate thousands with uppercase `K`, trim
-  whole-number decimals, and use parenthesized minutes, e.g.
-  `3K words (5 mins)`.
+- **Reading metadata format:** Express every word count in thousands with
+  uppercase `K`, including counts under 1,000, trim whole-number decimals, and
+  use parenthesized minutes, e.g. `3K words (5 mins)` and
+  `0.5K words (2 mins)`.
 - **Publication text stacks:** Publication title/author/type stacks should own
   vertical rhythm with `flex flex-col gap-0.5`; avoid child `mt-*` margins.
 - **Show-more actions:** Bare disclosure labels use `show more...`; labeled index

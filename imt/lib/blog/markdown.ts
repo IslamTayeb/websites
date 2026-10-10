@@ -112,17 +112,9 @@ function readingMeta(markdown: string) {
     .split(/\s+/)
     .map((word) => word.trim())
     .filter(Boolean).length;
-  const rounded =
-    words >= 1000
-      ? (() => {
-          const value = Math.round(words / 100) / 10;
-          const formatted = Number.isInteger(value)
-            ? value.toFixed(0)
-            : value.toFixed(1);
-
-          return `${formatted}K`;
-        })()
-      : `${Math.round(words / 10) * 10}`;
+  // one shape for every length: 500 words reads as 0.5K, never 500
+  const value = Math.max(0.1, Math.round(words / 100) / 10);
+  const rounded = `${Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1)}K`;
   const minutes = Math.max(1, Math.round(words / 250));
 
   return `${rounded} words (${minutes} mins)`;
