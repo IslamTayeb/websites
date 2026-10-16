@@ -467,6 +467,12 @@ async function assertSeoInfrastructure(
 
   assert.equal(personJsonLd['@type'], 'Person');
   assert.equal(personJsonLd.url, siteMetadata.url);
+  assert.equal(personJsonLd.image, absoluteSiteUrl('/me.webp'));
+  assert.equal(personJsonLd.description, siteMetadata.description);
+  assert.ok(
+    siteMetadata.description.length <= 160,
+    'homepage meta description should fit a search snippet'
+  );
   assert.ok(
     personJsonLd.sameAs.every((href) => href.startsWith('https://')),
     'Person JSON-LD should only include HTTPS sameAs links'
@@ -478,6 +484,11 @@ async function assertSeoInfrastructure(
     assert.equal(blogPostingJsonLd['@type'], 'BlogPosting');
     assert.equal(blogPostingJsonLd.url, absoluteSiteUrl(postHref(post)));
     assert.equal(blogPostingJsonLd.headline, post.manifest.title);
+    assert.equal(
+      buildPostMetadata(post).description,
+      null,
+      `${post.manifest.slug} should not inherit the homepage description`
+    );
   }
 
   const atomFeed = await buildAtomFeed();

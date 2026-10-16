@@ -1,5 +1,6 @@
 import type { Metadata, MetadataRoute } from 'next';
-import { contactLinks } from '@/data/links';
+import { contactLinks, profileLinks } from '@/data/links';
+import { profile } from '@/data/profile';
 import { absoluteSiteUrl, siteMetadata } from '@/data/site-metadata';
 import { datetime } from './blog/date';
 import type { BlogPost } from './blog/posts';
@@ -20,6 +21,8 @@ export function buildPostMetadata(post: BlogPost): Metadata {
 
   return {
     title: post.manifest.title,
+    // Posts have no summary yet; don't inherit the homepage bio.
+    description: null,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -49,9 +52,15 @@ export function buildPersonJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: siteMetadata.title,
+    name: profile.name,
     url: siteMetadata.url,
-    image: siteMetadata.socialImage.url,
+    image: siteMetadata.portraitUrl,
+    description: siteMetadata.description,
+    affiliation: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Duke University',
+      url: profileLinks.dukeUniversity,
+    },
     sameAs: contactLinks
       .map((link) => link.href)
       .filter((href) => href.startsWith('https://')),

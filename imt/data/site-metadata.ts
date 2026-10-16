@@ -1,3 +1,4 @@
+import { profile } from './profile';
 import siteUrlConfig from './site-url.json';
 
 const canonicalSiteUrl = siteUrlConfig.url;
@@ -8,7 +9,9 @@ export function absoluteSiteUrl(pathOrUrl = '/') {
 
 export const siteMetadata = {
   url: canonicalSiteUrl,
-  title: 'Islam Tayeb',
+  title: profile.name,
+  description: `${profile.name} is a ${profile.role}.`,
+  portraitUrl: absoluteSiteUrl('/me.webp'),
   socialImage: {
     url: absoluteSiteUrl('/static/og-moon.png'),
     width: 1200,
