@@ -17,7 +17,7 @@ type VideoInsert = {
   ariaLabel: string;
 };
 
-const postKinds = ['technical'] as const;
+const postKinds = ['technical', 'opinion'] as const;
 export type PostKind = (typeof postKinds)[number];
 
 export type PostManifest = {

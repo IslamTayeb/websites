@@ -161,11 +161,16 @@ Use meaningful commit messages that describe the why.
   spacing: `mb-4 flex flex-col gap-1`.
 - **Blog title weight:** Blog titles on the homepage writing preview, `/blog`
   index, and article pages should render at font-weight 600.
-- **Blog post tags:** Use the validated `kind` field in a post's JSON manifest
-  for durable labels such as `technical`; currently only Decant and Harmonia
-  are tagged. Off-site writing gets the `external` tag; there is no `New` tag.
-  Render all post labels through the shared
-  `PostTags`/`Tag` primitives; keep tag text regular-weight, vertically aligned
+- **Blog post tags:** Every listed post gets exactly one validated `kind` in
+  its JSON manifest: `technical` (built-and-measured write-ups, currently
+  Decant and Harmonia) or `opinion` (everything else). Off-site writing in
+  `data/external-writing.ts` also carries a `kind`, plus the `external` tag
+  with its icon; there is no `New` tag. Kind colors follow existing section
+  meaning: `technical` is yellow (research/publications), `opinion` is red
+  (personal voice), `external` stays neutral. Blue is reserved for the writing
+  section's hover accent and orange for experience "current" state. Hold at
+  two kinds until a post clearly fits neither. Render all post labels through
+  the shared `PostTags`/`Tag` primitives; keep tag text regular-weight, vertically aligned
   with its title line, and colored to match non-neutral tones. Do not hand-style
   labels in individual rails.
 - **Blog manifests:** Use `listed: false` for source-backed pages that should

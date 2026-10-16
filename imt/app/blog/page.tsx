@@ -103,7 +103,7 @@ export default async function BlogIndexPage() {
                     >
                       {item.title}
                     </ExternalLink>
-                    <PostTags external />
+                    <PostTags external kind={item.kind} />
                   </span>
                 }
                 meta={item.date}

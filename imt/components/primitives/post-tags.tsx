@@ -3,9 +3,13 @@ import { SquareArrowOutUpRight } from 'lucide-react';
 import { Tag } from '@/components/primitives/tag';
 import type { PostKind } from '@/lib/blog/manifest';
 
+// Yellow ties technical write-ups to the research/publications color; red
+// ties opinion pieces to the personal voice. Blue stays the writing
+// section's hover accent and orange stays the experience "current" marker.
 const postKindTone = {
-  technical: 'neutral',
-} as const;
+  technical: 'y',
+  opinion: 'r',
+} as const satisfies Record<PostKind, string>;
 
 export function PostTags({
   kind,
