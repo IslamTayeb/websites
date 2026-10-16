@@ -560,7 +560,7 @@ async function main() {
     );
     assert.match(
       post.readingMeta,
-      /^\d+(?:\.\d+)?K words \(\d+ mins\)$/,
+      /^\d+\.\dK words \(\d+ mins\)$/,
       `${post.manifest.slug} should use canonical reading metadata`
     );
     assert.doesNotMatch(
