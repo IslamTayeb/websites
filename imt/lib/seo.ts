@@ -21,7 +21,7 @@ export function buildPostMetadata(post: BlogPost): Metadata {
 
   return {
     title: post.manifest.title,
-    // Posts have no summary yet; don't inherit the homepage bio.
+    // Posts carry no summary; don't inherit the homepage bio.
     description: null,
     alternates: {
       canonical: canonicalUrl,

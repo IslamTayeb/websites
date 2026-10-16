@@ -172,9 +172,8 @@ Use meaningful commit messages that describe the why.
   exist at their slug but stay out of `/blog`, feeds, and sitemaps. Hidden
   source-backed pages still need old APM top-level redirect coverage when their
   `/blog/...` page exists. Use `allowHtml: true` only for posts that need raw
-  HTML blocks. Every manifest carries a one-line `summary` (96 characters or
-  fewer) used for the meta description, feeds, and JSON-LD; there is no
-  `description` field.
+  HTML blocks. Manifests have no `summary` or `description` field; post pages
+  deliberately set no meta description so they don't inherit the homepage bio.
 - **Pageview events:** The active site uses a tiny `sendBeacon` pageview script
   and `/api/pageview` route for Discord webhook notifications. Keep it
   post-response, avoid canvas/fingerprinting/external geolocation lookups, and
