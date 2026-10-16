@@ -21,6 +21,14 @@ export function PostTags({
 }) {
   const tags: ReactNode[] = [];
 
+  if (kind) {
+    tags.push(
+      <Tag key={kind} tone={postKindTone[kind]} data-post-tag={kind}>
+        {kind}
+      </Tag>
+    );
+  }
+
   if (external) {
     tags.push(
       <Tag
@@ -35,14 +43,6 @@ export function PostTags({
           strokeWidth={2}
         />
         external
-      </Tag>
-    );
-  }
-
-  if (kind) {
-    tags.push(
-      <Tag key={kind} tone={postKindTone[kind]} data-post-tag={kind}>
-        {kind}
       </Tag>
     );
   }

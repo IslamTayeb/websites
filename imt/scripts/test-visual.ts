@@ -1439,6 +1439,8 @@ async function assertHome(page: Page) {
         label: tag.textContent?.trim() ?? '',
         kind: tag.dataset.postTag ?? '',
         backgroundColor: style.backgroundColor,
+        borderColor: style.borderTopColor,
+        color: style.color,
         borderRadius: Number.parseFloat(style.borderRadius),
         borderStyle: style.borderTopStyle,
         fontFamily: style.fontFamily,
@@ -2408,6 +2410,10 @@ async function assertHome(page: Page) {
         tag.backgroundColor !== 'rgba(0, 0, 0, 0)'
     ),
     'post tags should render as square, dotted, filled mono specimens'
+  );
+  assert.ok(
+    result.writingPostTags.every((tag) => tag.borderColor === tag.color),
+    'post tag borders should all use the ink color, not their tone color'
   );
   assert.ok(
     result.writingMeta.every(
@@ -3973,7 +3979,7 @@ async function assertBlogIndex(page: Page) {
     result.externalMetas,
     externalWriting.map((item) => item.meta)
   );
-  // Every row carries exactly one kind; the external row also leads with its
+  // Every row carries exactly one kind; the external row follows it with its
   // external tag.
   assert.deepEqual(result.postTagLabels, [
     ['opinion', 'opinion'],
@@ -3982,8 +3988,8 @@ async function assertBlogIndex(page: Page) {
     ['technical', 'technical'],
     ['opinion', 'opinion'],
     ['opinion', 'opinion'],
-    ['external', 'external'],
     ['opinion', 'opinion'],
+    ['external', 'external'],
   ]);
   assert.deepEqual(
     result.externalRows.map((row) => row?.includes('Nov 2024')),

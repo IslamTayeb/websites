@@ -124,9 +124,9 @@ Use meaningful commit messages that describe the why.
   metadata use `text-base` Open Sans reading copy. Rail dates remain compact
   `text-sm` mono.
 - **Reading metadata format:** Express every word count in thousands with
-  uppercase `K`, including counts under 1,000, trim whole-number decimals, and
-  use parenthesized minutes, e.g. `3K words (5 mins)` and
-  `0.5K words (2 mins)`.
+  uppercase `K` and always one decimal, including counts under 1,000 and whole
+  thousands, and use parenthesized minutes, e.g. `1.0K words (4 mins)`,
+  `3.0K words (12 mins)`, and `0.5K words (2 mins)`.
 - **Publication text stacks:** Publication title/author/type stacks should own
   vertical rhythm with `flex flex-col gap-0.5`; avoid child `mt-*` margins.
 - **Show-more actions:** Bare disclosure labels use `show more...`; labeled index
@@ -172,9 +172,10 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   its JSON manifest: `technical` (built-and-measured write-ups, currently
   Decant and Harmonia) or `opinion` (everything else). Off-site writing in
   `data/external-writing.ts` also carries a `kind`, plus the `external` tag
-  with its icon; there is no `New` tag. Kind colors follow existing section
-  meaning: `technical` is yellow (research/publications), `opinion` is red
-  (personal voice), `external` stays neutral. Blue is reserved for the writing
+  with its icon, rendered after the kind; there is no `New` tag. Every tag
+  uses the same ink dotted border; tones only tint the fill. Kind fills follow
+  existing section meaning: `technical` is yellow (research/publications),
+  `opinion` is red (personal voice), `external` stays neutral. Blue is reserved for the writing
   section's hover accent and orange for experience "current" state. Hold at
   two kinds until a post clearly fits neither. Render all post labels through
   the shared `PostTags`/`Tag` primitives; keep tag text regular-weight, vertically aligned
