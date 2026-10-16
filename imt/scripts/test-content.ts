@@ -527,6 +527,18 @@ async function main() {
     ['on-agent-memory-fidelity', 'on-dimensions-of-taste'],
     'only Decant and Harmonia should carry the technical tag'
   );
+  assert.deepEqual(
+    listedPosts
+      .filter((post) => post.manifest.kind !== 'technical')
+      .map((post) => [post.manifest.slug, post.manifest.kind]),
+    [
+      ['one-to-zero', 'opinion'],
+      ['on-fingerspitzengefuhl', 'opinion'],
+      ['on-closing-doors', 'opinion'],
+      ['on-using-computers', 'opinion'],
+    ],
+    'every other listed post should carry the opinion tag'
+  );
   assertDescendingDates(listedPosts);
   await assertSeoInfrastructure(posts, listedPosts);
   await assertFaviconAssets();
@@ -536,6 +548,7 @@ async function main() {
       href: 'https://www.dukechronicle.com/article/daf941cd-e431-4e71-a282-5f7da9a56c28',
       meta: '0.9K words (4 mins)',
       date: 'Nov 2024',
+      kind: 'opinion',
     },
   ]);
 
@@ -689,20 +702,15 @@ async function main() {
     }
 
     if (post.manifest.slug === 'on-fingerspitzengefuhl') {
-      assert.match(
+      assert.doesNotMatch(
         post.html,
-        /<figure class="article-media article-media-unframed"><img src="https:\/\/raw\.githubusercontent\.com\/islamtayeb\/obsidian-files\/main\/On%20Fingerspitzengef%C3%BChl-22\.png"/,
-        'Fingerspitzengefuhl lead image should render without image frame padding'
+        /On%20Fingerspitzengef%C3%BChl-22\.png|fingerspitzen-language-transparent\.png/,
+        'Fingerspitzengefuhl should not render the lead photo or the language vectors figure'
       );
       assert.match(
         post.html,
         /<figure class="article-media article-media-light-transparent"><img src="\/static\/media\/fingerspitzen-optimization-transparent\.png"/,
         'Fingerspitzengefuhl optimization landscape should be transparent on light mode'
-      );
-      assert.match(
-        post.html,
-        /<figure class="article-media article-media-light-transparent"><img src="\/static\/media\/fingerspitzen-language-transparent\.png"/,
-        'Fingerspitzengefuhl high-dimensional understanding graphic should be transparent on light mode'
       );
     }
   }

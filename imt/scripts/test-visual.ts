@@ -2392,7 +2392,11 @@ async function assertHome(page: Page) {
   assert.deepEqual(result.writingNewTags, []);
   assert.deepEqual(
     result.writingPostTags.map((tag) => [tag.kind, tag.label]),
-    [['technical', 'technical']]
+    [
+      ['opinion', 'opinion'],
+      ['technical', 'technical'],
+      ['opinion', 'opinion'],
+    ]
   );
   assert.ok(
     result.writingPostTags.every(
@@ -3969,10 +3973,17 @@ async function assertBlogIndex(page: Page) {
     result.externalMetas,
     externalWriting.map((item) => item.meta)
   );
+  // Every row carries exactly one kind; the external row also leads with its
+  // external tag.
   assert.deepEqual(result.postTagLabels, [
+    ['opinion', 'opinion'],
     ['technical', 'technical'],
+    ['opinion', 'opinion'],
     ['technical', 'technical'],
+    ['opinion', 'opinion'],
+    ['opinion', 'opinion'],
     ['external', 'external'],
+    ['opinion', 'opinion'],
   ]);
   assert.deepEqual(
     result.externalRows.map((row) => row?.includes('Nov 2024')),
@@ -4603,7 +4614,6 @@ async function assertArticle(page: Page) {
 async function assertFingerspitzenArticle(page: Page) {
   const expectedSrcs = [
     '/static/media/fingerspitzen-optimization-transparent.png',
-    '/static/media/fingerspitzen-language-transparent.png',
   ];
   const readImageStyles = () =>
     page.evaluate((srcs) => {
@@ -4642,12 +4652,12 @@ async function assertFingerspitzenArticle(page: Page) {
   );
   assert.deepEqual(
     lightImages.map((image) => image.background),
-    ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)'],
+    ['rgba(0, 0, 0, 0)'],
     'Fingerspitzengefuhl transparent PNGs should stay transparent in light mode'
   );
   assert.deepEqual(
     lightImages.map((image) => Math.round(image.paddingTop)),
-    [10, 10],
+    [10],
     'Fingerspitzengefuhl transparent PNGs should keep article image padding'
   );
 
@@ -4660,12 +4670,12 @@ async function assertFingerspitzenArticle(page: Page) {
 
   assert.deepEqual(
     darkImages.map((image) => image.background),
-    ['rgb(250, 250, 250)', 'rgb(250, 250, 250)'],
+    ['rgb(250, 250, 250)'],
     'Fingerspitzengefuhl transparent PNGs should use the article image fill in dark mode'
   );
   assert.deepEqual(
     darkImages.map((image) => Math.round(image.paddingTop)),
-    [10, 10],
+    [10],
     'Fingerspitzengefuhl transparent PNGs should keep padding in dark mode'
   );
 }

@@ -29,12 +29,6 @@ const articleLinkClassName = articleLinkClasses.join(' ');
 const articleExternalLinkClassName = articleExternalLinkClasses.join(' ');
 const unframedArticleImageSrcs = new Map<string, Set<string>>([
   [
-    'on-fingerspitzengefuhl',
-    new Set([
-      'https://raw.githubusercontent.com/islamtayeb/obsidian-files/main/On%20Fingerspitzengef%C3%BChl-22.png',
-    ]),
-  ],
-  [
     'on-using-computers',
     new Set(['/static/media/pasted-image-20251003215923.webp']),
   ],
@@ -42,10 +36,7 @@ const unframedArticleImageSrcs = new Map<string, Set<string>>([
 const lightTransparentArticleImageSrcs = new Map<string, Set<string>>([
   [
     'on-fingerspitzengefuhl',
-    new Set([
-      '/static/media/fingerspitzen-optimization-transparent.png',
-      '/static/media/fingerspitzen-language-transparent.png',
-    ]),
+    new Set(['/static/media/fingerspitzen-optimization-transparent.png']),
   ],
 ]);
 
