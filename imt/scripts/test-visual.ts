@@ -3147,7 +3147,7 @@ async function assertMobileHomeWrappedHighlights(page: Page) {
   });
   await assertWrappedInlineHighlight({
     page,
-    selector: '#writing a[href="/blog/on-agent-memory-fidelity"]',
+    selector: '#writing a[href="/blog/agent-memory-fidelity"]',
     label: 'mobile home writing title',
     colorVariable: 'var(--roy-b)',
   });
@@ -3162,7 +3162,7 @@ async function assertMobileHomeWrappedHighlights(page: Page) {
 async function assertMobileBlogWrappedHighlight(page: Page) {
   await assertWrappedInlineHighlight({
     page,
-    selector: 'a[href="/blog/on-agent-memory-fidelity"]',
+    selector: 'a[href="/blog/agent-memory-fidelity"]',
     label: 'mobile blog index title',
     colorVariable: 'var(--roy-b)',
   });
@@ -3384,7 +3384,7 @@ async function assertHomeRailHoverAccents(page: Page) {
     .locator('#publications [data-testid="publication-row"]')
     .first();
   const olderWritingRow = page
-    .locator('#writing li', { hasText: 'On Fingerspitzengefühl' })
+    .locator('#writing li', { hasText: 'osu! and Fingerspitzengefühl' })
     .first();
 
   await assertNeutralRailRowHoverAccent({
@@ -3409,7 +3409,7 @@ async function assertHomeRailHoverAccents(page: Page) {
     page,
     row: olderWritingRow,
     hoverSource: olderWritingRow.locator(
-      'a[href="/blog/on-fingerspitzengefuhl"]'
+      'a[href="/blog/osu-and-fingerspitzengefuhl"]'
     ),
     accent: 'b',
     label: 'older writing row',
@@ -4073,13 +4073,15 @@ async function assertBlogIndex(page: Page) {
 
 async function assertBlogRailHoverAccents(page: Page) {
   const olderBlogRow = page
-    .locator('#posts li', { hasText: 'On Fingerspitzengefühl' })
+    .locator('#posts li', { hasText: 'osu! and Fingerspitzengefühl' })
     .first();
 
   await assertNeutralRailRowHoverAccent({
     page,
     row: olderBlogRow,
-    hoverSource: olderBlogRow.locator('a[href="/blog/on-fingerspitzengefuhl"]'),
+    hoverSource: olderBlogRow.locator(
+      'a[href="/blog/osu-and-fingerspitzengefuhl"]'
+    ),
     accent: 'b',
     label: 'older blog row',
   });
@@ -4376,9 +4378,9 @@ async function assertArticle(page: Page) {
   assert.ok(result.titleText.length > 0, 'article title should render');
   assert.equal(
     result.canonicalHref,
-    'https://imt.sh/blog/on-agent-memory-fidelity'
+    'https://imt.sh/blog/agent-memory-fidelity'
   );
-  assert.equal(result.ogUrl, 'https://imt.sh/blog/on-agent-memory-fidelity');
+  assert.equal(result.ogUrl, 'https://imt.sh/blog/agent-memory-fidelity');
   assert.deepEqual(result.h1Texts, [result.titleText]);
   assert.ok(result.jsonLdTypes.includes('BlogPosting'));
   assert.ok(
@@ -5339,7 +5341,7 @@ async function main() {
     const article = await browser.newPage({
       viewport: { width: 1280, height: 900 },
     });
-    await article.goto(`${baseUrl}/blog/on-agent-memory-fidelity`, {
+    await article.goto(`${baseUrl}/blog/agent-memory-fidelity`, {
       waitUntil: 'networkidle',
     });
     const articleBand = await assertRoybBandPlacement(article);
@@ -5350,9 +5352,12 @@ async function main() {
     const harmoniaArticle = await browser.newPage({
       viewport: { width: 1280, height: 900 },
     });
-    await harmoniaArticle.goto(`${baseUrl}/blog/on-dimensions-of-taste`, {
-      waitUntil: 'networkidle',
-    });
+    await harmoniaArticle.goto(
+      `${baseUrl}/blog/clustering-my-spotify-library`,
+      {
+        waitUntil: 'networkidle',
+      }
+    );
     await assertRoybBandPlacement(harmoniaArticle);
     await assertHarmoniaArticle(harmoniaArticle);
     await assertHarmoniaIframeDarkTheme(harmoniaArticle);
@@ -5361,7 +5366,7 @@ async function main() {
     const legacyArticle = await browser.newPage({
       viewport: { width: 1280, height: 900 },
     });
-    await legacyArticle.goto(`${baseUrl}/blog/on-using-computers`, {
+    await legacyArticle.goto(`${baseUrl}/blog/ricing-macos-for-fun`, {
       waitUntil: 'networkidle',
     });
     await assertRoybBandPlacement(legacyArticle);
@@ -5374,9 +5379,12 @@ async function main() {
     await fingerspitzenArticle.addInitScript(() => {
       window.localStorage.setItem('theme', 'light');
     });
-    await fingerspitzenArticle.goto(`${baseUrl}/blog/on-fingerspitzengefuhl`, {
-      waitUntil: 'networkidle',
-    });
+    await fingerspitzenArticle.goto(
+      `${baseUrl}/blog/osu-and-fingerspitzengefuhl`,
+      {
+        waitUntil: 'networkidle',
+      }
+    );
     await assertRoybBandPlacement(fingerspitzenArticle);
     await screenshot(fingerspitzenArticle, 'blog-fingerspitzen-light');
     await assertFingerspitzenArticle(fingerspitzenArticle);

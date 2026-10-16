@@ -29,13 +29,13 @@ const articleLinkClassName = articleLinkClasses.join(' ');
 const articleExternalLinkClassName = articleExternalLinkClasses.join(' ');
 const unframedArticleImageSrcs = new Map<string, Set<string>>([
   [
-    'on-using-computers',
+    'ricing-macos-for-fun',
     new Set(['/static/media/pasted-image-20251003215923.webp']),
   ],
 ]);
 const lightTransparentArticleImageSrcs = new Map<string, Set<string>>([
   [
-    'on-fingerspitzengefuhl',
+    'osu-and-fingerspitzengefuhl',
     new Set(['/static/media/fingerspitzen-optimization-transparent.png']),
   ],
 ]);

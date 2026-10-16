@@ -22,6 +22,7 @@ export type PostKind = (typeof postKinds)[number];
 
 export type PostManifest = {
   slug: string;
+  previousSlugs: string[];
   source: string;
   title: string;
   publishedAt: string;
@@ -38,6 +39,7 @@ export type PostManifest = {
 
 const allowedTopLevelFields = new Set([
   'slug',
+  'previousSlugs',
   'source',
   'title',
   'publishedAt',
@@ -78,6 +80,37 @@ function validateDateField(issues: string[], value: unknown, field: string) {
   if (!isValidDateString(value)) {
     issues.push(`${field} must be a valid date string`);
   }
+}
+
+const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function validatePreviousSlugs(
+  issues: string[],
+  value: unknown,
+  slug: unknown
+) {
+  if (value === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(value)) {
+    issues.push('previousSlugs must be an array when present');
+    return [];
+  }
+
+  value.forEach((previousSlug, index) => {
+    if (!isNonEmptyString(previousSlug) || !slugPattern.test(previousSlug)) {
+      issues.push(`previousSlugs[${index}] must be lowercase kebab-case`);
+    } else if (previousSlug === slug) {
+      issues.push(`previousSlugs[${index}] must differ from slug`);
+    }
+  });
+
+  if (new Set(value).size !== value.length) {
+    issues.push('previousSlugs must not repeat');
+  }
+
+  return value.map(String);
 }
 
 function validatePostKind(issues: string[], value: unknown) {
@@ -209,10 +242,7 @@ export function validatePostManifest(raw: unknown, manifestPath: string) {
   validateDateField(issues, raw.publishedAt, 'publishedAt');
   validateDateField(issues, raw.updatedAt, 'updatedAt');
 
-  if (
-    isNonEmptyString(raw.slug) &&
-    !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(raw.slug)
-  ) {
+  if (isNonEmptyString(raw.slug) && !slugPattern.test(raw.slug)) {
     issues.push('slug must be lowercase kebab-case');
   }
 
@@ -248,6 +278,11 @@ export function validatePostManifest(raw: unknown, manifestPath: string) {
     issues.push('wrapTables must be a boolean when present');
   }
 
+  const previousSlugs = validatePreviousSlugs(
+    issues,
+    raw.previousSlugs,
+    raw.slug
+  );
   const codeLink = validateCodeLink(issues, raw.codeLink);
   const kind = validatePostKind(issues, raw.kind);
   const images = validateImages(issues, raw.images);
@@ -261,6 +296,7 @@ export function validatePostManifest(raw: unknown, manifestPath: string) {
 
   return {
     slug: String(raw.slug),
+    previousSlugs,
     source: String(raw.source),
     title: String(raw.title),
     publishedAt: String(raw.publishedAt),

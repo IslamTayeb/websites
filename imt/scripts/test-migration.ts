@@ -171,6 +171,106 @@ async function assertFeedsAreCanonical() {
   }
 }
 
+// Retired "On X" slugs: links shared before the rename must keep landing.
+const expectedRenames: [string, string][] = [
+  ['on-agent-memory-fidelity', 'agent-memory-fidelity'],
+  ['on-dimensions-of-taste', 'clustering-my-spotify-library'],
+  ['on-fingerspitzengefuhl', 'osu-and-fingerspitzengefuhl'],
+  ['on-using-computers', 'ricing-macos-for-fun'],
+];
+
+function assertRenamedPostRedirects(
+  redirects: RedirectRule[],
+  shellRedirects: RedirectRule[],
+  posts: Awaited<ReturnType<typeof getAllPosts>>
+) {
+  const renames = posts.flatMap((post) =>
+    post.manifest.previousSlugs.map((previousSlug): [string, string] => [
+      previousSlug,
+      post.manifest.slug,
+    ])
+  );
+  const liveSlugs = new Set(posts.map((post) => post.manifest.slug));
+
+  for (const expected of expectedRenames) {
+    assert.ok(
+      renames.some(
+        ([previousSlug, slug]) =>
+          previousSlug === expected[0] && slug === expected[1]
+      ),
+      `missing retired slug: ${expected[0]} -> ${expected[1]}`
+    );
+  }
+
+  const passthroughIndex = shellRedirects.findIndex(
+    (rule) => rule.source === '/blog/:path*'
+  );
+
+  for (const [previousSlug, slug] of renames) {
+    const destination = `${siteUrl}/blog/${slug}`;
+
+    assert.ok(
+      !liveSlugs.has(previousSlug),
+      `retired slug ${previousSlug} must not belong to a live post`
+    );
+    assertRedirectRule(
+      redirects,
+      `/blog/${previousSlug}`,
+      `/blog/${slug}`,
+      (rule) => !rule.has,
+      'main-site retired slug redirect'
+    );
+
+    for (const source of [
+      `/${previousSlug}`,
+      `/${previousSlug}/`,
+      `/blog/${previousSlug}`,
+      `/blog/${previousSlug}/`,
+    ]) {
+      assertAppRedirect(redirects, source, destination);
+      assertShellRedirect(shellRedirects, source, destination);
+    }
+
+    for (const source of [`/blog/${previousSlug}`, `/blog/${previousSlug}/`]) {
+      const index = shellRedirects.findIndex((rule) => rule.source === source);
+
+      assert.ok(
+        index < passthroughIndex,
+        `${source} must precede /blog/:path* in the shell so it lands in one hop`
+      );
+    }
+  }
+
+  return renames.length;
+}
+
+async function assertRenamedFeedIdsAreStable() {
+  const atomFeed = await buildAtomFeed();
+  const rssFeed = await buildRssFeed();
+
+  for (const [previousSlug, slug] of expectedRenames) {
+    const oldUrl = `${siteUrl}/blog/${previousSlug}`;
+    const newUrl = `${siteUrl}/blog/${slug}`;
+
+    assert.ok(
+      atomFeed.includes(`<id>${oldUrl}</id>`),
+      `Atom entry id for ${slug} should stay ${oldUrl}`
+    );
+    assert.ok(
+      atomFeed.includes(`<link href="${newUrl}" rel="alternate" />`),
+      `Atom entry link for ${slug} should point at ${newUrl}`
+    );
+    assert.ok(
+      rssFeed.includes(`<guid isPermaLink="true">${oldUrl}</guid>`),
+      `RSS guid for ${slug} should stay ${oldUrl}`
+    );
+    assert.ok(
+      rssFeed.includes(`<link>${newUrl}</link>`),
+      `RSS link for ${slug} should point at ${newUrl}`
+    );
+  }
+}
+
 function assertPublicProfileFieldsAreIntentional() {
   assert.equal(profile.email, 'islam.moh.islamm@gmail.com');
   assert.equal(profile.location, 'Durham, NC');
@@ -210,6 +310,12 @@ async function main() {
     assertShellRedirect(shellRedirects, `/${post.manifest.slug}/`, destination);
   }
 
+  const renameCount = assertRenamedPostRedirects(
+    redirects,
+    shellRedirects,
+    posts
+  );
+
   for (const rule of redirects.filter((rule) =>
     hasHostCondition(rule, oldHosts)
   )) {
@@ -220,9 +326,10 @@ async function main() {
   assertPublicProfileFieldsAreIntentional();
   await assertNoOldTrackingPayload();
   await assertFeedsAreCanonical();
+  await assertRenamedFeedIdsAreStable();
 
   console.log(
-    `migration ok: ${posts.length} old APM slugs redirect in app and shell, shell config generated, feeds canonical, old tracking payload absent`
+    `migration ok: ${posts.length} old APM slugs and ${renameCount} retired slugs redirect in app and shell, shell config generated, feeds canonical with stable ids, old tracking payload absent`
   );
 }
 

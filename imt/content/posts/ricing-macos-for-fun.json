@@ -1,7 +1,8 @@
 {
-  "slug": "on-using-computers",
-  "source": "on-using-computers.md",
-  "title": "On Using Computers",
+  "slug": "ricing-macos-for-fun",
+  "previousSlugs": ["on-using-computers"],
+  "source": "ricing-macos-for-fun.md",
+  "title": "Ricing macOS for Fun",
   "publishedAt": "2025-10-12T09:19Z",
   "updatedAt": "2025-10-12T09:19Z",
   "kind": "opinion",

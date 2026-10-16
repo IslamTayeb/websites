@@ -15,6 +15,7 @@ import {
   postHref,
 } from '../lib/blog/posts';
 import { escapeRegExp } from '../lib/blog/html';
+import { validatePostManifest } from '../lib/blog/manifest';
 import {
   buildBlogPostingJsonLd,
   buildPersonJsonLd,
@@ -507,7 +508,45 @@ async function assertSeoInfrastructure(
   }
 }
 
+function assertPreviousSlugValidation() {
+  const base = {
+    slug: 'new-title',
+    source: 'new-title.md',
+    title: 'New Title',
+    publishedAt: '2026-01-01T00:00Z',
+    updatedAt: '2026-01-01T00:00Z',
+  };
+  const manifestPath = path.join(contentRoot, 'new-title.json');
+
+  assert.deepEqual(
+    validatePostManifest(base, manifestPath).previousSlugs,
+    [],
+    'previousSlugs should default to empty'
+  );
+  assert.deepEqual(
+    validatePostManifest(
+      { ...base, previousSlugs: ['on-old-title'] },
+      manifestPath
+    ).previousSlugs,
+    ['on-old-title']
+  );
+
+  for (const [previousSlugs, message] of [
+    ['on-old-title', /previousSlugs must be an array/],
+    [['On Old Title'], /previousSlugs\[0\] must be lowercase kebab-case/],
+    [['new-title'], /previousSlugs\[0\] must differ from slug/],
+    [['on-old-title', 'on-old-title'], /previousSlugs must not repeat/],
+  ] as const) {
+    assert.throws(
+      () => validatePostManifest({ ...base, previousSlugs }, manifestPath),
+      message
+    );
+  }
+}
+
 async function main() {
+  assertPreviousSlugValidation();
+
   const manifestFiles = (await readdir(contentRoot)).filter((file) =>
     file.endsWith('.json')
   );
@@ -524,7 +563,7 @@ async function main() {
     listedPosts
       .filter((post) => post.manifest.kind === 'technical')
       .map((post) => post.manifest.slug),
-    ['on-agent-memory-fidelity', 'on-dimensions-of-taste'],
+    ['agent-memory-fidelity', 'clustering-my-spotify-library'],
     'only Decant and Harmonia should carry the technical tag'
   );
   assert.deepEqual(
@@ -533,9 +572,9 @@ async function main() {
       .map((post) => [post.manifest.slug, post.manifest.kind]),
     [
       ['one-to-zero', 'opinion'],
-      ['on-fingerspitzengefuhl', 'opinion'],
+      ['osu-and-fingerspitzengefuhl', 'opinion'],
       ['on-closing-doors', 'opinion'],
-      ['on-using-computers', 'opinion'],
+      ['ricing-macos-for-fun', 'opinion'],
     ],
     'every other listed post should carry the opinion tag'
   );
@@ -599,7 +638,7 @@ async function main() {
       `${post.manifest.slug} should render thousands abbreviations with uppercase K`
     );
 
-    if (post.manifest.slug === 'on-agent-memory-fidelity') {
+    if (post.manifest.slug === 'agent-memory-fidelity') {
       assert.match(post.html, /class="article-toc"/);
       assert.match(post.html, /<span>Time<\/span>/);
       assert.doesNotMatch(post.html, /Reading time/);
@@ -650,7 +689,7 @@ async function main() {
       );
     }
 
-    if (post.manifest.slug === 'on-dimensions-of-taste') {
+    if (post.manifest.slug === 'clustering-my-spotify-library') {
       assert.doesNotMatch(
         post.html,
         /<p><em>HDBSCAN<\/em> assumes/,
@@ -683,7 +722,7 @@ async function main() {
       );
     }
 
-    if (post.manifest.slug === 'on-using-computers') {
+    if (post.manifest.slug === 'ricing-macos-for-fun') {
       assert.match(
         post.html,
         /<figure class="article-media article-media-unframed"><img src="\/static\/media\/pasted-image-20251003215923\.webp"/,
@@ -701,7 +740,7 @@ async function main() {
       );
     }
 
-    if (post.manifest.slug === 'on-fingerspitzengefuhl') {
+    if (post.manifest.slug === 'osu-and-fingerspitzengefuhl') {
       assert.doesNotMatch(
         post.html,
         /On%20Fingerspitzengef%C3%BChl-22\.png|fingerspitzen-language-transparent\.png/,

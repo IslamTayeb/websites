@@ -187,6 +187,13 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   `/blog/...` page exists. Use `allowHtml: true` only for posts that need raw
   HTML blocks. Manifests have no `summary` or `description` field; post pages
   deliberately set no meta description so they don't inherit the homepage bio.
+- **Blog titles and renames:** Prefer plain, descriptive titles over quirky
+  ones, and use the `On X` form only where it fits (`On Closing Doors`). When
+  a post's slug changes, rename its `.md`/`.json` pair, append the retired
+  slug to `previousSlugs` (oldest first), and re-run
+  `npm run generate:redirects`. Retired slugs redirect permanently on
+  `imt.sh/blog/...` and on the APM shell, and feed entry IDs stay on the first
+  slug so readers don't see the post as new.
 - **Pageview events:** The active site uses a tiny `sendBeacon` pageview script
   and `/api/pageview` route for Discord webhook notifications. Keep it
   post-response, avoid canvas/fingerprinting/external geolocation lookups, and

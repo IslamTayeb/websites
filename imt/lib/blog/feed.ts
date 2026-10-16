@@ -1,6 +1,6 @@
 import { escapeHtml } from './html';
 import { datetime, toFeedDate, toRssDate } from './date';
-import { getListedPosts, postHref } from './posts';
+import { getListedPosts, postFeedIdPath, postHref } from './posts';
 import { siteMetadata } from '@/data/site-metadata';
 
 const siteUrl = siteMetadata.url;
@@ -31,10 +31,11 @@ export async function buildAtomFeed() {
   ${posts
     .map((post) => {
       const href = `${siteUrl}${postHref(post)}`;
+      const id = `${siteUrl}${postFeedIdPath(post)}`;
 
       return `<entry>
     <title>${escapeHtml(post.manifest.title)}</title>
-    <id>${href}</id>
+    <id>${id}</id>
     <link href="${href}" rel="alternate" />
     <published>${datetime(post.manifest.publishedAt)}</published>
     <updated>${datetime(post.manifest.updatedAt)}</updated>
@@ -60,11 +61,12 @@ export async function buildRssFeed() {
     ${posts
       .map((post) => {
         const href = `${siteUrl}${postHref(post)}`;
+        const id = `${siteUrl}${postFeedIdPath(post)}`;
 
         return `<item>
       <title>${escapeHtml(post.manifest.title)}</title>
       <link>${href}</link>
-      <guid isPermaLink="true">${href}</guid>
+      <guid isPermaLink="true">${id}</guid>
       <pubDate>${toRssDate(post.manifest.publishedAt)}</pubDate>
     </item>`;
       })

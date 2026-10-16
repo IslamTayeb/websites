@@ -64,3 +64,10 @@ export async function getPostBySlug(slug: string) {
 export function postHref(post: Pick<BlogPost, 'manifest'>) {
   return `/blog/${post.manifest.slug}`;
 }
+
+// Feed entry IDs stay on the first slug a post shipped with, so a rename
+// doesn't resurface the post as new in feed readers. `previousSlugs` lists
+// retired slugs oldest first; the old path still redirects to the post.
+export function postFeedIdPath(post: Pick<BlogPost, 'manifest'>) {
+  return `/blog/${post.manifest.previousSlugs[0] ?? post.manifest.slug}`;
+}

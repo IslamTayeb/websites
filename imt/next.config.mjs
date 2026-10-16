@@ -1,4 +1,7 @@
-import { apmRedirectPairs } from './lib/apm-redirects.mjs';
+import {
+  apmRedirectPairs,
+  renamedPostRedirectPairs,
+} from './lib/apm-redirects.mjs';
 
 const oldHosts = ['apmoverflow.xyz', 'www.apmoverflow.xyz'];
 
@@ -32,7 +35,14 @@ const nextConfig = {
     unoptimized: true,
   },
   async redirects() {
-    return apmOverflowRedirects();
+    return [
+      ...apmOverflowRedirects(),
+      ...renamedPostRedirectPairs().map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
+    ];
   },
   turbopack: {
     root: process.cwd(),

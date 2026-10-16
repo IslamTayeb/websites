@@ -20,6 +20,46 @@
       "permanent": true
     },
     {
+      "source": "/blog/on-agent-memory-fidelity",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity/",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste/",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl/",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers/",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
       "source": "/blog/:path*",
       "destination": "https://imt.sh/blog/:path*",
       "permanent": true
@@ -50,6 +90,26 @@
       "permanent": true
     },
     {
+      "source": "/agent-memory-fidelity",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/agent-memory-fidelity/",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity/",
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
       "source": "/agent-self-reflection",
       "destination": "https://imt.sh/blog/agent-self-reflection",
       "permanent": true
@@ -67,6 +127,26 @@
     {
       "source": "/batch-agent-sdk-research-overview/",
       "destination": "https://imt.sh/blog/batch-agent-sdk-research-overview",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library/",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste/",
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
       "permanent": true
     },
     {
@@ -110,16 +190,6 @@
       "permanent": true
     },
     {
-      "source": "/on-agent-memory-fidelity",
-      "destination": "https://imt.sh/blog/on-agent-memory-fidelity",
-      "permanent": true
-    },
-    {
-      "source": "/on-agent-memory-fidelity/",
-      "destination": "https://imt.sh/blog/on-agent-memory-fidelity",
-      "permanent": true
-    },
-    {
       "source": "/on-closing-doors",
       "destination": "https://imt.sh/blog/on-closing-doors",
       "permanent": true
@@ -130,36 +200,6 @@
       "permanent": true
     },
     {
-      "source": "/on-dimensions-of-taste",
-      "destination": "https://imt.sh/blog/on-dimensions-of-taste",
-      "permanent": true
-    },
-    {
-      "source": "/on-dimensions-of-taste/",
-      "destination": "https://imt.sh/blog/on-dimensions-of-taste",
-      "permanent": true
-    },
-    {
-      "source": "/on-fingerspitzengefuhl",
-      "destination": "https://imt.sh/blog/on-fingerspitzengefuhl",
-      "permanent": true
-    },
-    {
-      "source": "/on-fingerspitzengefuhl/",
-      "destination": "https://imt.sh/blog/on-fingerspitzengefuhl",
-      "permanent": true
-    },
-    {
-      "source": "/on-using-computers",
-      "destination": "https://imt.sh/blog/on-using-computers",
-      "permanent": true
-    },
-    {
-      "source": "/on-using-computers/",
-      "destination": "https://imt.sh/blog/on-using-computers",
-      "permanent": true
-    },
-    {
       "source": "/one-to-zero",
       "destination": "https://imt.sh/blog/one-to-zero",
       "permanent": true
@@ -167,6 +207,46 @@
     {
       "source": "/one-to-zero/",
       "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl/",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl/",
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun/",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers/",
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
       "permanent": true
     },
     {

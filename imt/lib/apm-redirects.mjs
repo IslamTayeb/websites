@@ -19,9 +19,14 @@ export const apmShellConfigPath = path.resolve(
   'vercel.json'
 );
 
-/** @returns {string[]} sorted post slugs read from the content manifests */
-export function postSlugs() {
-  return readdirSync(postContentRoot)
+/**
+ * Current slug plus any retired slugs for every post, read from the content
+ * manifests and sorted by current slug.
+ *
+ * @returns {{ slug: string, previousSlugs: string[] }[]}
+ */
+export function postSlugRecords() {
+  const records = readdirSync(postContentRoot)
     .filter((file) => file.endsWith('.json'))
     .map((file) => {
       const raw = readFileSync(path.join(postContentRoot, file), 'utf8');
@@ -31,23 +36,67 @@ export function postSlugs() {
         throw new Error(`${file} is missing a string slug`);
       }
 
-      return manifest.slug;
+      return {
+        slug: manifest.slug,
+        previousSlugs: Array.isArray(manifest.previousSlugs)
+          ? manifest.previousSlugs.map(String)
+          : [],
+      };
     })
-    .sort();
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+  const claimed = new Set();
+
+  // A retired slug that collides with a live one would redirect a real page.
+  for (const slug of records.flatMap((record) => [
+    record.slug,
+    ...record.previousSlugs,
+  ])) {
+    if (claimed.has(slug)) {
+      throw new Error(`post slug is claimed more than once: ${slug}`);
+    }
+
+    claimed.add(slug);
+  }
+
+  return records;
+}
+
+/**
+ * Retired `/blog/...` paths on the main site and their current pages.
+ *
+ * @returns {[string, string][]} `[source, destination]` pairs
+ */
+export function renamedPostRedirectPairs() {
+  return postSlugRecords().flatMap(({ slug, previousSlugs }) =>
+    previousSlugs.map((previousSlug) => [
+      `/blog/${previousSlug}`,
+      `/blog/${slug}`,
+    ])
+  );
 }
 
 /**
  * Old blog paths and their canonical destinations, in the order they are
- * emitted by both the app and the redirect shell.
+ * emitted by both the app and the redirect shell. Retired `/blog/...` slugs
+ * come before the `/blog/:path*` passthrough so they land in one hop.
  *
  * @returns {[string, string][]} `[source, destination]` pairs
  */
 export function apmRedirectPairs() {
+  const records = postSlugRecords();
+  /** @type {[string, string][]} */
+  const renamedBlogPairs = records.flatMap(({ slug, previousSlugs }) =>
+    previousSlugs.flatMap((previousSlug) => [
+      [`/blog/${previousSlug}`, `${siteUrl}/blog/${slug}`],
+      [`/blog/${previousSlug}/`, `${siteUrl}/blog/${slug}`],
+    ])
+  );
   /** @type {[string, string][]} */
   const staticPairs = [
     ['/', `${siteUrl}/blog`],
     ['/blog', `${siteUrl}/blog`],
     ['/blog/', `${siteUrl}/blog`],
+    ...renamedBlogPairs,
     ['/blog/:path*', `${siteUrl}/blog/:path*`],
     ['/feed', `${siteUrl}/blog/feed.xml`],
     ['/feed/', `${siteUrl}/blog/feed.xml`],
@@ -56,10 +105,12 @@ export function apmRedirectPairs() {
     ['/static/:path*', `${siteUrl}/static/:path*`],
   ];
   /** @type {[string, string][]} */
-  const postPairs = postSlugs().flatMap((slug) => [
-    [`/${slug}`, `${siteUrl}/blog/${slug}`],
-    [`/${slug}/`, `${siteUrl}/blog/${slug}`],
-  ]);
+  const postPairs = records.flatMap(({ slug, previousSlugs }) =>
+    [slug, ...previousSlugs].flatMap((source) => [
+      [`/${source}`, `${siteUrl}/blog/${slug}`],
+      [`/${source}/`, `${siteUrl}/blog/${slug}`],
+    ])
+  );
 
   return [...staticPairs, ...postPairs];
 }
