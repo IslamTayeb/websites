@@ -1,11 +1,8 @@
-I used to play this rhythm game called [osu!](https://osu.ppy.sh/home) from ages 11 to 17. You might've seen [clips](https://www.youtube.com/watch?v=Cp9pyCFRyJ0) of people reacting to it. The concept is simple: you click circles to the beat of a song. Most players aim with a graphic tablet and tap with Z + X on their keyboard. I played semi-competitively around 2020-2022.
+I used to play this rhythm game called [osu!](https://osu.ppy.sh/home) from ages 11 to 17. You might've seen [clips](https://www.youtube.com/watch?v=Cp9pyCFRyJ0) of people reacting to it. The concept is simple: you click circles to the beat of a song. Most players aim with a graphic tablet and tap with Z + X on their keyboard. I played semi-competitively around 2020-2022, chasing maps no one in the country had aced.
 
-I missed the stress of it. The split-second decisions when you're about to ace a map no one in the country had aced. So I dusted off my tablet, dug up my old settings from Discord, and booted up the game.
+I dusted off my tablet, dug up my old settings from Discord, and booted the game back up.
 
-I invited friends to my dorm to try it. I expected 3 or 4 to show up. 22 did. Most didn't care about getting good. They picked up the pen, laughed at circles flying across the screen, and had a good time (I hope). But a few kept coming back and noticeably improved. Watching them reminded me of my own experience learning the game back in the day.
-
-It got me thinking about what actually makes people improve, and why it's so hard to help.
-
+I invited friends to my dorm to try it. I expected 3 or 4 to show up. 22 did. Most picked up the pen, laughed at circles flying across the screen, and had a good time (I hope). But a few kept coming back and noticeably improved.
 ## Getting better feels like manually breathing
 
 [Fingerspitzengefühl](https://en.wikipedia.org/wiki/Fingerspitzengef%C3%BChl) (finger-shpit-sen-guh-fool) is German for "fingertip feeling." It's the intuitive sense of what to do that comes from experience. You know it, but you can't fully explain it. Anyone who watches Messi navigate tight defenses sees it. He just knows where the path is.
@@ -14,11 +11,11 @@ I started osu! with zero rhythm knowledge. Never played an instrument. Never pla
 
 When I saw a hard pattern, I'd accept missing 1-2 circles since I'd still pass. I eventually got better, but this habit carried on until I was top 5K global.
 
-Players like [bloo](https://osu.ppy.sh/users/6778877) and [eternum](https://osu.ppy.sh/users/4581069) caught on. They told me to care about every single circle. Ignore the pattern and hit each circle one at a time. I remember staying in voice chat with bloo retrying the same niche pattern 100+ times until I felt what it's like to take a pattern "one circle at a time".
+Players like [bloo](https://osu.ppy.sh/users/6778877) and [eternum](https://osu.ppy.sh/users/4581069) caught on. They told me to care about every single circle. Ignore the pattern and hit each circle one at a time. I stayed in voice chat with bloo retrying the same niche pattern 100+ times until I felt what it's like to take a pattern "one circle at a time".
 
 It felt wrong, like when someone reminds you that you're breathing. Suddenly you're breathing manually. My thoughts used to flow on autopilot during play. They were flowing in the wrong direction, so I had to steer them manually.
 
-But it worked. Ignoring the pattern and focusing on each circle made me less complacent. Over time, the manual control became automatic again, just pointed somewhere better.
+But it worked. Over time, the manual control became automatic again, just pointed somewhere better.
 
 ## Where you start determines the peak you can reach
 
@@ -36,9 +33,9 @@ But none of this works unless someone cares enough to enter manual breathing mod
 
 ## Most of what you know gets lost in translation
 
-After years of playing, I've built some fingerspitzengefühl in osu!. I can feel when my aim is too stiff. When my tapping is off-tempo. But I can't fully explain how I know or how I adjust.
+I can feel when my aim is too stiff. When my tapping is off-tempo. But I can't fully explain how I know or how I adjust.
 
-Take aim stiffness. My understanding of it involves wrist angle, grip pressure, pen height, movement speed, how I track circles, when I snap vs. glide. There's even more I can only feel mid-game but can't name. That's a lot to hold at once. But when I try to explain it, all of it becomes "your aim is too stiff." Five words. Most of what I know doesn't survive.
+Take aim stiffness. My understanding of it involves wrist angle, grip pressure, pen height, movement speed, how I track circles, when I snap vs. glide. There's even more I can only feel mid-game but can't name. But when I try to explain it, all of it becomes "your aim is too stiff." Five words. Most of what I know doesn't survive.
 
 My understanding is high-dimensional. Language is low-dimensional.
 
@@ -46,7 +43,7 @@ But even those five words land differently depending on who hears them. A beginn
 
 So there are two bottlenecks. The first is articulation: how much the sender preserves when compressing into language. The second is interpretation: how much the receiver reconstructs.
 
-I've been on both sides of this. When I was starting out, advice like "stay focused" was noise. I couldn't map it to anything I felt. When bloo told me to care about every circle, it only landed because I had enough awareness to feel what complacency was doing to my play. I could decode the pointer.
+When I was starting out, advice like "stay focused" was noise. I couldn't map it to anything I felt. When bloo told me to care about every circle, it only landed because I had enough awareness to feel what complacency was doing to my play.
 
 You can't transfer fingerspitzengefühl through language. The signal is too high-dimensional and the channel is too narrow. The best you can do is point someone to the right basin. You can't climb it for them. If they care enough to enter manual breathing mode, they'll find their way to the peak.
 
