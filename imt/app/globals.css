@@ -563,20 +563,6 @@
     background: transparent;
     padding: 0;
   }
-  .article-prose figure.article-media-light-transparent img {
-    background: transparent;
-  }
-  .dark .article-prose figure.article-media-light-transparent img {
-    background: #fafafa;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light)
-      .article-prose
-      figure.article-media-light-transparent
-      img {
-      background: #fafafa;
-    }
-  }
   .article-prose video {
     @apply mx-auto block h-auto w-full max-w-full border-0;
   }

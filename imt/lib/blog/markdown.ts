@@ -33,12 +33,6 @@ const unframedArticleImageSrcs = new Map<string, Set<string>>([
     new Set(['/static/media/pasted-image-20251003215923.webp']),
   ],
 ]);
-const lightTransparentArticleImageSrcs = new Map<string, Set<string>>([
-  [
-    'osu-and-fingerspitzengefuhl',
-    new Set(['/static/media/fingerspitzen-optimization-transparent.png']),
-  ],
-]);
 
 function mergeClasses(className: string, requiredClasses: string[]) {
   return Array.from(
@@ -68,9 +62,6 @@ function articleMediaFigureHtml({
     'article-media',
     unframedArticleImageSrcs.get(manifest.slug)?.has(imageSrc)
       ? 'article-media-unframed'
-      : '',
-    lightTransparentArticleImageSrcs.get(manifest.slug)?.has(imageSrc)
-      ? 'article-media-light-transparent'
       : '',
   ]
     .filter(Boolean)

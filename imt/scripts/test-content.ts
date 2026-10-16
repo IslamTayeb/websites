@@ -746,10 +746,10 @@ async function main() {
         /On%20Fingerspitzengef%C3%BChl-22\.png|fingerspitzen-language-transparent\.png/,
         'Fingerspitzengefuhl should not render the lead photo or the language vectors figure'
       );
-      assert.match(
+      assert.doesNotMatch(
         post.html,
-        /<figure class="article-media article-media-light-transparent"><img src="\/static\/media\/fingerspitzen-optimization-transparent\.png"/,
-        'Fingerspitzengefuhl optimization landscape should be transparent on light mode'
+        /fingerspitzen-optimization-transparent\.png/,
+        'Fingerspitzengefuhl should not render the optimization landscape figure'
       );
     }
   }
