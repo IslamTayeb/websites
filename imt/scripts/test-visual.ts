@@ -3147,7 +3147,7 @@ async function assertMobileHomeWrappedHighlights(page: Page) {
   });
   await assertWrappedInlineHighlight({
     page,
-    selector: '#writing a[href="/blog/agent-memory-fidelity"]',
+    selector: '#writing a[href="/blog/osu-and-fingerspitzengefuhl"]',
     label: 'mobile home writing title',
     colorVariable: 'var(--roy-b)',
   });
@@ -3162,7 +3162,7 @@ async function assertMobileHomeWrappedHighlights(page: Page) {
 async function assertMobileBlogWrappedHighlight(page: Page) {
   await assertWrappedInlineHighlight({
     page,
-    selector: 'a[href="/blog/agent-memory-fidelity"]',
+    selector: 'a[href="/blog/osu-and-fingerspitzengefuhl"]',
     label: 'mobile blog index title',
     colorVariable: 'var(--roy-b)',
   });
