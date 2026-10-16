@@ -3,7 +3,6 @@ I used to play this rhythm game called [osu!](https://osu.ppy.sh/home) from ages
 I dusted off my tablet, dug up my old settings from Discord, and booted the game back up.
 
 I invited friends to my dorm to try it. I expected 3 or 4 to show up. 22 did. Most picked up the pen, laughed at circles flying across the screen, and had a good time (I hope). But a few kept coming back and noticeably improved.
-## Getting better feels like manually breathing
 
 I started osu! with zero rhythm knowledge. Never played an instrument. I could barely pass 2-star maps with a D rank. Thinking about what I was doing felt like too much effort, so I shut my brain off and let reflexes take over.
 
@@ -20,8 +19,6 @@ For my friends, some shifts were mechanical. A lot of people kept their wrist ho
 Other shifts were mental. A lot of people reacted to each circle as it appeared. Once I pointed out that the tempo is consistent and already tells you when the next circle is coming, they stopped reacting and started anticipating.
 
 I think how fast you improve depends on how much you care. Most don't care enough to improve on a silly circle-clicking game, and that's completely fine.
-
-## Most of what you know gets lost in translation
 
 [Fingerspitzengefühl](https://en.wikipedia.org/wiki/Fingerspitzengef%C3%BChl) (finger-shpit-sen-guh-fool) is German for "fingertip feeling." It's the intuitive sense of what to do that comes from experience.
 
