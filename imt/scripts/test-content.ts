@@ -527,6 +527,18 @@ async function main() {
     ['on-agent-memory-fidelity', 'on-dimensions-of-taste'],
     'only Decant and Harmonia should carry the technical tag'
   );
+  assert.deepEqual(
+    listedPosts
+      .filter((post) => post.manifest.kind !== 'technical')
+      .map((post) => [post.manifest.slug, post.manifest.kind]),
+    [
+      ['one-to-zero', 'opinion'],
+      ['on-fingerspitzengefuhl', 'opinion'],
+      ['on-closing-doors', 'opinion'],
+      ['on-using-computers', 'opinion'],
+    ],
+    'every other listed post should carry the opinion tag'
+  );
   assertDescendingDates(listedPosts);
   await assertSeoInfrastructure(posts, listedPosts);
   await assertFaviconAssets();
