@@ -157,6 +157,13 @@ Use meaningful commit messages that describe the why.
   full-width and textureless with the page background behind overscroll.
 - **Blog internals:** Active posts should use local `/blog/...` links for links
   to other posts. Do not link active content back to `apmoverflow.xyz`.
+- **Blog voice:** Show, don't tell. When editing posts, cut lines that announce
+  a feeling, a skill, or a takeaway (`I missed the stress of it`, `I've built
+  some fingerspitzengefühl`, `it got me thinking about...`, sentences that
+  restate what a scene already showed). Let the concrete detail around them
+  carry the point. Prefer cutting and reordering the author's own sentences
+  over rewriting, and flag any new wording for review. `one-to-zero.md` is the
+  voice reference.
 - **Article headers:** Blog article title/date headers use tight section-like
   spacing: `mb-4 flex flex-col gap-1`.
 - **Blog title weight:** Blog titles on the homepage writing preview, `/blog`
