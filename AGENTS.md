@@ -159,7 +159,7 @@ Use meaningful commit messages that describe the why.
   to other posts. Do not link active content back to `apmoverflow.xyz`.
 - **Blog voice:** Show, don't tell. When editing posts, cut lines that announce
   a feeling, a skill, or a takeaway (`I missed the stress of it`, `I've built
-  some fingerspitzengefühl`, `it got me thinking about...`, sentences that
+some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   restate what a scene already showed). Let the concrete detail around them
   carry the point. Prefer cutting and reordering the author's own sentences
   over rewriting, and flag any new wording for review. `one-to-zero.md` is the
