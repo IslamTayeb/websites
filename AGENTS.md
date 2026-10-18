@@ -43,7 +43,7 @@ All active-site commands run from `imt/`:
 
 ```sh
 npm run dev            # local dev server (astro dev)
-npm run build          # typecheck + static build to dist/
+npm run build          # typecheck + static build to dist/ + CSS trim + font check
 npm start              # serve dist/ (astro preview)
 npm run lint           # eslint
 npm run format         # prettier --write .
@@ -203,13 +203,25 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   embeds start loading right after the reveal with `?theme=` in their URL.
   Interactions use the platform: experience groups are `<details>`, the theme
   toggle is a delegated click handler in the theme script.
-- **Fonts:** Open Sans ships as Google's own subset files, byte-for-byte, in
-  `public/fonts/`. `styles/open-sans.css` narrows each `unicode-range` to the
+- **Fonts:** Open Sans ships as Google's own subset files in `public/fonts/`,
+  except latin. `styles/open-sans.css` narrows each `unicode-range` to the
   characters the file really contains, so a page never downloads a subset just
-  because Google's range claims a glyph (→ ↔ ↩ ⌘ ⌥) the file lacks. Don't
-  re-encode or trim the files: any rewrite shifts glyph antialiasing. Keep the
-  CSS on Lightning CSS with Next's old browser targets (see `astro.config.mjs`)
-  so colors keep rendering identically.
+  because Google's range claims a glyph (→ ↔ ↩ ⌘ ⌥) the file lacks. The latin
+  face is trimmed to the characters the site renders by
+  `scripts/subset-open-sans.py` (fontTools), which writes a content-hashed
+  file and `styles/open-sans-latin.css`. The build fails when a page renders a
+  character the trim lacks: run `python3 scripts/subset-open-sans.py`, then
+  build again. The script keeps glyph names and the original font-wide bounds;
+  dropping either shifts glyph antialiasing. Fonts are cached as immutable
+  (`imt/vercel.json`), so a font file must get a new name whenever its bytes
+  change. Keep the CSS on Lightning CSS with Next's old browser targets (see
+  `astro.config.mjs`) so colors keep rendering identically.
+- **CSS per page:** `scripts/trim-css.mjs` runs after the build and drops the
+  inlined CSS rules a page can't use. Classes or attributes that scripts add at
+  runtime must be in its safelist.
+- **Prerendering:** a `speculationrules` block prerenders site pages on link
+  hover (Chrome/Edge). Inline scripts must handle prerendered pages: the
+  pageview waits for `prerenderingchange`, and the theme is re-read then.
 - **Pageview events:** The active site uses a tiny `sendBeacon` pageview script
   and the `api/pageview.ts` Vercel Function for Discord webhook notifications. Keep it
   post-response, avoid canvas/fingerprinting/external geolocation lookups, and

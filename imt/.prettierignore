@@ -3,3 +3,4 @@ dist/
 content/posts/*.md
 node_modules/
 test-results/
+styles/open-sans-latin.css

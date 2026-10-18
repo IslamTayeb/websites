@@ -1,5 +1,6 @@
 /* Google's Open Sans subset files, unchanged, in Google's declaration order
-   (later faces win where ranges overlap). Each unicode-range is Google's range
+   (later faces win where ranges overlap). The latin face is declared last, in
+   the generated open-sans-latin.css. Each unicode-range is Google's range
    narrowed to the characters the file really contains: Google's math and
    symbols ranges claim arrows like → ↔ ↩ ⌘ ⌥ the files don't have, which made
    browsers download 68 KB per page for nothing. Rendering is unchanged, since
@@ -118,19 +119,4 @@
     U+02C9, U+02DD, U+02F3, U+0304, U+0308, U+1E00-1E01, U+1E3E-1E3F,
     U+1E80-1E85, U+1E9E, U+1EF2-1EF9, U+2020, U+20A3-20A4, U+20A7, U+20AA-20AB,
     U+2113, U+A7B3-A7B5;
-}
-
-/* latin */
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url(/fonts/open-sans-latin.woff2) format('woff2');
-  unicode-range:
-    U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02BC,
-    U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+2002, U+2009, U+200B, U+2013-2014,
-    U+2018-201A, U+201C-201E, U+2022, U+2026, U+2032-2033, U+2039-203A, U+2044,
-    U+20AC, U+2122, U+2212, U+2215, U+FEFF, U+FFFD;
 }

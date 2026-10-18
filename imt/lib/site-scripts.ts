@@ -28,22 +28,32 @@ export const themeScript = `
       .forEach(postHarmoniaTheme);
   }
 
-  try {
-    var saved = window.localStorage.getItem('theme');
-    var theme =
-      saved === 'light' || saved === 'dark'
-        ? saved
-        : window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light';
-    var root = document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-    root.style.colorScheme = theme;
-  } catch (_) {
-    document.documentElement.classList.add('light');
-    document.documentElement.style.colorScheme = 'light';
+  function applySavedTheme() {
+    try {
+      var saved = window.localStorage.getItem('theme');
+      var theme =
+        saved === 'light' || saved === 'dark'
+          ? saved
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      var root = document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.classList.add(theme);
+      root.style.colorScheme = theme;
+    } catch (_) {
+      document.documentElement.classList.add('light');
+      document.documentElement.style.colorScheme = 'light';
+    }
   }
+
+  applySavedTheme();
+
+  // A page prerendered on hover may open after the theme was toggled.
+  document.addEventListener('prerenderingchange', function () {
+    applySavedTheme();
+    syncHarmoniaIframes();
+  });
 
   window.addEventListener('message', function (event) {
     if (
@@ -241,16 +251,47 @@ export const pageviewScript = `
     schedule('popstate');
   });
 
+  function start() {
+    // Pages prerendered on hover count only once they are actually opened.
+    if (document.prerendering) {
+      document.addEventListener(
+        'prerenderingchange',
+        function () {
+          schedule('load');
+        },
+        { once: true }
+      );
+    } else {
+      schedule('load');
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener(
-      'DOMContentLoaded',
-      function () {
-        schedule('load');
-      },
-      { once: true }
-    );
+    document.addEventListener('DOMContentLoaded', start, { once: true });
   } else {
-    schedule('load');
+    start();
   }
 })();
 `;
+
+// Chrome and Edge prerender a site page when its link is hovered or pressed,
+// so the click shows the finished page at once. Other browsers ignore this.
+export const speculationRules = JSON.stringify({
+  prerender: [
+    {
+      where: {
+        and: [
+          {
+            or: [
+              { href_matches: '/' },
+              { href_matches: '/blog' },
+              { href_matches: '/blog/*' },
+            ],
+          },
+          { not: { href_matches: '/blog/*.xml' } },
+        ],
+      },
+      eagerness: 'moderate',
+    },
+  ],
+});
