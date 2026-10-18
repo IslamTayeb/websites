@@ -274,8 +274,10 @@ export const pageviewScript = `
 })();
 `;
 
-// Chrome and Edge prerender a site page when its link is hovered or pressed,
-// so the click shows the finished page at once. Other browsers ignore this.
+// Chrome and Edge prerender a site page as soon as its link is hovered
+// (eager: 10 ms on desktop since Chrome 143; on phones, shortly after the link
+// scrolls into view), so the click shows the finished page at once. Other
+// browsers ignore this.
 export const speculationRules = JSON.stringify({
   prerender: [
     {
@@ -291,7 +293,7 @@ export const speculationRules = JSON.stringify({
           { not: { href_matches: '/blog/*.xml' } },
         ],
       },
-      eagerness: 'moderate',
+      eagerness: 'eager',
     },
   ],
 });

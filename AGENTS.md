@@ -219,8 +219,8 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
 - **CSS per page:** `scripts/trim-css.mjs` runs after the build and drops the
   inlined CSS rules a page can't use. Classes or attributes that scripts add at
   runtime must be in its safelist.
-- **Prerendering:** a `speculationrules` block prerenders site pages on link
-  hover (Chrome/Edge). Inline scripts must handle prerendered pages: the
+- **Prerendering:** a `speculationrules` block prerenders site pages as soon as
+  a link is hovered (`eager`; Chrome/Edge). Inline scripts must handle prerendered pages: the
   pageview waits for `prerenderingchange`, and the theme is re-read then.
 - **Pageview events:** The active site uses a tiny `sendBeacon` pageview script
   and the `api/pageview.ts` Vercel Function for Discord webhook notifications. Keep it
