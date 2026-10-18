@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { NotFound } from '@/components/site/not-found';
+import { buildNotFoundMetadata } from '@/lib/seo';
+---
+
+<Base meta={buildNotFoundMetadata()} active="islam">
+  <NotFound />
+</Base>

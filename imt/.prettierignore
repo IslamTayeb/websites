@@ -1,5 +1,5 @@
-.next/
+.astro/
+dist/
 content/posts/*.md
 node_modules/
-next-env.d.ts
 test-results/

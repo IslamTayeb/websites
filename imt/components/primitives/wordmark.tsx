@@ -1,6 +1,3 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
 import { ExternalLink } from '@/components/primitives/external-link';
 import { RoybLinkText } from '@/components/primitives/royb-link';
 import { cn } from '@/lib/utils';
@@ -8,10 +5,7 @@ import { MoonGlyph, SparkleGlyph } from './glyphs';
 
 const inactiveWordmarkClassName = 'text-[#6B6966]';
 
-export function Wordmark() {
-  const pathname = usePathname();
-  const active = pathname.startsWith('/blog') ? 'blog' : 'islam';
-
+export function Wordmark({ active }: { active: 'islam' | 'blog' }) {
   return (
     <div
       className="flex items-center gap-4 font-mono text-base"

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import {
   roybLinkClassName,
@@ -47,8 +46,8 @@ export function ExternalLink({
   }
 
   return (
-    <Link href={href} className={classes} {...props}>
+    <a href={href} className={classes} {...props}>
       {children}
-    </Link>
+    </a>
   );
 }

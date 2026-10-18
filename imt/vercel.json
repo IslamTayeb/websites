@@ -1,0 +1,1170 @@
+{
+  "framework": "astro",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/blog/feed.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/atom+xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/blog/rss.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/index.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/index.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/rss.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/rss.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed/rss.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/rss.xml",
+      "permanent": true
+    },
+    {
+      "source": "/static/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/static/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/static/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/static/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/on-agent-memory-fidelity/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/agent-self-reflection",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-self-reflection",
+      "permanent": true
+    },
+    {
+      "source": "/agent-self-reflection",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-self-reflection",
+      "permanent": true
+    },
+    {
+      "source": "/agent-self-reflection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-self-reflection",
+      "permanent": true
+    },
+    {
+      "source": "/agent-self-reflection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/agent-self-reflection",
+      "permanent": true
+    },
+    {
+      "source": "/batch-agent-sdk-research-overview",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/batch-agent-sdk-research-overview",
+      "permanent": true
+    },
+    {
+      "source": "/batch-agent-sdk-research-overview",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/batch-agent-sdk-research-overview",
+      "permanent": true
+    },
+    {
+      "source": "/batch-agent-sdk-research-overview/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/batch-agent-sdk-research-overview",
+      "permanent": true
+    },
+    {
+      "source": "/batch-agent-sdk-research-overview/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/batch-agent-sdk-research-overview",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/clustering-my-spotify-library/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/on-dimensions-of-taste/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "permanent": true
+    },
+    {
+      "source": "/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "permanent": true
+    },
+    {
+      "source": "/effect-of-explanation-and-confidence-fields-on-llm-extraction/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "permanent": true
+    },
+    {
+      "source": "/effect-of-explanation-and-confidence-fields-on-llm-extraction/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/effect-of-explanation-and-confidence-fields-on-llm-extraction",
+      "permanent": true
+    },
+    {
+      "source": "/frontier-benchmarking",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/frontier-benchmarking",
+      "permanent": true
+    },
+    {
+      "source": "/frontier-benchmarking",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/frontier-benchmarking",
+      "permanent": true
+    },
+    {
+      "source": "/frontier-benchmarking/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/frontier-benchmarking",
+      "permanent": true
+    },
+    {
+      "source": "/frontier-benchmarking/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/frontier-benchmarking",
+      "permanent": true
+    },
+    {
+      "source": "/hydra",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/hydra",
+      "permanent": true
+    },
+    {
+      "source": "/hydra",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/hydra",
+      "permanent": true
+    },
+    {
+      "source": "/hydra/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/hydra",
+      "permanent": true
+    },
+    {
+      "source": "/hydra/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/hydra",
+      "permanent": true
+    },
+    {
+      "source": "/multi-agents",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/multi-agents",
+      "permanent": true
+    },
+    {
+      "source": "/multi-agents",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/multi-agents",
+      "permanent": true
+    },
+    {
+      "source": "/multi-agents/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/multi-agents",
+      "permanent": true
+    },
+    {
+      "source": "/multi-agents/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/multi-agents",
+      "permanent": true
+    },
+    {
+      "source": "/on-closing-doors",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/on-closing-doors",
+      "permanent": true
+    },
+    {
+      "source": "/on-closing-doors",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/on-closing-doors",
+      "permanent": true
+    },
+    {
+      "source": "/on-closing-doors/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/on-closing-doors",
+      "permanent": true
+    },
+    {
+      "source": "/on-closing-doors/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/on-closing-doors",
+      "permanent": true
+    },
+    {
+      "source": "/one-to-zero",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/one-to-zero",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/one-to-zero/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/one-to-zero/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/one-to-zero",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/osu-and-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/on-fingerspitzengefuhl/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/ricing-macos-for-fun/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/on-using-computers/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/ricing-macos-for-fun",
+      "permanent": true
+    },
+    {
+      "source": "/typhon-260515",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/typhon-260515",
+      "permanent": true
+    },
+    {
+      "source": "/typhon-260515",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/typhon-260515",
+      "permanent": true
+    },
+    {
+      "source": "/typhon-260515/",
+      "has": [
+        {
+          "type": "host",
+          "value": "apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/typhon-260515",
+      "permanent": true
+    },
+    {
+      "source": "/typhon-260515/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.apmoverflow.xyz"
+        }
+      ],
+      "destination": "https://imt.sh/blog/typhon-260515",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-agent-memory-fidelity",
+      "destination": "/blog/agent-memory-fidelity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-dimensions-of-taste",
+      "destination": "/blog/clustering-my-spotify-library",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-fingerspitzengefuhl",
+      "destination": "/blog/osu-and-fingerspitzengefuhl",
+      "permanent": true
+    },
+    {
+      "source": "/blog/on-using-computers",
+      "destination": "/blog/ricing-macos-for-fun",
+      "permanent": true
+    }
+  ]
+}

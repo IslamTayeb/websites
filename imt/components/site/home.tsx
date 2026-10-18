@@ -6,7 +6,7 @@ import { WritingPreview } from '@/components/site/writing-preview';
 import { RoybBand } from '@/components/primitives/royb-band';
 import { buildPersonJsonLd } from '@/lib/seo';
 
-export default function Home() {
+export function Home() {
   return (
     <>
       <JsonLd data={buildPersonJsonLd()} />

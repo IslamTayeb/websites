@@ -1,13 +1,13 @@
-import { after } from 'next/server';
+// Vercel Function behind /api/pageview. The site itself is static; this is
+// its only server code. Work after the response runs through waitUntil.
+import { waitUntil } from '@vercel/functions';
 import {
   buildVisitRequestContext,
   normalizeVisitPayload,
   shouldAcceptVisitRequest,
   shouldSkipVisitRequest,
-} from '@/lib/visit-events';
-import { processVisitEvent } from '@/lib/visit-processing';
-
-export const runtime = 'nodejs';
+} from '../lib/visit-events';
+import { processVisitEvent } from '../lib/visit-processing';
 
 const noStoreHeaders = {
   'Cache-Control': 'no-store',
@@ -44,9 +44,7 @@ export async function POST(request: Request) {
 
   const serverAt = new Date();
 
-  after(() => {
-    return processVisitEvent(visit, context, { serverAt });
-  });
+  waitUntil(processVisitEvent(visit, context, { serverAt }));
 
   return new Response(null, { status: 204, headers: noStoreHeaders });
 }

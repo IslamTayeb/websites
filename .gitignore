@@ -1,9 +1,10 @@
 .DS_Store
 node_modules/
 .next/
+.astro/
+dist/
 .vercel
 .env*.local
 .claude/
-next-env.d.ts
 test-results/
 *.tsbuildinfo

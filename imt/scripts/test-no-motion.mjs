@@ -3,7 +3,7 @@ import path from 'node:path';
 import { listFiles } from './source-files.mjs';
 
 const root = process.cwd();
-const scannedDirs = ['app', 'components', 'data', 'lib'];
+const scannedDirs = ['src', 'components', 'data', 'lib', 'styles'];
 const blocked = [
   'transition',
   'animate',
@@ -19,12 +19,8 @@ const blocked = [
   'dither',
 ];
 // Narrow, reviewed exceptions: file -> tokens it may contain.
-const allowed = {
-  // No-op subscription used only as a hydration flag so the prerendered 404
-  // can show the requested path without a hydration mismatch.
-  'components/site/not-found-path.tsx': ['useSyncExternalStore'],
-};
-const extensions = new Set(['.ts', '.tsx', '.css']);
+const allowed = {};
+const extensions = new Set(['.ts', '.tsx', '.css', '.astro']);
 const issues = [];
 
 for (const dir of scannedDirs) {

@@ -1,0 +1,87 @@
+---
+import '@/styles/globals.css';
+import { SiteFooter } from '@/components/site/site-footer';
+import { SiteHeader } from '@/components/site/site-header';
+import { pageviewScript, themeScript } from '@/lib/site-scripts';
+import type { PageMeta } from '@/lib/seo';
+
+interface Props {
+  meta: PageMeta;
+  active: 'islam' | 'blog';
+  preloadPortrait?: boolean;
+}
+
+const { meta, active, preloadPortrait = false } = Astro.props;
+const { openGraph: og, twitter } = meta;
+const fonts = [
+  '/fonts/open-sans-latin.woff2',
+  '/static/fonts/ibm-plex-sans-arrow-400.woff2',
+  '/static/fonts/ibm-plex-sans-arrow-600.woff2',
+  '/static/fonts/ibm-plex-sans-arrow-700.woff2',
+];
+const pageviewsEnabled =
+  (process.env.PUBLIC_SITE_VISIT_EVENTS ??
+    process.env.NEXT_PUBLIC_SITE_VISIT_EVENTS) === 'true' ||
+  (import.meta.env.PROD &&
+    (process.env.PUBLIC_SITE_VISIT_EVENTS ??
+      process.env.NEXT_PUBLIC_SITE_VISIT_EVENTS) !== 'false');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {fonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin="" />)}
+    {
+      preloadPortrait && (
+        <link rel="preload" as="image" href="/me.webp" media="(width >= 50.5625rem)" />
+      )
+    }
+    <script is:inline set:html={themeScript} />
+    <style is:inline>
+      html:not(.ready) body {
+        visibility: hidden;
+      }
+    </style>
+    <noscript><style is:inline>body { visibility: visible !important; }</style></noscript>
+    <meta name="theme-color" content="#d5d1c7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{meta.title}</title>
+    {meta.description && <meta name="description" content={meta.description} />}
+    {meta.robots && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={meta.canonical} />
+    <meta property="og:title" content={og.title} />
+    {og.description && <meta property="og:description" content={og.description} />}
+    <meta property="og:url" content={og.url} />
+    {og.siteName && <meta property="og:site_name" content={og.siteName} />}
+    <meta property="og:image" content={og.image.url} />
+    <meta property="og:image:width" content={String(og.image.width)} />
+    <meta property="og:image:height" content={String(og.image.height)} />
+    <meta property="og:image:alt" content={og.image.alt} />
+    <meta property="og:type" content={og.type} />
+    {og.publishedTime && <meta property="article:published_time" content={og.publishedTime} />}
+    {og.modifiedTime && <meta property="article:modified_time" content={og.modifiedTime} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={twitter.title} />
+    {twitter.description && <meta name="twitter:description" content={twitter.description} />}
+    <meta name="twitter:image" content={twitter.image.url} />
+    <meta name="twitter:image:alt" content={twitter.image.alt} />
+    <meta name="twitter:image:width" content={String(twitter.image.width)} />
+    <meta name="twitter:image:height" content={String(twitter.image.height)} />
+    <link rel="shortcut icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-light-32x32.png" media="(prefers-color-scheme: light)" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icon-dark-32x32.png" media="(prefers-color-scheme: dark)" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" type="image/png" />
+  </head>
+  <body class="font-sans text-foreground antialiased">
+    <div data-testid="site-page" class="site-page flex flex-col px-5">
+      <SiteHeader active={active} />
+      <main class="flex flex-1 flex-col"><slot /></main>
+      <SiteFooter />
+    </div>
+    {pageviewsEnabled && <script is:inline set:html={pageviewScript} />}
+  </body>
+</html>

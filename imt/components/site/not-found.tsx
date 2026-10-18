@@ -1,16 +1,9 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
 import { NotFoundPath } from '@/components/site/not-found-path';
-
-export const metadata: Metadata = {
-  title: 'Not found',
-  robots: { index: false, follow: false },
-};
 
 const buttonBase =
   'inline-flex items-center justify-center border px-3 py-1.5 font-mono text-sm leading-none outline-none focus-visible:ring-1 focus-visible:ring-ring';
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <div
       data-testid="not-found-stage"
@@ -41,18 +34,18 @@ export default function NotFound() {
             <NotFoundPath />
           </p>
           <div className="mt-1 flex flex-wrap gap-2">
-            <Link
+            <a
               href="/"
               className={`${buttonBase} border-foreground bg-foreground text-background hover:border-roy-r hover:bg-roy-r`}
             >
               back to islam
-            </Link>
-            <Link
+            </a>
+            <a
               href="/blog"
               className={`${buttonBase} border-foreground bg-background text-foreground hover:border-roy-b hover:text-roy-b`}
             >
               browse the blog
-            </Link>
+            </a>
           </div>
         </div>
       </div>

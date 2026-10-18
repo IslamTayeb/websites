@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { contactLinks } from '@/data/links';
 import { NEWS_ROW_LIMIT, newsItems } from '@/data/news';
 import { heroParagraphs, type TextSegment } from '@/data/profile';
@@ -34,15 +32,18 @@ function ContactDetails() {
 function ContactIndex() {
   return (
     <div className="flex flex-col gap-2 font-mono text-sm leading-snug">
-      <Image
+      <img
         data-testid="hero-portrait"
         src="/me.webp"
         alt="Portrait of Islam Tayeb"
         width={384}
         height={384}
-        priority
-        unoptimized
+        // Hidden below the desktop breakpoint; lazy keeps phones from
+        // downloading it. Desktop gets it early from the page's preload.
+        loading="lazy"
+        decoding="async"
         className="hidden aspect-square w-full max-w-48 bg-background object-cover site-desktop:block site-desktop:max-w-none"
+        style={{ color: 'transparent' }}
       />
       <ContactDetails />
     </div>

@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { BlogArticle } from '@/components/site/blog-article';
+import { getAllPosts, type BlogPost } from '@/lib/blog/posts';
+import { buildPostMetadata } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.manifest.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: BlogPost };
+---
+
+<Base meta={buildPostMetadata(post)} active="blog">
+  <BlogArticle post={post} />
+</Base>

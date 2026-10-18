@@ -5,12 +5,13 @@ import { profile } from '../data/profile';
 import { siteMetadata } from '../data/site-metadata';
 import {
   apmShellConfigPath,
+  appConfigPath,
   renderApmShellConfig,
+  renderAppConfig,
 } from '../lib/apm-redirects.mjs';
 import { buildAtomFeed, buildRssFeed } from '../lib/blog/feed';
 import { listFiles } from './source-files.mjs';
 import { getAllPosts } from '../lib/blog/posts';
-import nextConfig from '../next.config.mjs';
 
 const siteUrl = siteMetadata.url;
 const oldHosts = ['apmoverflow.xyz', 'www.apmoverflow.xyz'];
@@ -92,13 +93,16 @@ function assertShellRedirect(
 }
 
 async function readRedirects() {
-  const redirects = nextConfig.redirects;
+  const config = JSON.parse(
+    await readFile(appConfigPath, 'utf8')
+  ) as VercelConfig;
 
-  if (typeof redirects !== 'function') {
-    throw new Error('next.config.mjs should define redirects()');
-  }
+  assert.ok(
+    Array.isArray(config.redirects),
+    'imt/vercel.json should define redirects'
+  );
 
-  return (await redirects()) as RedirectRule[];
+  return config.redirects;
 }
 
 async function readApmShellRedirects() {
@@ -114,18 +118,24 @@ async function readApmShellRedirects() {
   return config.redirects;
 }
 
-async function assertApmShellConfigIsGenerated() {
-  const text = await readFile(apmShellConfigPath, 'utf8');
+async function assertRedirectConfigsAreGenerated() {
+  const shellText = await readFile(apmShellConfigPath, 'utf8');
+  const appText = await readFile(appConfigPath, 'utf8');
 
   assert.equal(
-    text,
-    renderApmShellConfig(text),
+    shellText,
+    renderApmShellConfig(shellText),
     'apmoverflow/vercel.json is stale; run npm run generate:redirects in imt/'
+  );
+  assert.equal(
+    appText,
+    renderAppConfig(appText, oldHosts),
+    'imt/vercel.json is stale; run npm run generate:redirects in imt/'
   );
 }
 
 async function assertNoOldTrackingPayload() {
-  const roots = ['app', 'components', 'content', 'data', 'lib'];
+  const roots = ['src', 'components', 'content', 'data', 'lib', 'styles'];
   const sourceFiles = (
     await Promise.all(roots.map((root) => listFiles(path.resolve(root))))
   )
@@ -293,8 +303,8 @@ async function main() {
     ['/static/:path*', `${siteUrl}/static/:path*`],
   ];
 
-  assert.ok(redirects.length > 0, 'next.config.mjs should define redirects');
-  await assertApmShellConfigIsGenerated();
+  assert.ok(redirects.length > 0, 'imt/vercel.json should define redirects');
+  await assertRedirectConfigsAreGenerated();
 
   for (const [source, destination] of staticRedirects) {
     assertAppRedirect(redirects, source, destination);
@@ -329,7 +339,7 @@ async function main() {
   await assertRenamedFeedIdsAreStable();
 
   console.log(
-    `migration ok: ${posts.length} old APM slugs and ${renameCount} retired slugs redirect in app and shell, shell config generated, feeds canonical with stable ids, old tracking payload absent`
+    `migration ok: ${posts.length} old APM slugs and ${renameCount} retired slugs redirect in app and shell, both redirect configs generated, feeds canonical with stable ids, old tracking payload absent`
   );
 }
 

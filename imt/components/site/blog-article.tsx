@@ -1,47 +1,11 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { ArticleProse } from '@/components/primitives/article-prose';
 import { RoybBand } from '@/components/primitives/royb-band';
 import { JsonLd } from '@/components/site/json-ld';
 import { formatDate } from '@/lib/blog/date';
-import { getAllPosts, getPostBySlug } from '@/lib/blog/posts';
-import { buildBlogPostingJsonLd, buildPostMetadata } from '@/lib/seo';
+import type { BlogPost } from '@/lib/blog/posts';
+import { buildBlogPostingJsonLd } from '@/lib/seo';
 
-type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
-export async function generateStaticParams() {
-  const posts = await getAllPosts();
-
-  return posts.map((post) => ({
-    slug: post.manifest.slug,
-  }));
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
-  if (!post) {
-    return {};
-  }
-
-  return buildPostMetadata(post);
-}
-
-export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
-  if (!post) {
-    notFound();
-  }
-
+export function BlogArticle({ post }: { post: BlogPost }) {
   return (
     <>
       {post.manifest.listed ? (

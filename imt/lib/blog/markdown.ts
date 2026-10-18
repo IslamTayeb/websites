@@ -358,7 +358,11 @@ function withTransparentIframeAttrs(html: string) {
       nextAttrs += ' data-harmonia-iframe="true"';
     }
 
-    if (!/\bloading=/i.test(nextAttrs)) {
+    if (isHarmoniaIframe) {
+      // The inline theme script sets src (with the theme) once the page is
+      // shown, so embeds load right away without delaying the page itself.
+      nextAttrs = nextAttrs.replace(/\bsrc="/i, 'data-harmonia-src="');
+    } else if (!/\bloading=/i.test(nextAttrs)) {
       nextAttrs += ' loading="lazy"';
     }
 

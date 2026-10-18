@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import { BlogIndex } from '@/components/site/blog-index';
+import { getListedPosts } from '@/lib/blog/posts';
+import { buildBlogIndexMetadata } from '@/lib/seo';
+
+const posts = await getListedPosts();
+---
+
+<Base meta={buildBlogIndexMetadata()} active="blog">
+  <BlogIndex posts={posts} />
+</Base>

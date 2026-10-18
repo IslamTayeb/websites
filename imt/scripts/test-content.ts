@@ -3,8 +3,6 @@ import { createHash } from 'node:crypto';
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { inflateSync } from 'node:zlib';
-import robots from '../app/robots';
-import sitemap from '../app/sitemap';
 import { externalWriting } from '../data/external-writing';
 import { absoluteSiteUrl, siteMetadata } from '../data/site-metadata';
 import { buildAtomFeed, buildRssFeed } from '../lib/blog/feed';
@@ -20,6 +18,8 @@ import {
   buildBlogPostingJsonLd,
   buildPersonJsonLd,
   buildPostMetadata,
+  buildRobotsTxt,
+  buildSitemapXml,
 } from '../lib/seo';
 
 function assertDescendingDates(
@@ -333,7 +333,7 @@ async function assertFaviconAssets() {
   );
 
   const layoutSource = await readFile(
-    path.join(process.cwd(), 'app', 'layout.tsx'),
+    path.join(process.cwd(), 'src', 'layouts', 'Base.astro'),
     'utf8'
   );
 
@@ -405,20 +405,22 @@ async function assertSeoInfrastructure(
   posts: Awaited<ReturnType<typeof getAllPosts>>,
   listedPosts: Awaited<ReturnType<typeof getListedPosts>>
 ) {
-  const robotsConfig = robots();
-  const sitemapEntries = await sitemap();
-  const sitemapUrls = sitemapEntries.map((entry) => entry.url);
+  const robotsTxt = buildRobotsTxt();
+  const sitemapXml = buildSitemapXml(listedPosts);
+  const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    (match) => match[1]
+  );
   const listedPostUrls = listedPosts.map((post) =>
     absoluteSiteUrl(postHref(post))
   );
   const unlistedPosts = posts.filter((post) => !post.manifest.listed);
 
   assert.equal(siteMetadata.url, 'https://imt.sh');
-  assert.deepEqual(robotsConfig.rules, {
-    userAgent: '*',
-    allow: '/',
-  });
-  assert.equal(robotsConfig.sitemap, absoluteSiteUrl('/sitemap.xml'));
+  assert.match(robotsTxt, /^User-Agent: \*\nAllow: \/\n/);
+  assert.ok(
+    robotsTxt.includes(`Sitemap: ${absoluteSiteUrl('/sitemap.xml')}`),
+    'robots.txt should point at the sitemap'
+  );
   assert.deepEqual(sitemapUrls, [
     absoluteSiteUrl('/'),
     absoluteSiteUrl('/blog'),
@@ -428,15 +430,13 @@ async function assertSeoInfrastructure(
   for (const post of posts) {
     const metadata = buildPostMetadata(post);
     const canonicalUrl = absoluteSiteUrl(postHref(post));
-    const openGraph = metadata.openGraph as { url?: string } | undefined;
-
     assert.equal(
-      metadata.alternates?.canonical,
+      metadata.canonical,
       canonicalUrl,
       `${post.manifest.slug} should expose a canonical URL`
     );
     assert.equal(
-      openGraph?.url,
+      metadata.openGraph.url,
       canonicalUrl,
       `${post.manifest.slug} should expose og:url`
     );
@@ -712,7 +712,7 @@ async function main() {
       );
       assert.match(
         post.html,
-        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/cluster_trends\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?=[^>]*loading="lazy")(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Cluster share of additions by quarter<\/em><\/figcaption><\/figure>/,
+        /<figure class="article-media iframe-figure"><iframe (?=[^>]*width="100%")(?=[^>]*height="600px")(?=[^>]*data-harmonia-src="https:\/\/islamtayeb\.github\.io\/harmonia\/export\/visualizations\/temporal\/cluster_trends\/index\.html")(?=[^>]*data-harmonia-iframe="true")(?![^>]*loading=)(?=[^>]*allowtransparency="true")[^>]*><\/iframe><figcaption><em>Cluster share of additions by quarter<\/em><\/figcaption><\/figure>/,
         'captioned Harmonia iframes should keep their own captioned figures'
       );
       assert.match(

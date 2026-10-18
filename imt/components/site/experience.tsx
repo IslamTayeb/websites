@@ -1,6 +1,4 @@
-'use client';
-
-import { type ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
 import { experienceGroups, type ExperienceGroup } from '@/data/experience';
 import { ExternalLink } from '@/components/primitives/external-link';
 import {
@@ -241,21 +239,15 @@ function LinkedDescription({
   );
 }
 
-function FilledDisclosureArrow({ open }: { open: boolean }) {
+function FilledDisclosureArrow() {
   return (
     <span
       data-testid="experience-group-arrow"
       className="royb-link-hover-icon section-color-o inline-flex h-[var(--rail-marker-size)] w-[var(--rail-marker-size)] items-center justify-center text-current"
       aria-hidden
     >
-      <span
-        className={cn(
-          'block h-0 w-0',
-          open
-            ? 'border-x-[5px] border-t-[7px] border-x-transparent border-t-current'
-            : 'border-y-[5px] border-l-[7px] border-y-transparent border-l-current'
-        )}
-      />
+      <span className="block h-0 w-0 border-y-[5px] border-l-[7px] border-y-transparent border-l-current group-open/experience-group:hidden" />
+      <span className="hidden h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-current group-open/experience-group:block" />
     </span>
   );
 }
@@ -264,41 +256,35 @@ function experienceGroupLabel(kind: ExperienceGroup['kind']) {
   return kind[0].toUpperCase() + kind.slice(1);
 }
 
+// A native <details>, so groups open and close without any page script.
 function RailGroupBlock({
   group,
   open,
   isLast,
-  onToggleOpen,
   boxedAdvisorLabels,
 }: {
   group: ExperienceGroup;
   open: boolean;
   isLast: boolean;
-  onToggleOpen: () => void;
   boxedAdvisorLabels: boolean;
 }) {
   const label = experienceGroupLabel(group.kind);
 
   return (
-    <div
+    <details
+      open={open}
       data-testid="experience-group"
       data-group={group.kind}
-      className={cn(
-        'flex flex-col',
-        open ? 'mb-2.5 last:mb-0' : 'mb-0.5 last:mb-0'
-      )}
+      className="group/experience-group mb-0.5 flex flex-col last:mb-0 open:mb-2.5 open:last:mb-0"
     >
-      <button
-        type="button"
-        onClick={onToggleOpen}
-        aria-expanded={open}
+      <summary
         data-testid="experience-group-toggle"
         className={cn(
-          'royb-link-hover-scope group/experience-toggle inline-grid w-fit max-w-full grid-cols-[var(--rail-gutter)_max-content] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring',
-          open || !isLast ? 'pb-2' : 'pb-0'
+          'royb-link-hover-scope group/experience-toggle inline-grid w-fit max-w-full list-none grid-cols-[var(--rail-gutter)_max-content] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-details-marker]:hidden',
+          isLast ? 'pb-0 group-open/experience-group:pb-2' : 'pb-2'
         )}
       >
-        <FilledDisclosureArrow open={open} />
+        <FilledDisclosureArrow />
         <RoybLinkText
           data-testid="experience-group-label"
           data-group={group.kind}
@@ -312,11 +298,9 @@ function RailGroupBlock({
             {label}
           </span>
         </RoybLinkText>
-      </button>
-      {open ? (
-        <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
-      ) : null}
-    </div>
+      </summary>
+      <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
+    </details>
   );
 }
 
@@ -325,14 +309,6 @@ export function Experience({
 }: {
   boxedAdvisorLabels?: boolean;
 } = {}) {
-  const [openGroups, setOpenGroups] = useState<
-    Record<ExperienceGroup['kind'], boolean>
-  >({
-    research: true,
-    engineering: false,
-    teaching: false,
-  });
-
   return (
     <Section
       id="experience"
@@ -347,14 +323,8 @@ export function Experience({
             <RailGroupBlock
               key={group.kind}
               group={group}
-              open={openGroups[group.kind]}
+              open={group.kind === 'research'}
               isLast={index === experienceGroups.length - 1}
-              onToggleOpen={() =>
-                setOpenGroups((current) => ({
-                  ...current,
-                  [group.kind]: !current[group.kind],
-                }))
-              }
               boxedAdvisorLabels={boxedAdvisorLabels}
             />
           ))}

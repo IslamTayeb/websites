@@ -19,6 +19,9 @@ export const apmShellConfigPath = path.resolve(
   'vercel.json'
 );
 
+/** Absolute path of the main site's Vercel config. */
+export const appConfigPath = path.resolve(libRoot, '..', 'vercel.json');
+
 /**
  * Current slug plus any retired slugs for every post, read from the content
  * manifests and sorted by current slug.
@@ -138,5 +141,47 @@ export function renderApmShellConfig(existingText) {
       null,
       2
     ) + '\n'
+  );
+}
+
+/**
+ * Redirects for the main site: retired post slugs, plus every old APM path
+ * conditioned on the old hosts, ready in case those domains move here.
+ *
+ * @param {string[]} oldHosts the old APM hostnames
+ * @returns {{ source: string, destination: string, permanent: true, has?: { type: 'host', value: string }[] }[]}
+ */
+export function appRedirects(oldHosts) {
+  const apm = apmRedirectPairs().flatMap(([source, destination]) =>
+    oldHosts.map((host) => ({
+      source,
+      has: [{ type: /** @type {const} */ ('host'), value: host }],
+      destination,
+      permanent: /** @type {const} */ (true),
+    }))
+  );
+  const renamed = renamedPostRedirectPairs().map(([source, destination]) => ({
+    source,
+    destination,
+    permanent: /** @type {const} */ (true),
+  }));
+
+  return [...apm, ...renamed];
+}
+
+/**
+ * Re-renders the main site's Vercel config with fresh redirects, keeping
+ * every other field in place.
+ *
+ * @param {string} existingText current contents of imt/vercel.json
+ * @param {string[]} oldHosts the old APM hostnames
+ * @returns {string} the config text to write back
+ */
+export function renderAppConfig(existingText, oldHosts) {
+  const { redirects: _ignored, ...rest } = JSON.parse(existingText);
+
+  return (
+    JSON.stringify({ ...rest, redirects: appRedirects(oldHosts) }, null, 2) +
+    '\n'
   );
 }

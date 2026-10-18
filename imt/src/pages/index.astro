@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { Home } from '@/components/site/home';
+import { buildHomeMetadata } from '@/lib/seo';
+---
+
+<Base meta={buildHomeMetadata()} active="islam" preloadPortrait>
+  <Home />
+</Base>

@@ -4,8 +4,9 @@
 
 This repo has one production app and one production redirect shell:
 
-- **`imt/`** -- the active Next.js App Router site for
-  `imt.sh`, including the unified personal site and blog.
+- **`imt/`** -- the active Astro site for `imt.sh`, including the unified
+  personal site and blog. Pages are React components rendered to static HTML
+  at build time; no framework JavaScript ships to the browser.
 - **`apmoverflow/`** -- a tiny static Vercel redirect shell for
   `apmoverflow.xyz`. It contains no authored content; it only sends old APM
   paths to `https://imt.sh/blog/...`.
@@ -31,29 +32,29 @@ blog content.
 
 `apmoverflow.xyz` should remain a routing shell: old APM paths redirect to
 `https://imt.sh/blog/...`. Both redirect tables derive from the post manifests
-through `imt/lib/apm-redirects.mjs`: `imt/next.config.mjs` builds
-host-conditioned redirects from it at build time, and `apmoverflow/vercel.json`
-is written by `npm run generate:redirects` in `imt/`. Re-run the generator
-after adding or renaming a post; `npm run test:migration` fails when the shell
-config is stale.
+through `imt/lib/apm-redirects.mjs`: `npm run generate:redirects` in `imt/`
+writes both `imt/vercel.json` (retired slugs plus host-conditioned APM
+redirects) and `apmoverflow/vercel.json`. Re-run the generator after adding or
+renaming a post; `npm run test:migration` fails when either config is stale.
 
 ## Main site commands
 
 All active-site commands run from `imt/`:
 
 ```sh
-npm run dev            # local dev server
-npm run build          # Next production build
+npm run dev            # local dev server (astro dev)
+npm run build          # typecheck + static build to dist/
+npm start              # serve dist/ (astro preview)
 npm run lint           # eslint
 npm run format         # prettier --write .
 npm run format:check   # prettier --check .
-npm run generate:redirects   # rewrite apmoverflow/vercel.json from post manifests
+npm run generate:redirects   # rewrite imt/ and apmoverflow/ vercel.json from post manifests
 npm test               # content + migration + pageview + no-motion
 npm run test:content   # blog loading/rendering/feed validation
 npm run test:migration # old-domain redirects + public payload checks
 npm run test:pageview  # pageview webhook payload/routing validation
 npm run test:no-motion # fail on motion/resizing/dither/canvas leftovers
-npm run test:visual    # Playwright screenshots + DOM measurements (needs npx playwright install chromium once)
+npm run test:visual    # Playwright screenshots + DOM measurements against dist/ (build first; needs npx playwright install chromium once)
 ```
 
 Before considering active-site work done, run build, lint, format check,
@@ -194,12 +195,28 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   `npm run generate:redirects`. Retired slugs redirect permanently on
   `imt.sh/blog/...` and on the APM shell, and feed entry IDs stay on the first
   slug so readers don't see the post as new.
+- **Page load:** The only client code is the inline scripts in
+  `lib/site-scripts.ts`. Each page stays hidden (`html:not(.ready) body`) until
+  its fonts are loaded and the document is parsed, so the first visible frame
+  is the finished page: no font swap, re-wrap, or theme flash. The reveal gives
+  up after 3s, and `<noscript>` shows the page without JavaScript. Harmonia
+  embeds start loading right after the reveal with `?theme=` in their URL.
+  Interactions use the platform: experience groups are `<details>`, the theme
+  toggle is a delegated click handler in the theme script.
+- **Fonts:** Open Sans ships as Google's own subset files, byte-for-byte, in
+  `public/fonts/`. `styles/open-sans.css` narrows each `unicode-range` to the
+  characters the file really contains, so a page never downloads a subset just
+  because Google's range claims a glyph (→ ↔ ↩ ⌘ ⌥) the file lacks. Don't
+  re-encode or trim the files: any rewrite shifts glyph antialiasing. Keep the
+  CSS on Lightning CSS with Next's old browser targets (see `astro.config.mjs`)
+  so colors keep rendering identically.
 - **Pageview events:** The active site uses a tiny `sendBeacon` pageview script
-  and `/api/pageview` route for Discord webhook notifications. Keep it
+  and the `api/pageview.ts` Vercel Function for Discord webhook notifications. Keep it
   post-response, avoid canvas/fingerprinting/external geolocation lookups, and
   use Vercel request geolocation headers for location context. Configure it
   with `SITE_VISIT_WEBHOOK_URL`, or the existing `DISCORD_WEBHOOK_URL` fallback;
-  disable client emission with `NEXT_PUBLIC_SITE_VISIT_EVENTS=false` or server
+  disable client emission with `PUBLIC_SITE_VISIT_EVENTS=false` (the old
+  `NEXT_PUBLIC_SITE_VISIT_EVENTS` name still works) at build time or server
   delivery with `SITE_VISIT_EVENTS_ENABLED=false`.
 - **Pageview notification detail:** Discord pageview messages may use emojis for
   section clarity, but location must be labeled as approximate network location.
@@ -234,12 +251,13 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
 
 ## Deployment
 
-The main production Vercel project should build from `imt/`.
+The main production Vercel project should build from `imt/`; `imt/vercel.json`
+sets the Astro framework preset, clean URLs, and redirects.
 `imt.sh` is the canonical domain. Keep crawler-facing metadata,
 feeds, sitemaps, and old-domain redirect destinations on that host.
 
 The existing `apm-overflow` Vercel project should build from `apmoverflow/`.
 Keep `apmoverflow.xyz` and `www.apmoverflow.xyz` attached there unless the
 domains are deliberately moved later. The shell `vercel.json` handles live
-old-path redirects, while `imt/next.config.mjs` keeps equivalent
+old-path redirects, while `imt/vercel.json` keeps equivalent
 host-conditioned redirects ready if the domains are moved to the main project.

@@ -1,0 +1,43 @@
+/* Open Sans faces live in styles/open-sans.css. */
+
+/* Open Sans has no U+2192. These hold only IBM Plex Sans's arrow (under 1 KB
+   each) and are preloaded, so the arrow is ready at first paint. */
+@font-face {
+  font-family: plexArrow;
+  src: url(/static/fonts/ibm-plex-sans-arrow-400.woff2) format('woff2');
+  font-display: block;
+  font-weight: 400;
+  unicode-range: U+2192;
+}
+
+@font-face {
+  font-family: plexArrow;
+  src: url(/static/fonts/ibm-plex-sans-arrow-600.woff2) format('woff2');
+  font-display: block;
+  font-weight: 600;
+  unicode-range: U+2192;
+}
+
+@font-face {
+  font-family: plexArrow;
+  src: url(/static/fonts/ibm-plex-sans-arrow-700.woff2) format('woff2');
+  font-display: block;
+  font-weight: 700;
+  unicode-range: U+2192;
+}
+
+/* Arial tuned to Open Sans metrics, used only if the page shows before the
+   fonts arrive (the reveal gives up waiting after 3s). */
+@font-face {
+  font-family: 'Open Sans Fallback';
+  src: local(Arial);
+  ascent-override: 101.65%;
+  descent-override: 27.86%;
+  line-gap-override: 0%;
+  size-adjust: 105.15%;
+}
+
+:root {
+  --font-open-sans: 'Open Sans', 'Open Sans Fallback';
+  --font-plex-arrow: plexArrow;
+}

@@ -1,36 +1,15 @@
-import type { Metadata } from 'next';
 import { RoybBand } from '@/components/primitives/royb-band';
 import { BorderedPanel, Section } from '@/components/primitives/section';
 import { ExternalLink } from '@/components/primitives/external-link';
 import { PostTags } from '@/components/primitives/post-tags';
 import { RailItem, RailList } from '@/components/primitives/rail';
 import { externalWriting } from '@/data/external-writing';
-import { absoluteSiteUrl, siteMetadata } from '@/data/site-metadata';
-import { getListedPosts, postHref } from '@/lib/blog/posts';
+import { postHref, type BlogPost } from '@/lib/blog/posts';
 import { formatMonthYear } from '@/lib/blog/date';
 
 const postDotClassName = 'bg-foreground/75';
 
-export const metadata: Metadata = {
-  title: 'Blog',
-  alternates: {
-    canonical: absoluteSiteUrl('/blog'),
-  },
-  openGraph: {
-    title: 'Blog',
-    url: absoluteSiteUrl('/blog'),
-    type: 'website',
-    images: [siteMetadata.socialImage],
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Blog',
-    images: [siteMetadata.socialImage],
-  },
-};
-
-export default async function BlogIndexPage() {
-  const posts = await getListedPosts();
+export function BlogIndex({ posts }: { posts: BlogPost[] }) {
   const itemCount = posts.length + externalWriting.length;
 
   return (

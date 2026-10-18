@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import {
   chromium,
   type Browser,
@@ -833,7 +833,7 @@ async function assertThemeToggleIsStable(page: Page) {
 }
 
 async function assertScrollbarStyles() {
-  const css = await readFile(path.join(root, 'app', 'globals.css'), 'utf8');
+  const css = await readFile(path.join(root, 'styles', 'globals.css'), 'utf8');
 
   assert.ok(
     css.includes('scrollbar-gutter: auto'),
@@ -1110,35 +1110,40 @@ async function assertHome(page: Page) {
         .querySelector<HTMLElement>('#writing [data-testid="rail-title"]')
         ?.getBoundingClientRect().left ?? 0,
     ].filter((left) => left > 0);
+    // Closed experience groups keep their rows in the DOM, unrendered.
     const markerData = [
       ...document.querySelectorAll<HTMLElement>(
         '[data-testid="rail-dot"], [data-testid="publication-dot"]'
       ),
-    ].map((dot) => {
-      const rect = dot.getBoundingClientRect();
-      const row = dot.closest('li');
-      const title = row?.querySelector<HTMLElement>(
-        '[data-testid="rail-title"], [data-testid="publication-title"]'
-      );
-      const titleRect = title?.getBoundingClientRect();
-      const titleStyle = title ? getComputedStyle(title) : null;
-      const titleFontSize = Number.parseFloat(titleStyle?.fontSize ?? '0');
-      const parsedLineHeight = Number.parseFloat(titleStyle?.lineHeight ?? '0');
-      const titleLineHeight =
-        Number.isFinite(parsedLineHeight) && parsedLineHeight > 0
-          ? parsedLineHeight
-          : titleFontSize * 1.25;
+    ]
+      .filter((dot) => dot.checkVisibility())
+      .map((dot) => {
+        const rect = dot.getBoundingClientRect();
+        const row = dot.closest('li');
+        const title = row?.querySelector<HTMLElement>(
+          '[data-testid="rail-title"], [data-testid="publication-title"]'
+        );
+        const titleRect = title?.getBoundingClientRect();
+        const titleStyle = title ? getComputedStyle(title) : null;
+        const titleFontSize = Number.parseFloat(titleStyle?.fontSize ?? '0');
+        const parsedLineHeight = Number.parseFloat(
+          titleStyle?.lineHeight ?? '0'
+        );
+        const titleLineHeight =
+          Number.isFinite(parsedLineHeight) && parsedLineHeight > 0
+            ? parsedLineHeight
+            : titleFontSize * 1.25;
 
-      return {
-        left: rect.left,
-        width: rect.width,
-        center: rect.left + rect.width / 2,
-        centerY: rect.top + rect.height / 2,
-        titleFirstLineCenterY: titleRect
-          ? titleRect.top + Math.min(titleRect.height, titleLineHeight) / 2
-          : 0,
-      };
-    });
+        return {
+          left: rect.left,
+          width: rect.width,
+          center: rect.left + rect.width / 2,
+          centerY: rect.top + rect.height / 2,
+          titleFirstLineCenterY: titleRect
+            ? titleRect.top + Math.min(titleRect.height, titleLineHeight) / 2
+            : 0,
+        };
+      });
     const connectorCenters = [
       ...document.querySelectorAll<HTMLElement>(
         [
@@ -1148,11 +1153,13 @@ async function assertHome(page: Page) {
           '[data-testid="publication-action-connector"]',
         ].join(', ')
       ),
-    ].map((connector) => {
-      const rect = connector.getBoundingClientRect();
+    ]
+      .filter((connector) => connector.checkVisibility())
+      .map((connector) => {
+        const rect = connector.getBoundingClientRect();
 
-      return rect.left + rect.width / 2;
-    });
+        return rect.left + rect.width / 2;
+      });
     const [writingActionRail, publicationActionRail] = [
       '#writing',
       '#publications',
@@ -1196,6 +1203,7 @@ async function assertHome(page: Page) {
         .filter(
           (row): row is HTMLElement =>
             row instanceof HTMLElement &&
+            row.checkVisibility() &&
             Boolean(
               row.querySelector(
                 '[data-testid="rail-dot"], [data-testid="publication-dot"]'
@@ -1220,9 +1228,15 @@ async function assertHome(page: Page) {
 
       return {
         kind: group.getAttribute('data-group'),
-        expanded: toggle?.getAttribute('aria-expanded') ?? '',
-        rows: group.querySelectorAll('[data-testid="rail-title"]').length,
-        text: group.textContent?.replace(/\s+/g, ' ').trim() ?? '',
+        expanded: (group as HTMLDetailsElement).open ? 'true' : 'false',
+        rows: [
+          ...group.querySelectorAll<HTMLElement>('[data-testid="rail-title"]'),
+        ].filter((title) => title.checkVisibility()).length,
+        // A closed <details> keeps its rows in the DOM; only its summary shows.
+        text:
+          ((group as HTMLDetailsElement).open ? group : toggle)?.textContent
+            ?.replace(/\s+/g, ' ')
+            .trim() ?? '',
         hasShowMore: Boolean(showMore),
         togglePaddingBottom: toggle
           ? Number.parseFloat(getComputedStyle(toggle).paddingBottom)
@@ -1238,30 +1252,39 @@ async function assertHome(page: Page) {
       ...(experienceSection?.querySelectorAll<HTMLElement>(
         'p[data-rail-description="true"]'
       ) ?? []),
-    ].map((description) => {
-      const style = getComputedStyle(description);
+    ]
+      .filter((description) => description.checkVisibility())
+      .map((description) => {
+        const style = getComputedStyle(description);
 
-      return {
-        color: style.color,
-        fontFamily: style.fontFamily,
-        fontSize: Number.parseFloat(style.fontSize),
-        fontWeight: Number.parseInt(style.fontWeight, 10),
-        lineHeight: style.lineHeight,
-        textTransform: style.textTransform,
-      };
-    });
+        return {
+          color: style.color,
+          fontFamily: style.fontFamily,
+          fontSize: Number.parseFloat(style.fontSize),
+          fontWeight: Number.parseInt(style.fontWeight, 10),
+          lineHeight: style.lineHeight,
+          textTransform: style.textTransform,
+        };
+      });
     const experienceLineLabels = [
       ...(experienceSection?.querySelectorAll<HTMLElement>(
         '[data-testid="experience-line-label"]'
       ) ?? []),
-    ].map((label) => label.textContent?.trim() ?? '');
+    ]
+      .filter((label) => label.checkVisibility())
+      .map((label) => label.textContent?.trim() ?? '');
     const experienceLineLabelsItalic = [
       ...(experienceSection?.querySelectorAll<HTMLElement>(
         '[data-testid="experience-line-label"]'
       ) ?? []),
-    ].every((label) => getComputedStyle(label).fontStyle === 'italic');
-    const dots = [...document.querySelectorAll('[data-testid="rail-dot"]')].map(
-      (dot) => {
+    ]
+      .filter((label) => label.checkVisibility())
+      .every((label) => getComputedStyle(label).fontStyle === 'italic');
+    const dots = [
+      ...document.querySelectorAll<HTMLElement>('[data-testid="rail-dot"]'),
+    ]
+      .filter((dot) => dot.checkVisibility())
+      .map((dot) => {
         const mark = dot.querySelector<SVGElement>('svg[data-org-mark]');
         const markRect = mark?.getBoundingClientRect();
         const dotRect = dot.getBoundingClientRect();
@@ -1286,8 +1309,7 @@ async function assertHome(page: Page) {
             : 0,
           markHeight: markRect?.height ?? 0,
         };
-      }
-    );
+      });
     const publicationButtons = document.querySelectorAll(
       '[data-testid="publication-row-button"]'
     );
@@ -3468,7 +3490,7 @@ async function assertExperienceInteractions(page: Page) {
   const groupRows = async (group: string) =>
     page
       .locator(`[data-testid="experience-group"][data-group="${group}"]`)
-      .locator('[data-testid="rail-title"]')
+      .locator('[data-testid="rail-title"]:visible')
       .count();
 
   assert.equal(await groupRows('research'), 3);
@@ -3478,9 +3500,7 @@ async function assertExperienceInteractions(page: Page) {
   const researchGroup = page.locator(
     '[data-testid="experience-group"][data-group="research"]'
   );
-  const researchToggle = researchGroup.getByRole('button', {
-    name: /Research/,
-  });
+  const researchToggle = researchGroup.getByTestId('experience-group-toggle');
   const groupBox = await researchGroup.boundingBox();
   const toggleBox = await researchToggle.boundingBox();
 
@@ -3503,20 +3523,20 @@ async function assertExperienceInteractions(page: Page) {
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')
-    .getByRole('button', { name: /Research/ })
+    .getByTestId('experience-group-toggle')
     .click();
   assert.equal(await groupRows('research'), 0);
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')
-    .getByRole('button', { name: /Research/ })
+    .getByTestId('experience-group-toggle')
     .click();
   assert.equal(await groupRows('research'), 3);
 
   const engineeringGroup = page.locator(
     '[data-testid="experience-group"][data-group="engineering"]'
   );
-  await engineeringGroup.getByRole('button', { name: /Engineering/ }).click();
+  await engineeringGroup.getByTestId('experience-group-toggle').click();
   assert.equal(await groupRows('engineering'), 3);
   assert.equal(await groupRows('research'), 3);
   const engineeringText = (await engineeringGroup.textContent()) ?? '';
@@ -3538,7 +3558,7 @@ async function assertExperienceInteractions(page: Page) {
 
   await page
     .locator('[data-testid="experience-group"][data-group="teaching"]')
-    .getByRole('button', { name: /Teaching/ })
+    .getByTestId('experience-group-toggle')
     .click();
   assert.equal(await groupRows('teaching'), 3);
   const teachingText = await page
@@ -4793,8 +4813,8 @@ async function assertHarmoniaArticle(page: Page) {
         iframe.allowTransparency === 'true' &&
         iframe.isHarmonia === 'true' &&
         iframe.src.startsWith('https://islamtayeb.github.io/harmonia/') &&
-        !iframe.src.includes('theme=') &&
-        iframe.loading === 'lazy' &&
+        /\?theme=(light|dark)$/.test(iframe.src) &&
+        iframe.loading !== 'lazy' &&
         !/background\s*:/i.test(iframe.styleAttr) &&
         iframe.background === 'rgba(0, 0, 0, 0)' &&
         iframe.opacity === '1'
@@ -5129,16 +5149,17 @@ async function assertLegacyMediaArticle(page: Page) {
 async function main() {
   await mkdir(screenshotDir, { recursive: true });
 
-  const nextBin = path.join(root, 'node_modules', '.bin', 'next');
+  const astroBin = path.join(root, 'node_modules', '.bin', 'astro');
   const useExistingServer = await isServerReady(existingBaseUrl);
   const server = useExistingServer
     ? null
-    : spawn(nextBin, ['dev', '-p', String(port)], {
+    : // Tests the production build (run npm run build first).
+      spawn(astroBin, ['preview', '--port', String(port)], {
         cwd: root,
         stdio: 'ignore',
         env: {
           ...process.env,
-          NEXT_TELEMETRY_DISABLED: '1',
+          ASTRO_TELEMETRY_DISABLED: '1',
         },
       });
 
@@ -5328,7 +5349,12 @@ async function main() {
     console.log(`visual ok: screenshots written to ${screenshotDir}`);
   } finally {
     await browser?.close();
-    server?.kill();
+
+    if (server) {
+      server.kill();
+      // astro preview keeps running in the background after its CLI exits.
+      spawnSync(astroBin, ['preview', 'stop'], { cwd: root, stdio: 'ignore' });
+    }
   }
 }
 
