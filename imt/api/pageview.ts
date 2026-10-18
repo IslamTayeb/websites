@@ -6,8 +6,8 @@ import {
   normalizeVisitPayload,
   shouldAcceptVisitRequest,
   shouldSkipVisitRequest,
-} from '../lib/visit-events';
-import { processVisitEvent } from '../lib/visit-processing';
+} from '../lib/visit-events.js';
+import { processVisitEvent } from '../lib/visit-processing.js';
 
 const noStoreHeaders = {
   'Cache-Control': 'no-store',

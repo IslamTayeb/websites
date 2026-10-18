@@ -2,17 +2,17 @@ import {
   resolveNetworkEnrichment,
   UNKNOWN_NETWORK_ENRICHMENT,
   type NetworkEnrichment,
-} from './network-enrichment';
+} from './network-enrichment.js';
 import {
   sendVisitWebhook,
   type ClientVisitPayload,
   type VisitRequestContext,
-} from './visit-events';
+} from './visit-events.js';
 import {
   persistVisit,
   type PersistVisitResult,
   type VisitStorageInput,
-} from './visit-storage';
+} from './visit-storage.js';
 
 type VisitProcessingDependencies = {
   resolveNetwork: (clientIp: string) => Promise<NetworkEnrichment>;

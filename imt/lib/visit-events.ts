@@ -4,7 +4,7 @@ import {
   UNKNOWN,
   UNKNOWN_NETWORK_ENRICHMENT,
   type NetworkEnrichment,
-} from './network-enrichment';
+} from './network-enrichment.js';
 
 const MAX_FIELD_LENGTH = 900;
 const MAX_TITLE_LENGTH = 180;

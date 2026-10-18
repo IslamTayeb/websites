@@ -4,12 +4,12 @@ import {
   classifyBotSignal,
   type ClientVisitPayload,
   type VisitRequestContext,
-} from './visit-events';
+} from './visit-events.js';
 import {
   configuredValue,
   UNKNOWN,
   type NetworkEnrichment,
-} from './network-enrichment';
+} from './network-enrichment.js';
 
 export type VisitStorageInput = {
   visit: ClientVisitPayload;
