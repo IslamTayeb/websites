@@ -1,6 +1,7 @@
 .astro/
 dist/
-content/posts/*.md
+posts/*.md
 node_modules/
 test-results/
+bench/
 styles/open-sans-latin.css

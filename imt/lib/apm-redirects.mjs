@@ -8,7 +8,7 @@ const require = createRequire(import.meta.url);
 const siteUrlConfig = require('../data/site-url.json');
 const siteUrl = siteUrlConfig.url;
 const libRoot = path.dirname(fileURLToPath(import.meta.url));
-const postContentRoot = path.join(libRoot, '..', 'content', 'posts');
+const postsRoot = path.join(libRoot, '..', 'posts');
 
 /** Absolute path of the old-domain redirect shell's Vercel config. */
 export const apmShellConfigPath = path.resolve(
@@ -29,10 +29,10 @@ export const appConfigPath = path.resolve(libRoot, '..', 'vercel.json');
  * @returns {{ slug: string, previousSlugs: string[] }[]}
  */
 export function postSlugRecords() {
-  const records = readdirSync(postContentRoot)
+  const records = readdirSync(postsRoot)
     .filter((file) => file.endsWith('.json'))
     .map((file) => {
-      const raw = readFileSync(path.join(postContentRoot, file), 'utf8');
+      const raw = readFileSync(path.join(postsRoot, file), 'utf8');
       const manifest = JSON.parse(raw);
 
       if (typeof manifest.slug !== 'string') {

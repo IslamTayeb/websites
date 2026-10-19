@@ -14,5 +14,11 @@ export default defineConfig([
       ],
     },
   },
-  globalIgnores(['.astro/**', 'dist/**', '.vercel/**', 'test-results/**']),
+  globalIgnores([
+    '.astro/**',
+    'dist/**',
+    '.vercel/**',
+    'test-results/**',
+    'bench/**',
+  ]),
 ]);

@@ -1,6 +1,5 @@
 .DS_Store
 node_modules/
-.next/
 .astro/
 dist/
 .vercel
@@ -8,3 +7,5 @@ dist/
 .claude/
 test-results/
 *.tsbuildinfo
+# Local benchmark results and scripts (see imt/bench/README.md)
+imt/bench/

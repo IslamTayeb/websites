@@ -7,7 +7,7 @@ import { externalWriting } from '../data/external-writing';
 import { absoluteSiteUrl, siteMetadata } from '../data/site-metadata';
 import { buildAtomFeed, buildRssFeed } from '../lib/blog/feed';
 import {
-  contentRoot,
+  postsRoot,
   getAllPosts,
   getListedPosts,
   postHref,
@@ -516,7 +516,7 @@ function assertPreviousSlugValidation() {
     publishedAt: '2026-01-01T00:00Z',
     updatedAt: '2026-01-01T00:00Z',
   };
-  const manifestPath = path.join(contentRoot, 'new-title.json');
+  const manifestPath = path.join(postsRoot, 'new-title.json');
 
   assert.deepEqual(
     validatePostManifest(base, manifestPath).previousSlugs,
@@ -547,7 +547,7 @@ function assertPreviousSlugValidation() {
 async function main() {
   assertPreviousSlugValidation();
 
-  const manifestFiles = (await readdir(contentRoot)).filter((file) =>
+  const manifestFiles = (await readdir(postsRoot)).filter((file) =>
     file.endsWith('.json')
   );
   const posts = await getAllPosts();
@@ -624,7 +624,7 @@ async function main() {
       );
     }
 
-    const sourcePath = path.join(contentRoot, post.manifest.source);
+    const sourcePath = path.join(postsRoot, post.manifest.source);
     assert.ok(
       sourcePath.endsWith('.md'),
       `${post.manifest.slug} source should be markdown`

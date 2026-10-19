@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { SquareArrowOutUpRight } from 'lucide-react';
 import { Tag } from '@/components/primitives/tag';
 import type { PostKind } from '@/lib/blog/manifest';
 
@@ -15,6 +14,29 @@ const postKindTone = {
   technical: 'y',
   opinion: 'r',
 } as const satisfies Record<PostKind, string>;
+
+// Lucide's square-arrow-out-up-right, inlined.
+function ExternalIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-[10px] shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" />
+      <path d="m21 3-9 9" />
+      <path d="M15 3h6v6" />
+    </svg>
+  );
+}
 
 export function PostTags({
   kind,
@@ -42,11 +64,7 @@ export function PostTags({
         data-post-tag="external"
         className="gap-1"
       >
-        <SquareArrowOutUpRight
-          aria-hidden
-          className="size-[10px] shrink-0"
-          strokeWidth={2}
-        />
+        <ExternalIcon />
         external
       </Tag>
     );

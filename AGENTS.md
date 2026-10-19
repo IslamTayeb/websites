@@ -7,6 +7,8 @@ This repo has one production app and one production redirect shell:
 - **`imt/`** -- the active Astro site for `imt.sh`, including the unified
   personal site and blog. Pages are React components rendered to static HTML
   at build time; no framework JavaScript ships to the browser.
+- **`imt/bench/`** -- local benchmark results and scripts (git-ignored); see
+  its `README.md`.
 - **`apmoverflow/`** -- a tiny static Vercel redirect shell for
   `apmoverflow.xyz`. It contains no authored content; it only sends old APM
   paths to `https://imt.sh/blog/...`.
@@ -27,7 +29,7 @@ render-time measurements, resize observers, canvas/dither experiments, autoplay
 media, or animation libraries.
 
 APM Overflow writing now lives as Markdown plus JSON manifests under
-`imt/content/posts/`. Treat that directory as the source of truth for
+`imt/posts/`. Treat that directory as the source of truth for
 blog content.
 
 `apmoverflow.xyz` should remain a routing shell: old APM paths redirect to
@@ -204,7 +206,7 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   Interactions use the platform: experience groups are `<details>`, the theme
   toggle is a delegated click handler in the theme script.
 - **Fonts:** Open Sans ships as Google's own subset files in `public/fonts/`,
-  except latin. `styles/open-sans.css` narrows each `unicode-range` to the
+  except latin. `styles/fonts.css` narrows each `unicode-range` to the
   characters the file really contains, so a page never downloads a subset just
   because Google's range claims a glyph (→ ↔ ↩ ⌘ ⌥) the file lacks. The latin
   face is trimmed to the characters the site renders by

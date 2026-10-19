@@ -1,7 +1,5 @@
 @import 'tailwindcss';
-@import 'shadcn/tailwind.css';
 @import './fonts.css';
-@import './open-sans.css';
 @import './open-sans-latin.css';
 
 @custom-variant dark (&:is(.dark *));

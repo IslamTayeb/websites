@@ -135,7 +135,7 @@ async function assertRedirectConfigsAreGenerated() {
 }
 
 async function assertNoOldTrackingPayload() {
-  const roots = ['src', 'components', 'content', 'data', 'lib', 'styles'];
+  const roots = ['src', 'components', 'posts', 'data', 'lib', 'styles'];
   const sourceFiles = (
     await Promise.all(roots.map((root) => listFiles(path.resolve(root))))
   )

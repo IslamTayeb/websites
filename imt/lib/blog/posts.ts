@@ -12,23 +12,23 @@ export type BlogPost = {
   readingMeta: string;
 };
 
-export const contentRoot = path.resolve(process.cwd(), 'content', 'posts');
+export const postsRoot = path.resolve(process.cwd(), 'posts');
 
 async function loadPostsUncached() {
-  const manifestFiles = (await readdir(contentRoot))
+  const manifestFiles = (await readdir(postsRoot))
     .filter((file) => file.endsWith('.json'))
     .sort();
 
   if (manifestFiles.length === 0) {
-    throw new Error(`No post manifests found in ${contentRoot}`);
+    throw new Error(`No post manifests found in ${postsRoot}`);
   }
 
   return Promise.all(
     manifestFiles.map(async (file) => {
-      const manifestPath = path.join(contentRoot, file);
+      const manifestPath = path.join(postsRoot, file);
       const raw = JSON.parse(await readFile(manifestPath, 'utf8')) as unknown;
       const manifest = validatePostManifest(raw, manifestPath);
-      const sourcePath = path.join(contentRoot, manifest.source);
+      const sourcePath = path.join(postsRoot, manifest.source);
       const sourceMarkdown = await readFile(sourcePath, 'utf8');
       const rendered = renderMarkdown(sourceMarkdown, manifest);
 
