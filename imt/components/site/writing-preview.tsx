@@ -1,7 +1,10 @@
 import { getListedPosts, postHref } from '@/lib/blog/posts';
 import { formatMonthYear } from '@/lib/blog/date';
 import { ExternalLink } from '@/components/primitives/external-link';
-import { PostTags } from '@/components/primitives/post-tags';
+import {
+  PostTags,
+  postTitleTagGapClassName,
+} from '@/components/primitives/post-tags';
 import {
   RailActionItem,
   RailItem,
@@ -38,7 +41,7 @@ export async function WritingPreview() {
                         href={postHref(post)}
                         section="b"
                         data-rail-hover-source="true"
-                        className="font-semibold text-foreground"
+                        className={`font-semibold text-foreground ${postTitleTagGapClassName}`}
                       >
                         {post.manifest.title}
                       </ExternalLink>

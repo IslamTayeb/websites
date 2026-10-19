@@ -1,7 +1,10 @@
 import { RoybBand } from '@/components/primitives/royb-band';
 import { BorderedPanel, Section } from '@/components/primitives/section';
 import { ExternalLink } from '@/components/primitives/external-link';
-import { PostTags } from '@/components/primitives/post-tags';
+import {
+  PostTags,
+  postTitleTagGapClassName,
+} from '@/components/primitives/post-tags';
 import { RailItem, RailList } from '@/components/primitives/rail';
 import { externalWriting } from '@/data/external-writing';
 import { postHref, type BlogPost } from '@/lib/blog/posts';
@@ -40,7 +43,7 @@ export function BlogIndex({ posts }: { posts: BlogPost[] }) {
                         href={postHref(post)}
                         section="b"
                         data-rail-hover-source="true"
-                        className="text-base font-semibold leading-tight text-foreground"
+                        className={`text-base font-semibold leading-tight text-foreground ${postTitleTagGapClassName}`}
                       >
                         {post.manifest.title}
                       </ExternalLink>
@@ -78,7 +81,7 @@ export function BlogIndex({ posts }: { posts: BlogPost[] }) {
                       section="b"
                       data-rail-hover-source="true"
                       data-testid="external-writing-title"
-                      className="min-w-0 text-base font-semibold leading-tight text-foreground"
+                      className={`min-w-0 text-base font-semibold leading-tight text-foreground ${postTitleTagGapClassName}`}
                     >
                       {item.title}
                     </ExternalLink>

@@ -2775,15 +2775,11 @@ async function assertPostTagTypographyAndAlignment(page: Page, label: string) {
       return {
         verticalAlign: getComputedStyle(group).verticalAlign,
         // A tag that does not fit beside the title wraps to its own line,
-        // starting at the title's left edge.
+        // starting flush at the title's left edge (the title owns the gap).
         wrapped:
           !!titleLine &&
           groupRect.top >= titleLine.bottom - 1 &&
-          Math.abs(
-            groupRect.left -
-              Number.parseFloat(getComputedStyle(group).marginLeft) -
-              titleLeft
-          ) <= 1,
+          Math.abs(groupRect.left - titleLeft) <= 1,
         offset: titleLine
           ? groupRect.top +
             groupRect.height / 2 -
