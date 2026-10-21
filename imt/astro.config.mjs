@@ -5,15 +5,17 @@ import browserslist from 'browserslist';
 import { browserslistToTargets } from 'lightningcss';
 import siteUrlConfig from './data/site-url.json' with { type: 'json' };
 
-// Every page is prerendered to plain HTML with its CSS inlined; React only
-// runs at build time. Redirects live in vercel.json (npm run generate:redirects).
+// Every page is prerendered to plain HTML; React only runs at build time. The
+// stylesheet is one shared, content-hashed file cached forever, so after the
+// first visit a page's HTML is all that travels. Redirects live in vercel.json
+// (npm run generate:redirects).
 export default defineConfig({
   site: siteUrlConfig.url,
   output: 'static',
   trailingSlash: 'never',
   build: {
     format: 'file',
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'never',
   },
   devToolbar: { enabled: false },
   integrations: [react()],

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "tsc --noEmit && astro build && node scripts/trim-css.mjs && node scripts/check-open-sans.mjs",
+    "build": "tsc --noEmit && astro build && node scripts/check-open-sans.mjs",
     "start": "astro preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -49,8 +49,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "lightningcss": "^1.33.0",
     "prettier": "^3.6.2",
-    "purgecss": "^8.0.0",
-    "purgecss-from-html": "^8.0.0",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
     "typescript": "5.7.3",

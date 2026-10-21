@@ -45,7 +45,7 @@ All active-site commands run from `imt/`:
 
 ```sh
 npm run dev            # local dev server (astro dev)
-npm run build          # typecheck + static build to dist/ + CSS trim + font check
+npm run build          # typecheck + static build to dist/ + font check
 npm start              # serve dist/ (astro preview)
 npm run lint           # eslint
 npm run format         # prettier --write .
@@ -219,9 +219,10 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   (`imt/vercel.json`), so a font file must get a new name whenever its bytes
   change. Keep the CSS on Lightning CSS with Next's old browser targets (see
   `astro.config.mjs`) so colors keep rendering identically.
-- **CSS per page:** `scripts/trim-css.mjs` runs after the build and drops the
-  inlined CSS rules a page can't use. Classes or attributes that scripts add at
-  runtime must be in its safelist.
+- **Stylesheet:** one shared, content-hashed file in `/_astro/`, cached as
+  immutable (`imt/vercel.json`), so after the first visit only a page's HTML
+  travels. Keep each page's HTML under about 14 KB compressed so it fits in
+  the first network round trip.
 - **Prerendering:** a `speculationrules` block prerenders site pages as soon as
   a link is hovered (`eager`; Chrome/Edge). Inline scripts must handle prerendered pages: the
   pageview waits for `prerenderingchange`, and the theme is re-read then.
