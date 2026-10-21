@@ -209,7 +209,8 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   except latin. `styles/fonts.css` narrows each `unicode-range` to the
   characters the file really contains, so a page never downloads a subset just
   because Google's range claims a glyph (→ ↔ ↩ ⌘ ⌥) the file lacks. The latin
-  face is trimmed to the characters the site renders by
+  face is trimmed to the characters the site renders and to weights 400-700 (the
+  axis keeps its 400 and 700 masters, so used weights interpolate as before) by
   `scripts/subset-open-sans.py` (fontTools), which writes a content-hashed
   file and `styles/open-sans-latin.css`. The build fails when a page renders a
   character the trim lacks: run `python3 scripts/subset-open-sans.py`, then
