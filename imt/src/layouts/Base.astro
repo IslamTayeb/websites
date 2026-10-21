@@ -45,11 +45,17 @@ const pageviewsEnabled =
     }
     <script is:inline set:html={themeScript} />
     <style is:inline>
-      html:not(.ready) body {
+      /* Until the theme script marks the page ready, paint nothing of the
+         site, not even its background, so the first frame is the finished
+         page. Without JavaScript there is no .js class and nothing hides. */
+      html.js:not(.ready),
+      html.js:not(.ready) body {
+        background: none;
+      }
+      html.js:not(.ready) body {
         visibility: hidden;
       }
     </style>
-    <noscript><style is:inline>body { visibility: visible !important; }</style></noscript>
     <meta name="theme-color" content="#d5d1c7" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />

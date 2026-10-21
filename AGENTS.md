@@ -198,10 +198,10 @@ some fingerspitzengefühl`, `it got me thinking about...`, sentences that
   `imt.sh/blog/...` and on the APM shell, and feed entry IDs stay on the first
   slug so readers don't see the post as new.
 - **Page load:** The only client code is the inline scripts in
-  `lib/site-scripts.ts`. Each page stays hidden (`html:not(.ready) body`) until
-  its fonts are loaded and the document is parsed, so the first visible frame
+  `lib/site-scripts.ts`. Each page, background included, stays hidden
+  (`html.js:not(.ready)`) until its fonts are loaded and the document is parsed, so the first visible frame
   is the finished page: no font swap, re-wrap, or theme flash. The reveal gives
-  up after 3s, and `<noscript>` shows the page without JavaScript. Harmonia
+  up after 3s; without JavaScript there is no `.js` class and nothing hides. Harmonia
   embeds start loading right after the reveal with `?theme=` in their URL.
   Interactions use the platform: experience groups are `<details>`, the theme
   toggle is a delegated click handler in the theme script.

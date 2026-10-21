@@ -3,6 +3,9 @@
 
 export const themeScript = `
 (function () {
+  // Turns on the hide-until-ready rules in the layout's inline style.
+  document.documentElement.classList.add('js');
+
   function currentTheme() {
     return document.documentElement.classList.contains('dark')
       ? 'dark'
