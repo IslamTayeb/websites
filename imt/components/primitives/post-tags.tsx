@@ -3,8 +3,8 @@ import { Tag } from '@/components/primitives/tag';
 import type { PostKind } from '@/lib/blog/manifest';
 
 // Yellow ties technical write-ups to the research/publications color; red
-// ties opinion pieces to the personal voice. Blue stays the writing
-// section's hover accent and orange stays the experience "current" marker.
+// ties opinion pieces to the argued voice; blue, the writing section's color,
+// marks personal pieces. Orange stays the experience "current" marker.
 // The gap between a title and its tags belongs to the title, as trailing
 // margin on the title link: when the tags wrap onto their own line, the gap
 // stays behind at the end of the title and the tags start flush left.
@@ -13,6 +13,7 @@ export const postTitleTagGapClassName = 'mr-2';
 const postKindTone = {
   technical: 'y',
   opinion: 'r',
+  personal: 'b',
 } as const satisfies Record<PostKind, string>;
 
 // Lucide's square-arrow-out-up-right, inlined.

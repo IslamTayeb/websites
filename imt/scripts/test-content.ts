@@ -568,14 +568,16 @@ async function main() {
   );
   assert.deepEqual(
     listedPosts
-      .filter((post) => post.manifest.kind !== 'technical')
-      .map((post) => [post.manifest.slug, post.manifest.kind]),
-    [
-      ['one-to-zero', 'opinion'],
-      ['osu-and-fingerspitzengefuhl', 'opinion'],
-      ['on-closing-doors', 'opinion'],
-      ['ricing-macos-for-fun', 'opinion'],
-    ],
+      .filter((post) => post.manifest.kind === 'personal')
+      .map((post) => post.manifest.slug),
+    ['osu-and-fingerspitzengefuhl', 'ricing-macos-for-fun'],
+    'only osu! and Ricing macOS should carry the personal tag'
+  );
+  assert.deepEqual(
+    listedPosts
+      .filter((post) => post.manifest.kind === 'opinion')
+      .map((post) => post.manifest.slug),
+    ['one-to-zero', 'on-closing-doors'],
     'every other listed post should carry the opinion tag'
   );
   assertDescendingDates(listedPosts);

@@ -10,7 +10,7 @@ const tagToneClasses: Record<TagTone, string> = {
   r: 'bg-roy-r/[0.14] text-foreground',
   o: 'bg-roy-o/[0.16] text-foreground',
   y: 'bg-roy-y/[0.22] text-foreground',
-  b: 'bg-roy-b/[0.14] text-roy-b',
+  b: 'bg-roy-b/[0.14] text-foreground',
 };
 
 export function Tag({
