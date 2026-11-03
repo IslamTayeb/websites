@@ -1248,14 +1248,17 @@ async function assertHome(page: Page) {
         showMoreLeft: showMoreRect?.left ?? 0,
         marginBottom: Number.parseFloat(getComputedStyle(group).marginBottom),
         count: (() => {
-          const count = group.querySelector<HTMLElement>(
-            '[data-testid="experience-group-count"]'
+          const count = document.querySelector<HTMLElement>(
+            `[data-testid="experience-group-count"][data-group="${group.getAttribute('data-group')}"]`
           );
           const name = group.querySelector<HTMLElement>(
             '[data-testid="experience-group-label-name"]'
           );
           if (!count || !name) return null;
-          const countRect = count.getBoundingClientRect();
+          // The count box is zero-height; measure the text it draws.
+          const countRange = document.createRange();
+          countRange.selectNodeContents(count);
+          const countRect = countRange.getBoundingClientRect();
           const nameRect = name.getBoundingClientRect();
           const style = getComputedStyle(count);
 
@@ -1272,6 +1275,8 @@ async function assertHome(page: Page) {
             ),
             fontFamily: style.fontFamily,
             fontSize: Number.parseFloat(style.fontSize),
+            outsideToggle: !count.closest('summary'),
+            selectable: style.userSelect !== 'none',
           };
         })(),
       };
@@ -2391,6 +2396,8 @@ async function assertHome(page: Page) {
           clearance: number;
           lines: number;
           fontSize: number;
+          outsideToggle: boolean;
+          selectable: boolean;
         } | null;
       }) =>
         group.count &&
@@ -2398,9 +2405,11 @@ async function assertHome(page: Page) {
         Math.abs(group.count.centerOffset) <= 1 &&
         group.count.clearance >= 12 &&
         group.count.lines === 1 &&
-        group.count.fontSize === 14
+        group.count.fontSize === 14 &&
+        group.count.outsideToggle &&
+        group.count.selectable
     ),
-    'group counts should sit on one line in the date column, level with the label'
+    'group counts should be selectable text outside the toggle, on one line in the date column, level with the label'
   );
   assert.ok(
     (teaching?.marginBottom ?? 0) < (research?.marginBottom ?? 0),
@@ -2480,7 +2489,7 @@ async function assertHome(page: Page) {
     [
       ['opinion', 'opinion'],
       ['technical', 'technical'],
-      ['opinion', 'opinion'],
+      ['personal', 'personal'],
     ]
   );
   assert.ok(
@@ -4061,10 +4070,10 @@ async function assertBlogIndex(page: Page) {
   assert.deepEqual(result.postTagLabels, [
     ['opinion', 'opinion'],
     ['technical', 'technical'],
-    ['opinion', 'opinion'],
+    ['personal', 'personal'],
     ['technical', 'technical'],
     ['opinion', 'opinion'],
-    ['opinion', 'opinion'],
+    ['personal', 'personal'],
     ['opinion', 'opinion'],
     ['external', 'external'],
   ]);

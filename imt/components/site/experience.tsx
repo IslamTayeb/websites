@@ -275,43 +275,47 @@ function RailGroupBlock({
   const countWord = count === 1 ? group.countWord.one : group.countWord.other;
 
   return (
-    <details
-      open={open}
-      data-testid="experience-group"
-      data-group={group.kind}
-      className="group/experience-group relative mb-0.5 flex flex-col last:mb-0 open:mb-2.5 open:last:mb-0"
-    >
-      <summary
-        data-testid="experience-group-toggle"
-        className={cn(
-          'royb-link-hover-scope group/experience-toggle inline-grid w-fit max-w-full list-none grid-cols-[var(--rail-gutter)_max-content] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-details-marker]:hidden',
-          isLast ? 'pb-0 group-open/experience-group:pb-2' : 'pb-2'
-        )}
+    <>
+      {/* Zero-height line drawn over the toggle's right side, outside the
+          <summary>, so the count is selectable text and never toggles. */}
+      <span
+        data-testid="experience-group-count"
+        data-group={group.kind}
+        className="relative z-10 h-0 self-end whitespace-nowrap font-mono text-sm text-muted-foreground"
       >
-        <FilledDisclosureArrow />
-        <RoybLinkText
-          data-testid="experience-group-label"
-          data-group={group.kind}
-          className="w-fit justify-self-start"
-          section="o"
+        {count} {countWord}
+      </span>
+      <details
+        open={open}
+        data-testid="experience-group"
+        data-group={group.kind}
+        className="group/experience-group mb-0.5 flex flex-col last-of-type:mb-0 open:mb-2.5 open:last-of-type:mb-0"
+      >
+        <summary
+          data-testid="experience-group-toggle"
+          className={cn(
+            'royb-link-hover-scope group/experience-toggle inline-grid w-fit max-w-full list-none grid-cols-[var(--rail-gutter)_max-content] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-details-marker]:hidden',
+            isLast ? 'pb-0 group-open/experience-group:pb-2' : 'pb-2'
+          )}
         >
-          <span
-            data-testid="experience-group-label-name"
-            className="uppercase tracking-[0.2em]"
+          <FilledDisclosureArrow />
+          <RoybLinkText
+            data-testid="experience-group-label"
+            data-group={group.kind}
+            className="w-fit justify-self-start"
+            section="o"
           >
-            {label}
-          </span>
-        </RoybLinkText>
-        {/* Sits in the date column but stays out of the label-wide hit area. */}
-        <span
-          data-testid="experience-group-count"
-          className="pointer-events-none absolute right-0 top-0 whitespace-nowrap"
-        >
-          {count} {countWord}
-        </span>
-      </summary>
-      <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
-    </details>
+            <span
+              data-testid="experience-group-label-name"
+              className="uppercase tracking-[0.2em]"
+            >
+              {label}
+            </span>
+          </RoybLinkText>
+        </summary>
+        <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
+      </details>
+    </>
   );
 }
 
