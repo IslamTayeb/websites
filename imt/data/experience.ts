@@ -227,10 +227,10 @@ export const experienceGroups: ExperienceGroup[] = [
         date: 'Oct 2025 - Present',
         href: 'https://www.raycast.com/islamtayeb/helium',
         state: 'present',
-        desc: 'Made Helium, browser tab control (2.2K+ downloads)',
+        desc: 'Made Helium extension, browser tab control (2.2K+ downloads)',
         descLinks: [
           {
-            text: 'Helium',
+            text: 'Helium extension',
             href: 'https://github.com/raycast/extensions/tree/main/extensions/helium',
           },
         ],
