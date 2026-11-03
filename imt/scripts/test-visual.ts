@@ -1247,6 +1247,33 @@ async function assertHome(page: Page) {
           : 0,
         showMoreLeft: showMoreRect?.left ?? 0,
         marginBottom: Number.parseFloat(getComputedStyle(group).marginBottom),
+        count: (() => {
+          const count = group.querySelector<HTMLElement>(
+            '[data-testid="experience-group-count"]'
+          );
+          const name = group.querySelector<HTMLElement>(
+            '[data-testid="experience-group-label-name"]'
+          );
+          if (!count || !name) return null;
+          const countRect = count.getBoundingClientRect();
+          const nameRect = name.getBoundingClientRect();
+          const style = getComputedStyle(count);
+
+          return {
+            text: count.textContent?.trim() ?? '',
+            rightGap: group.getBoundingClientRect().right - countRect.right,
+            centerOffset:
+              countRect.top +
+              countRect.height / 2 -
+              (nameRect.top + nameRect.height / 2),
+            clearance: countRect.left - nameRect.right,
+            lines: Math.round(
+              countRect.height / Number.parseFloat(style.lineHeight)
+            ),
+            fontFamily: style.fontFamily,
+            fontSize: Number.parseFloat(style.fontSize),
+          };
+        })(),
       };
     });
     const experienceDescriptionStyles = [
@@ -2347,6 +2374,33 @@ async function assertHome(page: Page) {
     openSource?.togglePaddingBottom,
     0,
     'final closed Open Source toggle should not add bottom whitespace'
+  );
+  assert.deepEqual(
+    result.groups.map(
+      (group: { count: { text: string } | null }) => group.count?.text
+    ),
+    ['3 roles', '3 roles', '3 courses', '1 maintained'],
+    'every experience group should show its row count'
+  );
+  assert.ok(
+    result.groups.every(
+      (group: {
+        count: {
+          rightGap: number;
+          centerOffset: number;
+          clearance: number;
+          lines: number;
+          fontSize: number;
+        } | null;
+      }) =>
+        group.count &&
+        Math.abs(group.count.rightGap) <= 1 &&
+        Math.abs(group.count.centerOffset) <= 1 &&
+        group.count.clearance >= 12 &&
+        group.count.lines === 1 &&
+        group.count.fontSize === 14
+    ),
+    'group counts should sit on one line in the date column, level with the label'
   );
   assert.ok(
     (teaching?.marginBottom ?? 0) < (research?.marginBottom ?? 0),

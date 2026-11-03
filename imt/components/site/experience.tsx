@@ -271,13 +271,15 @@ function RailGroupBlock({
   boxedAdvisorLabels: boolean;
 }) {
   const label = experienceGroupLabel(group.kind);
+  const count = group.roles.length;
+  const countWord = count === 1 ? group.countWord.one : group.countWord.other;
 
   return (
     <details
       open={open}
       data-testid="experience-group"
       data-group={group.kind}
-      className="group/experience-group mb-0.5 flex flex-col last:mb-0 open:mb-2.5 open:last:mb-0"
+      className="group/experience-group relative mb-0.5 flex flex-col last:mb-0 open:mb-2.5 open:last:mb-0"
     >
       <summary
         data-testid="experience-group-toggle"
@@ -300,6 +302,13 @@ function RailGroupBlock({
             {label}
           </span>
         </RoybLinkText>
+        {/* Sits in the date column but stays out of the label-wide hit area. */}
+        <span
+          data-testid="experience-group-count"
+          className="pointer-events-none absolute right-0 top-0 whitespace-nowrap"
+        >
+          {count} {countWord}
+        </span>
       </summary>
       <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
     </details>

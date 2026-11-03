@@ -29,12 +29,15 @@ type ExperienceRole = {
 
 export type ExperienceGroup = {
   kind: 'research' | 'engineering' | 'teaching' | 'open-source';
+  // Word after the row count on the group toggle, e.g. `3 roles`.
+  countWord: { one: string; other: string };
   roles: ExperienceRole[];
 };
 
 export const experienceGroups: ExperienceGroup[] = [
   {
     kind: 'research',
+    countWord: { one: 'role', other: 'roles' },
     roles: [
       /*
       {
@@ -147,6 +150,7 @@ export const experienceGroups: ExperienceGroup[] = [
   },
   {
     kind: 'engineering',
+    countWord: { one: 'role', other: 'roles' },
     roles: [
       {
         org: 'Soff (YC S24)',
@@ -188,6 +192,7 @@ export const experienceGroups: ExperienceGroup[] = [
   },
   {
     kind: 'teaching',
+    countWord: { one: 'course', other: 'courses' },
     roles: [
       {
         org: 'Operating Systems',
@@ -220,6 +225,7 @@ export const experienceGroups: ExperienceGroup[] = [
   },
   {
     kind: 'open-source',
+    countWord: { one: 'maintained', other: 'maintained' },
     roles: [
       {
         org: 'Raycast',
