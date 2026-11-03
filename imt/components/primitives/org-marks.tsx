@@ -86,17 +86,14 @@ const orgMarks: Record<OrgKey, OrgMarkDef> = {
       'M6.12 14.6L6.13 13.45L6.14 13.33L6.18 13.23L6.25 13.16L6.36 13.12L6.49 13.11L9.51 13.11L9.65 13.12L9.75 13.16L9.82 13.23L9.87 13.33L9.88 13.46L9.88 14.56L9.86 14.69L9.82 14.79L9.04 15.86L8.97 15.93L8.88 15.98L8.76 16L7.23 16L7.12 15.98L7.02 15.93L6.96 15.86L6.15 14.73Z',
     ],
   },
-  // Simple Icons "raycast", kept to the center square and the two outer bars,
-  // thickened, so the stripes don't blur together at 12px
+  // Raycast's own logo (raycast.com header SVG, same as Simple Icons "raycast")
   raycast: {
     label: 'Raycast',
     box: [0.0, 0.0, 16.0, 16.0],
-    ink: 88.5,
+    ink: 77.5,
     weight: 0.85,
     paths: [
-      'M5.79 4L12 4L12 10.21L5.79 10.21Z',
-      'M8 0L16 8L14.25 9.75L6.25 1.75Z',
-      'M0 8L8 16L9.75 14.25L1.75 6.25Z',
+      'M4 10.33L4 12L0 7.99L0.84 7.16ZM5.67 12L4 12L8.01 16L8.84 15.16ZM15.17 8.83L16 8L8 0L7.17 0.83L10.33 4L8.42 4L6.21 1.79L5.38 2.63L6.75 4L5.79 4L5.79 10.21L12 10.21L12 9.25L13.37 10.63L14.21 9.79L12 7.58L12 5.67ZM4.42 3.58L3.59 4.42L4.48 5.31L5.32 4.48ZM11.52 10.68L10.69 11.52L11.59 12.41L12.42 11.58ZM2.63 5.37L1.79 6.21L4 8.42L4 6.75ZM9.25 12L7.58 12L9.79 14.21L10.63 13.37Z',
     ],
   },
 };

@@ -236,7 +236,7 @@ export const experienceGroups: ExperienceGroup[] = [
         ],
         descLines: [
           {
-            label: 'Contributed to',
+            label: 'Contributions',
             text: 'Messages (54K) + Paste as Plain Text (28K)',
             links: [
               {
