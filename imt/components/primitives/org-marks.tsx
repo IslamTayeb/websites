@@ -3,7 +3,14 @@
 // renders in currentColor. `box` is the tight bounds inside the 16x16 box, and
 // `ink` the filled area, so marks can be sized to equal visual weight.
 
-export type OrgKey = 'duke' | 'kfupm' | 'yc' | 'soff' | 'diig' | 'dihi';
+export type OrgKey =
+  | 'duke'
+  | 'kfupm'
+  | 'yc'
+  | 'soff'
+  | 'diig'
+  | 'dihi'
+  | 'raycast';
 
 type OrgMarkDef = {
   label: string;
@@ -77,6 +84,19 @@ const orgMarks: Record<OrgKey, OrgMarkDef> = {
     paths: [
       'M12.7 3.28C13.16 2.41 13.28 1.49 12.96 0.54C12.95 0.52 12.94 0.49 12.92 0.44C12.62 0.99 12.25 1.46 11.75 1.82C10.76 0.65 9.53 0 8 0L7.99 0C6.46 0 5.23 0.65 4.25 1.82C3.74 1.46 3.38 0.99 3.07 0.44C3.05 0.49 3.04 0.51 3.03 0.54C2.71 1.49 2.84 2.41 3.29 3.28C3.16 4.13 3.16 4.69 3.24 5.26C3.37 6.1 3.67 6.9 4.03 7.67C4.42 8.53 4.85 9.38 5.22 10.25C5.53 10.97 5.77 11.73 6.05 12.5L6.18 12.5Q7.09 12.5 8 12.5Q8.91 12.5 9.82 12.5L9.94 12.5C10.23 11.73 10.47 10.97 10.78 10.25C11.15 9.38 11.57 8.53 11.97 7.67C12.32 6.9 12.63 6.11 12.75 5.26C12.84 4.69 12.83 4.13 12.68 3.57Z',
       'M6.12 14.6L6.13 13.45L6.14 13.33L6.18 13.23L6.25 13.16L6.36 13.12L6.49 13.11L9.51 13.11L9.65 13.12L9.75 13.16L9.82 13.23L9.87 13.33L9.88 13.46L9.88 14.56L9.86 14.69L9.82 14.79L9.04 15.86L8.97 15.93L8.88 15.98L8.76 16L7.23 16L7.12 15.98L7.02 15.93L6.96 15.86L6.15 14.73Z',
+    ],
+  },
+  // Simple Icons "raycast", kept to the center square and the two outer bars,
+  // thickened, so the stripes don't blur together at 12px
+  raycast: {
+    label: 'Raycast',
+    box: [0.0, 0.0, 16.0, 16.0],
+    ink: 88.5,
+    weight: 0.85,
+    paths: [
+      'M5.79 4L12 4L12 10.21L5.79 10.21Z',
+      'M8 0L16 8L14.25 9.75L6.25 1.75Z',
+      'M0 8L8 16L9.75 14.25L1.75 6.25Z',
     ],
   },
 };

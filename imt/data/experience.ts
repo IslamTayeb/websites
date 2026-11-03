@@ -28,7 +28,7 @@ type ExperienceRole = {
 };
 
 export type ExperienceGroup = {
-  kind: 'research' | 'engineering' | 'teaching';
+  kind: 'research' | 'engineering' | 'teaching' | 'open-source';
   roles: ExperienceRole[];
 };
 
@@ -215,6 +215,41 @@ export const experienceGroups: ExperienceGroup[] = [
         date: 'Jan 2025 - May 2025',
         state: 'ended',
         desc: 'Led a study group, saw kids quit pre-med as the semester went',
+      },
+    ],
+  },
+  {
+    kind: 'open-source',
+    roles: [
+      {
+        org: 'Raycast',
+        orgKey: 'raycast',
+        date: 'Oct 2025 - Present',
+        href: 'https://www.raycast.com/islamtayeb/helium',
+        state: 'present',
+        desc: 'Made Helium, browser tab control (2.2K+ downloads)',
+        descLinks: [
+          {
+            text: 'Helium',
+            href: 'https://github.com/raycast/extensions/tree/main/extensions/helium',
+          },
+        ],
+        descLines: [
+          {
+            label: 'Contributed to',
+            text: 'Messages (54K) + Paste as Plain Text (28K)',
+            links: [
+              {
+                text: 'Messages',
+                href: 'https://github.com/raycast/extensions/pull/29342',
+              },
+              {
+                text: 'Paste as Plain Text',
+                href: 'https://github.com/raycast/extensions/pull/31379',
+              },
+            ],
+          },
+        ],
       },
     ],
   },

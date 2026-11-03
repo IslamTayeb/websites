@@ -2137,7 +2137,7 @@ async function assertHome(page: Page) {
     result.experienceGroupLabelStyles.map(
       (label: { text: string }) => label.text
     ),
-    ['Research', 'Engineering', 'Teaching']
+    ['Research', 'Engineering', 'Teaching', 'Open Source']
   );
   assert.ok(
     result.experienceGroupLabelStyles.every(
@@ -2211,6 +2211,9 @@ async function assertHome(page: Page) {
     (group) => group.kind === 'engineering'
   );
   const teaching = result.groups.find((group) => group.kind === 'teaching');
+  const openSource = result.groups.find(
+    (group) => group.kind === 'open-source'
+  );
 
   assert.equal(research?.expanded, 'true', 'research should default open');
   assert.equal(research?.rows, 3, 'research should show all 3 rows');
@@ -2336,12 +2339,15 @@ async function assertHome(page: Page) {
   assert.equal(teaching?.expanded, 'false');
   assert.equal(teaching?.rows, 0, 'teaching should default collapsed');
   assert.equal(teaching?.hasShowMore, false, 'teaching should not show more');
-  assert.equal(
-    teaching?.togglePaddingBottom,
-    0,
-    'final closed Teaching toggle should not add bottom whitespace'
-  );
   assert.ok(teaching?.text.includes('Teaching'));
+  assert.equal(openSource?.expanded, 'false');
+  assert.equal(openSource?.rows, 0, 'open source should default collapsed');
+  assert.ok(openSource?.text.includes('Open Source'));
+  assert.equal(
+    openSource?.togglePaddingBottom,
+    0,
+    'final closed Open Source toggle should not add bottom whitespace'
+  );
   assert.ok(
     (teaching?.marginBottom ?? 0) < (research?.marginBottom ?? 0),
     'closed groups should use tighter vertical spacing than open groups'

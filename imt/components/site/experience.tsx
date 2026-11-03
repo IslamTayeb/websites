@@ -253,6 +253,8 @@ function FilledDisclosureArrow() {
 }
 
 function experienceGroupLabel(kind: ExperienceGroup['kind']) {
+  if (kind === 'open-source') return 'Open Source';
+
   return kind[0].toUpperCase() + kind.slice(1);
 }
 
