@@ -271,51 +271,47 @@ function RailGroupBlock({
   boxedAdvisorLabels: boolean;
 }) {
   const label = experienceGroupLabel(group.kind);
-  const count = group.roles.length;
-  const countWord = count === 1 ? group.countWord.one : group.countWord.other;
 
   return (
-    <>
-      {/* Zero-height line drawn over the toggle's right side, outside the
-          <summary>, so the count is selectable text and never toggles. */}
-      <span
-        data-testid="experience-group-count"
-        data-group={group.kind}
-        className="relative z-10 h-0 self-end whitespace-nowrap font-mono text-sm text-muted-foreground"
+    <details
+      open={open}
+      data-testid="experience-group"
+      data-group={group.kind}
+      className="group/experience-group mb-0.5 flex flex-col last-of-type:mb-0 open:mb-2.5 open:last-of-type:mb-0"
+    >
+      <summary
+        data-testid="experience-group-toggle"
+        className={cn(
+          'royb-link-hover-scope group/experience-toggle grid w-full list-none grid-cols-[var(--rail-gutter)_max-content_minmax(0,1fr)] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-details-marker]:hidden',
+          isLast ? 'pb-0 group-open/experience-group:pb-2' : 'pb-2'
+        )}
       >
-        {count} {countWord}
-      </span>
-      <details
-        open={open}
-        data-testid="experience-group"
-        data-group={group.kind}
-        className="group/experience-group mb-0.5 flex flex-col last-of-type:mb-0 open:mb-2.5 open:last-of-type:mb-0"
-      >
-        <summary
-          data-testid="experience-group-toggle"
-          className={cn(
-            'royb-link-hover-scope group/experience-toggle inline-grid w-fit max-w-full list-none grid-cols-[var(--rail-gutter)_max-content] items-center text-left font-mono text-sm tracking-normal text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-details-marker]:hidden',
-            isLast ? 'pb-0 group-open/experience-group:pb-2' : 'pb-2'
-          )}
+        <FilledDisclosureArrow />
+        <RoybLinkText
+          data-testid="experience-group-label"
+          data-group={group.kind}
+          className="w-fit justify-self-start"
+          section="o"
         >
-          <FilledDisclosureArrow />
-          <RoybLinkText
-            data-testid="experience-group-label"
-            data-group={group.kind}
-            className="w-fit justify-self-start"
-            section="o"
+          <span
+            data-testid="experience-group-label-name"
+            className="uppercase tracking-[0.2em]"
           >
-            <span
-              data-testid="experience-group-label-name"
-              className="uppercase tracking-[0.2em]"
-            >
-              {label}
-            </span>
-          </RoybLinkText>
-        </summary>
-        <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
-      </details>
-    </>
+            {label}
+          </span>
+        </RoybLinkText>
+        {/* Real underlined text, so the dots share the label underline's
+              position, thickness, and color. */}
+        <span
+          aria-hidden
+          data-testid="experience-group-leader"
+          className="experience-index-leader section-color-o ml-3 select-none overflow-hidden whitespace-pre"
+        >
+          {'\u00a0'.repeat(100)}
+        </span>
+      </summary>
+      <RailGroup group={group} boxedAdvisorLabels={boxedAdvisorLabels} />
+    </details>
   );
 }
 

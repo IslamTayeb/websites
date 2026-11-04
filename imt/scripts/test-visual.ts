@@ -1247,36 +1247,39 @@ async function assertHome(page: Page) {
           : 0,
         showMoreLeft: showMoreRect?.left ?? 0,
         marginBottom: Number.parseFloat(getComputedStyle(group).marginBottom),
-        count: (() => {
-          const count = document.querySelector<HTMLElement>(
-            `[data-testid="experience-group-count"][data-group="${group.getAttribute('data-group')}"]`
+        leader: (() => {
+          const leader = group.querySelector<HTMLElement>(
+            '[data-testid="experience-group-leader"]'
           );
-          const name = group.querySelector<HTMLElement>(
-            '[data-testid="experience-group-label-name"]'
+          const label = group.querySelector<HTMLElement>(
+            '[data-testid="experience-group-label"]'
           );
-          if (!count || !name) return null;
-          // The count box is zero-height; measure the text it draws.
-          const countRange = document.createRange();
-          countRange.selectNodeContents(count);
-          const countRect = countRange.getBoundingClientRect();
-          const nameRect = name.getBoundingClientRect();
-          const style = getComputedStyle(count);
+          if (!leader || !label) return null;
+          const leaderRect = leader.getBoundingClientRect();
+          const labelRect = label.getBoundingClientRect();
+          const leaderStyle = getComputedStyle(leader);
+          const labelStyle = getComputedStyle(label);
 
           return {
-            text: count.textContent?.trim() ?? '',
-            rightGap: group.getBoundingClientRect().right - countRect.right,
-            centerOffset:
-              countRect.top +
-              countRect.height / 2 -
-              (nameRect.top + nameRect.height / 2),
-            clearance: countRect.left - nameRect.right,
-            lines: Math.round(
-              countRect.height / Number.parseFloat(style.lineHeight)
-            ),
-            fontFamily: style.fontFamily,
-            fontSize: Number.parseFloat(style.fontSize),
-            outsideToggle: !count.closest('summary'),
-            selectable: style.userSelect !== 'none',
+            rightGap: group.getBoundingClientRect().right - leaderRect.right,
+            clearance: leaderRect.left - labelRect.right,
+            sameBox:
+              leaderRect.top === labelRect.top &&
+              leaderRect.height === labelRect.height,
+            matchesUnderline: (
+              [
+                'fontFamily',
+                'fontSize',
+                'textDecorationColor',
+                'textDecorationLine',
+                'textDecorationThickness',
+                'textUnderlineOffset',
+              ] as const
+            ).every((key) => leaderStyle[key] === labelStyle[key]),
+            maskSize: leaderStyle.maskSize,
+            insideToggle: Boolean(leader.closest('summary')),
+            hidden: leader.getAttribute('aria-hidden') === 'true',
+            unselectable: leaderStyle.userSelect === 'none',
           };
         })(),
       };
@@ -2230,12 +2233,10 @@ async function assertHome(page: Page) {
         label.justifySelf.endsWith('start') &&
         label.width > 0 &&
         label.toggleWidth > 0 &&
-        label.toggleWidth > label.width &&
-        label.toggleWidth - label.width >= 28 &&
-        label.toggleWidth - label.width <= 40 &&
+        label.toggleWidth > label.width + 32 &&
         Math.abs(label.left - label.toggleLeft - 32) <= 1
     ),
-    'experience group toggle hover boxes should include only the gutter and label'
+    'experience group toggles should span the row so the leader toggles too'
   );
 
   const research = result.groups.find((group) => group.kind === 'research');
@@ -2380,36 +2381,31 @@ async function assertHome(page: Page) {
     0,
     'final closed Open Source toggle should not add bottom whitespace'
   );
-  assert.deepEqual(
-    result.groups.map(
-      (group: { count: { text: string } | null }) => group.count?.text
-    ),
-    ['3 roles', '3 roles', '3 courses', '1 maintained'],
-    'every experience group should show its row count'
-  );
   assert.ok(
     result.groups.every(
       (group: {
-        count: {
+        leader: {
           rightGap: number;
-          centerOffset: number;
           clearance: number;
-          lines: number;
-          fontSize: number;
-          outsideToggle: boolean;
-          selectable: boolean;
+          sameBox: boolean;
+          matchesUnderline: boolean;
+          maskSize: string;
+          insideToggle: boolean;
+          hidden: boolean;
+          unselectable: boolean;
         } | null;
       }) =>
-        group.count &&
-        Math.abs(group.count.rightGap) <= 1 &&
-        Math.abs(group.count.centerOffset) <= 1 &&
-        group.count.clearance >= 12 &&
-        group.count.lines === 1 &&
-        group.count.fontSize === 14 &&
-        group.count.outsideToggle &&
-        group.count.selectable
+        group.leader &&
+        Math.abs(group.leader.rightGap) <= 1 &&
+        Math.abs(group.leader.clearance - 12) <= 1 &&
+        group.leader.sameBox &&
+        group.leader.matchesUnderline &&
+        group.leader.maskSize === '6px 100%' &&
+        group.leader.insideToggle &&
+        group.leader.hidden &&
+        group.leader.unselectable
     ),
-    'group counts should be selectable text outside the toggle, on one line in the date column, level with the label'
+    'group leaders should run from label to the right edge as 6px dots of the label underline'
   );
   assert.ok(
     (teaching?.marginBottom ?? 0) < (research?.marginBottom ?? 0),
@@ -3297,6 +3293,7 @@ type ExperienceGroupToggleHighlightResult = {
   color: string;
   decoration: string;
   skipInk: string;
+  leaderColor: string;
   orangeToken: string;
 };
 
@@ -3307,6 +3304,9 @@ async function readExperienceGroupToggleHighlight(
   return page.evaluate((selector) => {
     const label = document.querySelector<HTMLElement>(
       `[data-testid="experience-group-toggle"]${selector} [data-testid="experience-group-label"]`
+    );
+    const leader = document.querySelector<HTMLElement>(
+      `[data-testid="experience-group-toggle"]${selector} [data-testid="experience-group-leader"]`
     );
     const style = label ? getComputedStyle(label) : null;
     const probe = document.createElement('span');
@@ -3323,6 +3323,7 @@ async function readExperienceGroupToggleHighlight(
       color: style?.color ?? '',
       decoration: style?.textDecorationLine ?? '',
       skipInk: style?.textDecorationSkipInk ?? '',
+      leaderColor: leader ? getComputedStyle(leader).textDecorationColor : '',
       orangeToken,
     };
   }, stateSelector);
@@ -3339,6 +3340,11 @@ function assertExperienceGroupToggleHighlight(
   assert.equal(result.color, result.orangeToken);
   assert.equal(result.decoration, 'none');
   assert.equal(result.skipInk, 'auto');
+  assert.equal(
+    result.leaderColor,
+    result.orangeToken,
+    `experience group leader should turn orange on ${state}`
+  );
 }
 
 async function assertExperienceGroupLabelHoverHighlight(page: Page) {
@@ -3373,6 +3379,17 @@ async function assertExperienceGroupLabelHoverHighlight(page: Page) {
   );
   await page.mouse.move(0, 0);
   await page.mouse.up();
+  // The press drags a text selection; clear it so it stays out of screenshots.
+  await page.evaluate(() => window.getSelection()?.removeAllRanges());
+
+  await teachingToggle
+    .locator('[data-testid="experience-group-leader"]')
+    .hover();
+  assertExperienceGroupToggleHighlight(
+    await readExperienceGroupToggleHighlight(page, ':hover'),
+    'category leader hover'
+  );
+  await page.mouse.move(0, 0);
 }
 
 async function assertExperienceTitleHoverColors(page: Page) {
@@ -3573,8 +3590,8 @@ async function assertExperienceInteractions(page: Page) {
   assert.ok(groupBox, 'Research group should have a layout box');
   assert.ok(toggleBox, 'Research toggle should have a layout box');
   assert.ok(
-    toggleBox.width < groupBox.width * 0.55,
-    'Research toggle should be shrink-wrapped instead of full width'
+    Math.abs(toggleBox.width - groupBox.width) <= 1,
+    'Research toggle should span the row so the leader is clickable'
   );
 
   await page.mouse.click(
@@ -3583,9 +3600,14 @@ async function assertExperienceInteractions(page: Page) {
   );
   assert.equal(
     await groupRows('research'),
-    3,
-    'clicking the empty right side of the experience header should not toggle'
+    0,
+    'clicking the leader on the right of the experience header should toggle'
   );
+  await page.mouse.click(
+    groupBox.x + groupBox.width - 4,
+    toggleBox.y + toggleBox.height / 2
+  );
+  assert.equal(await groupRows('research'), 3);
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')

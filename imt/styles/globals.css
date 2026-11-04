@@ -356,6 +356,22 @@
   .royb-link-hover-scope:focus-visible .royb-link-hover-icon {
     color: var(--section-color, var(--roy-b));
   }
+  .experience-index-leader {
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 42%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.1em;
+    mask-image: linear-gradient(to left, #000 1.5px, transparent 1.5px);
+    mask-position: right center;
+    mask-repeat: repeat-x;
+    mask-size: 6px 100%;
+  }
+  .royb-link-hover-scope:hover .experience-index-leader,
+  .royb-link-hover-scope:active .experience-index-leader,
+  .royb-link-hover-scope:focus-visible .experience-index-leader {
+    text-decoration-color: var(--section-color, var(--roy-b));
+  }
   .royb-link sub,
   .article-prose a sub {
     text-decoration-skip-ink: auto;

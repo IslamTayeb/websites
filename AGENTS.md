@@ -148,6 +148,12 @@ Use meaningful commit messages that describe the why.
   moves each mark halfway toward the 12px dot's filled area. They stay centered on the shared
   rail axis and may overhang the 12px box. New marks need a tight `box` and a
   raster-measured `ink` value; simplify fine detail so the mark reads at 12px.
+- **Experience group headers:** Each group toggle runs a dotted leader from its
+  label to the right edge, in place of a row count. The leader is real
+  underlined text (`.experience-index-leader`) sharing the label underline's
+  position, thickness, and color, masked into dots every 6px. The whole row
+  toggles, and the dots turn solid section orange with the label on hover,
+  press, and keyboard focus.
 - **Rail title/date balance:** On mobile rail rows, dates get width priority.
   Titles should give up space before dates wrap, while genuinely long dates can
   still wrap on narrow phones without creating horizontal overflow.
