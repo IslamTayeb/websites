@@ -8,7 +8,7 @@ export function absoluteSiteUrl(pathOrUrl = '/') {
 }
 
 // Shown in the footer; bump it when the site changes.
-export const lastUpdated = 'Nov 2, 2026';
+export const lastUpdated = 'Nov 10, 2026';
 
 export const siteMetadata = {
   url: canonicalSiteUrl,

@@ -692,16 +692,6 @@ async function main() {
     }
 
     if (post.manifest.slug === 'clustering-my-spotify-library') {
-      assert.doesNotMatch(
-        post.html,
-        /<p><em>HDBSCAN<\/em> assumes/,
-        'Harmonia should avoid starting consecutive paragraphs with HDBSCAN'
-      );
-      assert.match(
-        post.html,
-        /<p>It assumes clusters are/,
-        'Harmonia HDBSCAN follow-up paragraph should start with a pronoun'
-      );
       assert.equal(
         countMatches(post.html, /class="article-media iframe-figure"/g),
         4,

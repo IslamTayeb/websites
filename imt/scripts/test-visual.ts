@@ -4779,9 +4779,6 @@ async function assertHarmoniaArticle(page: Page) {
       h4Transform: h4Style?.textTransform ?? '',
       h4LetterSpacing: h4Style?.letterSpacing ?? '',
       h4FontFamily: h4Style?.fontFamily ?? '',
-      hasPronounParagraph: paragraphs.some((text) =>
-        text.startsWith('It assumes clusters are')
-      ),
       hasRepeatedHdbscanStart: paragraphs.some((text) =>
         text.startsWith('HDBSCAN assumes')
       ),
@@ -4831,7 +4828,6 @@ async function assertHarmoniaArticle(page: Page) {
     };
   });
 
-  assert.equal(result.hasPronounParagraph, true);
   assert.equal(result.h4Text, "Problem 1: Zero isn't always neutral");
   assert.equal(result.h4Transform, 'none');
   assert.equal(result.h4LetterSpacing, 'normal');

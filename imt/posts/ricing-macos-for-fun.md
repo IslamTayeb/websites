@@ -6,7 +6,7 @@ Last week, I had a daily average screen time of **17 hrs**. I've been hooked sin
 
 Most of the applications I'll be talking about aren't necessary, but I think everyone has something to gain from rethinking how they use their computer.
 
-Every week I'm tweaking something new – remapping keys, testing a new [*Sindre*](https://sindresorhus.com/) app, finding keybinds. The setup is never "done." Same as those campus routes – the exploration is the point.
+Every week I'm tweaking something new – remapping keys, testing a new [*Sindre*](https://sindresorhus.com/) app, finding keybinds. I don't think it's ever going to be "done," and that's fine. I wasn't in a rush to get to class either.
 
 ## Core Principles
 
@@ -48,7 +48,7 @@ This setup automatically clusters applications by "category" in a way that I've 
 4.  Go to `Settings > Keyboard > Keyboard Shortcuts`
 5.  Open `Mission Control > Mission Control`. You can then set up key-binds for `Switch to Desktop X`
 
-Beyond organizing applications across spaces, you also want to manage how windows arrange within each space. A window tiling manager automatically positions your windows in a non-overlapping grid - instead of manually resizing and moving windows, it handles the layout for you. Though MacOS has basic window snapping if you right-click the full-screen button, I recommend [*Rectangle*](https://rectangleapp.com/) to add keyboard shortcuts for manual arrangement. If you come from Linux, you might know [*Hyprland*](https://github.com/hyprwm/Hyprland) or [*i3*](https://i3wm.org/), which are automatic tiling managers. *Yabai* is similar but integrates with macOS spaces - new windows slot into the grid automatically, and you navigate entirely via keyboard.<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>
+Beyond organizing applications across spaces, you also want to manage windows within each space. A window tiling manager positions your windows in a non-overlapping grid so you're not resizing them manually. Though MacOS has basic window snapping if you right-click the full-screen button, I recommend [*Rectangle*](https://rectangleapp.com/) to add keyboard shortcuts for manual arrangement. If you come from Linux, you might know [*Hyprland*](https://github.com/hyprwm/Hyprland) or [*i3*](https://i3wm.org/), which are automatic tiling managers. *Yabai* is similar but integrates with macOS spaces - new windows slot into the grid automatically, and you navigate entirely via keyboard.<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>
 
 <video aria-label="Screen recording of terminal windows being arranged side by side with the macOS window tiling controls." autoplay="" loop="" muted="" playsinline="" style="max-width: 100%" src="/static/media/clipboard-20251012-200207-953.mp4"></video>*MacOS's default window tiling manager*
 
@@ -60,7 +60,7 @@ For example, I've been using multiple sources for interview prep this cycle: Lee
 
 Another example: I switched browsers to *Helium* partially because of their `!bangs` system. If you're unfamiliar, `!bangs` let you search specific sites directly from your address bar – type `!gh react` and you're searching GitHub for React, or `!w quantum mechanics` to jump straight to Wikipedia. Instead of opening a site, finding the search bar, and typing my query, I just type the bang and search term. It sounds minor, but when you're constantly jumping between documentation, tools, and resources, those saved clicks add up. The workflow becomes: think of what you need from the site/service > type it > you're there.
 
-Reminder: automation is about reducing cognitive overhead, not just saving time. Every repetitive task requires you to remember the steps, execute them in order, and context switch between tools. Even if a workflow only takes 30 seconds, doing it 10x a day means 10 moments where your brain has to shift gears. Automation collapses these multi-step processes into single actions, letting you stay in flow. When you notice yourself doing the same thing repeatedly, that's your cue to automate it.
+Reminder: automation is more about cognitive overhead than saving time. A 30-second workflow done 10x a day is 10 times your brain has to shift gears, so if you catch yourself repeating something, automate it.
 
 ### Keyboard > Mouse
 
@@ -72,7 +72,7 @@ For example, I often find myself drowning in tabs, even without duplicates. So, 
 
 Another example: I share files often. I found the default flow jarring: download file > open *Finder* > click *Downloads* > drag + drop file > send. However, a quick search through *Raycast*'s extension store led me to the [*Downloads Manager*](https://www.raycast.com/thomas/downloads-manager) extension, which had a shortcut for Pasting latest download. Now, my flow feels way snappier: download a file > press <kbd>⌘ + ⌥ + V</kbd> > send.
 
-In the same vein: I switched to *Neovim* after realizing I was constantly reaching for my mouse in *VS Code*. [Vim motions](https://www.barbarianmeetscoding.com/boost-your-coding-fu-with-vscode-and-vim/moving-blazingly-fast-with-the-core-vim-motions/) keep your hands on the keyboard for everything – navigation, editing, refactoring. Fair warning: the learning curve is brutal. It took me a few weeks of feeling significantly slower before muscle memory kicked in. It's the logical extreme of the keyboard-first principle, but fully worth it if you're willing to invest the time.
+In the same vein, I switched to *Neovim* once I caught myself constantly reaching for my mouse in *VS Code*. With [Vim motions](https://www.barbarianmeetscoding.com/boost-your-coding-fu-with-vscode-and-vim/moving-blazingly-fast-with-the-core-vim-motions/), your hands never leave the keyboard (navigation, editing, refactoring). Fair warning: the learning curve is brutal, and I was way slower for the first few weeks until muscle memory kicked in.
 
 ## My Stack
 
@@ -80,7 +80,7 @@ With these principles in mind, I've spent a good chunk of my time on the interne
 
 ### P1
 
-These are the applications that fundamentally changed how I interact with my computer. Each one directly supports at least two of my core principles and has become non-negotiable in my workflow. If you agree with this essay, you should try these.
+These changed how I use my computer. Each one hits at least two of my core principles, and I'd have a hard time working without them. If you agree with this essay, you should try these.
 
 <details>
 <summary><em><a href="https://www.raycast.com/">Raycast:</a></em> Command palette + extension platform</summary>
@@ -118,7 +118,7 @@ Alternatives: [*Athas*](https://athas.dev/) (tried the alpha, loved it), VSC-bas
 
 ### P2
 
-These applications aren't as transformative as P1, but they're reliable, well-designed tools that respect keyboard-first workflows and reduce friction in daily tasks. They won't revolutionize your setup, but they'll smooth out rough edges you didn't realize existed.
+A step below P1, but I use these every day. All keyboard-friendly, and none of them will change your life.
 
 <details>
 <summary><em><a href="https://helium.computer/">Helium:</a></em> Ungoogled-chromium fork with <code>!bang</code> search</summary>
@@ -153,12 +153,12 @@ Much like with Apple Mail, I want sync between my iPhone and Mac with a lightwei
 <details>
 <summary><em><a href="https://github.com/tmux/tmux/wiki">tmux:</a></em> Terminal multiplexer</summary>
 
-Lets you run multiple sessions, detach and reattach to them, and manage multiple panes and windows within a single SSH or local terminal.
+Run multiple sessions, detach and reattach, split panes and windows over SSH or locally.
 </details>
 
 ### P3
 
-Smaller utilities and quality-of-life improvements. Each solves a specific annoyance or enables a niche workflow. Not essential, but the kind of thing where once you have it, going back feels wrong.
+Small stuff. Each one fixes a specific annoyance or some niche workflow. You don't need any of these, but try going back after.
 
 <details>
 <summary><em><a href="https://ohmyz.sh/">Oh My Zsh:</a></em> Framework for managing zsh configuration</summary>
@@ -198,8 +198,8 @@ Handles frontend/backend, database set-up, and hosting. Great for creating quick
 [*Command X*](https://sindresorhus.com/command-x): cut and paste files in *Finder*, surprised this doesn't come with MacOS by default
 </details>
 
-Like finding shortcuts across campus, optimizing my setup is never really "done." There's always another route to try, another workflow to smooth out. My computer's been my campus since I was 6, and I'm not done tinkering with shortcuts – it was always about having fun (and aura) above all else.
+Like finding shortcuts across campus, optimizing my setup is never really "done." My computer's been my campus since I was 6, and I'm not done tinkering with shortcuts – it was always about having fun (and aura) above all else.
 
 * * *
 
-<section class="footnotes"><ol><li id="fn-1"><p>More on the difference between <em>Rectangle</em> and <em>Yabai</em>. <em>Rectangle</em> is a keyboard shortcut tool for manual window arrangement – you tell it "put this window on the left half" and it does. It's simple, reliable, and works for most people. <em>Yabai</em> is an automatic tiling manager that enforces a grid structure: it decides where windows go based on a binary space partitioning algorithm, and you navigate with keyboard commands. <em>Yabai</em> also lets you move applications between spaces via key-binds and requires partially disabling <code>System Integrity Protection</code>. If you're curious about tiling managers but not ready for the commitment, start with <em>Rectangle</em>. If you want your computer to automatically organize windows and you're comfortable tinkering, try <em>Yabai</em>.<a href="#fnref-1" class="footnote">↩</a></p></li></ol></section>
+<section class="footnotes"><ol><li id="fn-1"><p>More on the difference between <em>Rectangle</em> and <em>Yabai</em>. <em>Rectangle</em> is a keyboard shortcut tool – you tell it "put this window on the left half" and it does. <em>Yabai</em> decides where windows go for you, using a binary space partitioning algorithm. It also lets you move applications between spaces via key-binds, but requires partially disabling <code>System Integrity Protection</code>, so start with <em>Rectangle</em> if you're not ready for that commitment.<a href="#fnref-1" class="footnote">↩</a></p></li></ol></section>
