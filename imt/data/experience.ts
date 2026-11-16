@@ -108,7 +108,7 @@ export const experienceGroups: ExperienceGroup[] = [
         org: 'KFUPM',
         orgKey: 'kfupm',
         piName: 'Mahmoud Abdelnaby',
-        date: 'Jul 2022 - Aug 2023',
+        date: 'Jul 2022 - Aug 2024',
         href: 'https://scholar.google.com/citations?user=BLMFawMAAAAJ&hl=en',
         state: 'ended',
         desc: 'Polymer property prediction and synthesis for CO₂ capture',
