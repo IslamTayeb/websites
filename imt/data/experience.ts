@@ -58,13 +58,19 @@ export const experienceGroups: ExperienceGroup[] = [
         desc: 'Agents for chemical reaction data extraction and analysis',
         descLines: [
           {
-            label: 'Collabs & Grants',
-            text: 'Microsoft Research + Anthropic (AI for Science Program)',
+            label: 'Co-advisor',
+            text: 'Kevin Yang (Microsoft Research)',
             links: [
               {
-                text: 'Microsoft Research',
-                href: 'https://www.microsoft.com/en-us/research/people/kevyan/',
+                text: 'Kevin Yang',
+                href: 'https://kevinkyang.org/',
               },
+            ],
+          },
+          {
+            label: 'Grants',
+            text: 'Anthropic (AI for Science Program)',
+            links: [
               {
                 text: 'Anthropic (AI for Science Program)',
                 href: 'https://www.anthropic.com/news/ai-for-science-program',
@@ -80,6 +86,21 @@ export const experienceGroups: ExperienceGroup[] = [
                 href: 'https://ai-scientist-workshop.github.io/',
               },
             ],
+          },
+        ],
+      },
+      {
+        org: 'Duke University',
+        orgKey: 'duke',
+        piName: 'Matthew Lentz',
+        date: 'May 2026 - Jul 2026',
+        href: 'https://users.cs.duke.edu/~mlentz/',
+        state: 'ended',
+        desc: 'Test-passing code by construction, building on Trellis',
+        descLinks: [
+          {
+            text: 'Trellis',
+            href: 'https://arxiv.org/abs/2605.15238',
           },
         ],
       },
@@ -149,10 +170,10 @@ export const experienceGroups: ExperienceGroup[] = [
     kind: 'engineering',
     roles: [
       {
-        org: 'Soff (YC S24)',
+        org: 'Soff (YC S24; now Westgate Supply)',
         orgKey: 'soff',
         date: 'May 2025 - Oct 2025',
-        href: 'https://www.ycombinator.com/companies/soff',
+        href: 'https://www.ycombinator.com/companies/westgate',
         state: 'ended',
         desc: 'Agentic sales intelligence for manufacturers, employee #2',
       },

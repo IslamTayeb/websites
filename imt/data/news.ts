@@ -14,17 +14,9 @@ export const NEWS_ROW_LIMIT = 3;
 export const newsItems: NewsItem[] = [
   {
     segments: [
-      { text: 'Posted ' },
-      { text: '10→1 vs 1→0', href: '/blog/one-to-zero' },
-      { text: ', on taking the customer out of the loop' },
-    ],
-    date: 'Oct 2026',
-  },
-  {
-    segments: [
       { text: 'Presented at the ' },
       {
-        text: 'AI Research Scientist Workshop',
+        text: 'AI Scientist Summer Workshop',
         href: 'https://ai-scientist-workshop.github.io/',
       },
       { text: ' at Microsoft Research in Boston' },
@@ -39,6 +31,16 @@ export const newsItems: NewsItem[] = [
         href: 'https://www.anthropic.com/news/ai-for-science-program',
       },
       { text: ', thx for the compute!' },
+    ],
+    date: 'Jun 2026',
+  },
+  {
+    segments: [
+      { text: 'Selected for ' },
+      {
+        text: 'Y Combinator Startup School',
+        href: 'https://www.startupschool.org/',
+      },
     ],
     date: 'Jun 2026',
   },

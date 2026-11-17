@@ -37,6 +37,8 @@ export const heroParagraphs: TextSegment[][] = [
       text: '. Then, I transitioned to software engineering to experience startups and worked at ',
     },
     { text: 'Soff (YC S24)', href: profileLinks.soff },
+    { text: ', now ' },
+    { text: 'Westgate Supply', href: profileLinks.westgateSupply },
     { text: '.' },
   ],
   [

@@ -75,7 +75,8 @@ intended behavior or visual meaning is ambiguous, ask.
 
 ## Committing
 
-Commit and push when the project is in a good rollback state. Before committing:
+Always commit and push finished work without asking first; once the gates
+pass, the project is in a good rollback state. Before committing:
 
 1. Run the active-site gates from `imt/`.
 2. If formatting is off, run `npm run format` in the affected project, then

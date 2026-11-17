@@ -2249,10 +2249,19 @@ async function assertHome(page: Page) {
   );
 
   assert.equal(research?.expanded, 'true', 'research should default open');
-  assert.equal(research?.rows, 3, 'research should show all 3 rows');
+  assert.equal(research?.rows, 4, 'research should show all 4 rows');
   assert.ok(research?.text.includes('Research'));
   assert.equal(research?.hasShowMore, false, 'research should not show more');
-  assert.ok(!research?.text.includes('Matthew Lentz'));
+  assert.ok(research?.text.includes('Matthew Lentz'));
+  assert.ok(research?.text.includes('May 2026 - Jul 2026'));
+  assert.ok(
+    result.experienceLinks.some(
+      (link) =>
+        link.text === 'Trellis' &&
+        link.href === 'https://arxiv.org/abs/2605.15238'
+    ),
+    'the Lentz row should link Trellis'
+  );
   assert.ok(research?.text.includes('Philip Romero'));
   assert.ok(research?.text.includes('Navid NaderiAlizadeh'));
   assert.ok(research?.text.includes('Mahmoud Abdelnaby'));
@@ -2290,18 +2299,17 @@ async function assertHome(page: Page) {
   assert.ok(research?.text.includes('Aug 2025 - Present'));
   assert.ok(!research?.text.includes('Aug 2025 - present'));
   assert.ok(
-    research?.text.includes(
-      'Collabs & Grants: Microsoft Research + Anthropic (AI for Science Program)'
-    ),
-    'the Romero row should carry a labeled collabs line'
+    research?.text.includes('Co-advisor: Kevin Yang (Microsoft Research)') &&
+      research?.text.includes('Grants: Anthropic (AI for Science Program)') &&
+      !research?.text.includes('Microsoft Research +'),
+    'the Romero row should name Kevin Yang as co-advisor, not MSR as a collab'
   );
   assert.ok(
     result.experienceLinks.some(
       (link) =>
-        link.text === 'Microsoft Research' &&
-        link.href === 'https://www.microsoft.com/en-us/research/people/kevyan/'
+        link.text === 'Kevin Yang' && link.href === 'https://kevinkyang.org/'
     ),
-    'Microsoft Research should link to Kevin Yang'
+    'the co-advisor line should link to Kevin Yang'
   );
   assert.ok(
     research?.text.includes('Outputs: AI Scientist Summer Workshop (Poster)'),
@@ -2357,7 +2365,8 @@ async function assertHome(page: Page) {
   assert.deepEqual(
     result.experienceLineLabels,
     [
-      'Collabs & Grants:',
+      'Co-advisor:',
+      'Grants:',
       'Outputs:',
       'Outputs:',
       'Collabs & Grants:',
@@ -3576,7 +3585,7 @@ async function assertExperienceInteractions(page: Page) {
       .locator('[data-testid="rail-title"]:visible')
       .count();
 
-  assert.equal(await groupRows('research'), 3);
+  assert.equal(await groupRows('research'), 4);
   assert.equal(await groupRows('engineering'), 0);
   assert.equal(await groupRows('teaching'), 0);
 
@@ -3607,7 +3616,7 @@ async function assertExperienceInteractions(page: Page) {
     groupBox.x + groupBox.width - 4,
     toggleBox.y + toggleBox.height / 2
   );
-  assert.equal(await groupRows('research'), 3);
+  assert.equal(await groupRows('research'), 4);
 
   await page
     .locator('[data-testid="experience-group"][data-group="research"]')
@@ -3619,14 +3628,14 @@ async function assertExperienceInteractions(page: Page) {
     .locator('[data-testid="experience-group"][data-group="research"]')
     .getByTestId('experience-group-toggle')
     .click();
-  assert.equal(await groupRows('research'), 3);
+  assert.equal(await groupRows('research'), 4);
 
   const engineeringGroup = page.locator(
     '[data-testid="experience-group"][data-group="engineering"]'
   );
   await engineeringGroup.getByTestId('experience-group-toggle').click();
   assert.equal(await groupRows('engineering'), 3);
-  assert.equal(await groupRows('research'), 3);
+  assert.equal(await groupRows('research'), 4);
   const engineeringText = (await engineeringGroup.textContent()) ?? '';
   assert.ok(engineeringText.includes('Duke Impact Investing Group'));
   assert.ok(engineeringText.includes('Collabs: Life Edit Therapeutics'));
