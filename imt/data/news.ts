@@ -33,14 +33,4 @@ export const newsItems: NewsItem[] = [
     ],
     date: 'Jun 2026',
   },
-  {
-    segments: [
-      { text: 'Selected for ' },
-      {
-        text: 'Y Combinator Startup School',
-        href: 'https://www.startupschool.org/',
-      },
-    ],
-    date: 'Jun 2026',
-  },
 ];
