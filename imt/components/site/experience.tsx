@@ -68,41 +68,72 @@ function AdvisorLabel({
 const advisorTextClassName =
   'reading-copy text-base font-normal leading-tight text-muted-foreground';
 
-// Several advisors on one title line: each name is its own link, joined by
-// plain " + ", with any affiliation as plain text after the name.
-function AdvisorLinks({
+const advisorHoverClassName =
+  'group-hover/experience-title:text-roy-o group-focus-visible/experience-title:text-roy-o';
+
+// A co-advised title line. The organization and the first advisor form the
+// row's title link, like a single-advisor row; each further advisor is its own
+// link after a plain " + ". Affiliations stay plain text after their name.
+function CoAdvisedTitle({
+  org,
   advisors,
   boxed,
+  railHoverSource,
 }: {
+  org: string;
   advisors: NonNullable<ExperienceGroup['roles'][number]['advisors']>;
   boxed: boolean;
+  railHoverSource: boolean;
 }) {
+  const [lead, ...others] = advisors;
+  const boxedClassName = boxed && 'inline-block border border-border px-1';
+  const affiliation = (advisor: (typeof advisors)[number]) =>
+    advisor.affiliation ? (
+      <span className={advisorTextClassName}> ({advisor.affiliation})</span>
+    ) : null;
+
   return (
-    <>
-      {advisors.map((advisor, index) => (
+    <span
+      data-testid="experience-title-run"
+      className="inline whitespace-break-spaces text-foreground"
+    >
+      <ExternalLink
+        href={lead.href}
+        section="o"
+        data-rail-hover-source={railHoverSource ? 'true' : undefined}
+        data-testid="experience-title-link"
+        className="group/experience-title whitespace-break-spaces text-foreground"
+      >
+        {org}{' '}
+        <span
+          className={cn(
+            advisorTextClassName,
+            advisorHoverClassName,
+            boxedClassName
+          )}
+          data-testid="advisor-label"
+          data-boxed={boxed ? 'true' : undefined}
+        >
+          {lead.name}
+        </span>
+      </ExternalLink>
+      {affiliation(lead)}
+      {others.map((advisor) => (
         <Fragment key={advisor.name}>
-          {index > 0 ? <span className={advisorTextClassName}> + </span> : null}
+          <span className={advisorTextClassName}> + </span>
           <ExternalLink
             href={advisor.href}
             section="o"
-            className={cn(
-              advisorTextClassName,
-              boxed && 'inline-block border border-border px-1'
-            )}
+            className={cn(advisorTextClassName, boxedClassName)}
             data-testid="advisor-label"
             data-boxed={boxed ? 'true' : undefined}
           >
             {advisor.name}
           </ExternalLink>
-          {advisor.affiliation ? (
-            <span className={advisorTextClassName}>
-              {' '}
-              ({advisor.affiliation})
-            </span>
-          ) : null}
+          {affiliation(advisor)}
         </Fragment>
       ))}
-    </>
+    </span>
   );
 }
 
@@ -142,12 +173,7 @@ function RailGroup({
             className="block max-w-none shrink-0"
           />
         ) : undefined;
-        const titleContent: ReactNode = role.advisors?.length ? (
-          <>
-            {role.org}{' '}
-            <AdvisorLinks advisors={role.advisors} boxed={boxedAdvisorLabels} />
-          </>
-        ) : role.piName ? (
+        const titleContent: ReactNode = role.piName ? (
           <>
             {role.org} <AdvisorLabel role={role} boxed={boxedAdvisorLabels} />
           </>
@@ -167,7 +193,14 @@ function RailGroup({
             incoming={role.incoming}
             state={state}
             title={
-              role.href ? (
+              role.advisors?.length ? (
+                <CoAdvisedTitle
+                  org={role.org}
+                  advisors={role.advisors}
+                  boxed={boxedAdvisorLabels}
+                  railHoverSource={state === 'ended'}
+                />
+              ) : role.href ? (
                 <ExternalLink
                   href={role.href}
                   section="o"

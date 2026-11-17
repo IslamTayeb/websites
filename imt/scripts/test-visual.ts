@@ -2312,17 +2312,20 @@ async function assertHome(page: Page) {
   assert.ok(
     result.experienceLinks.some(
       (link) =>
-        link.text === 'Philip Romero' &&
+        link.text === 'Duke University Philip Romero' &&
+        link.rawText === 'Duke University Philip Romero' &&
+        link.whiteSpace === 'break-spaces' &&
         link.href === 'https://www.romerolab.org/'
     ) &&
       result.experienceLinks.some(
         (link) =>
           link.text === 'Kevin Yang' && link.href === 'https://kevinkyang.org/'
       ) &&
-      !result.experienceLinks.some((link) =>
-        link.text.startsWith('Duke University Philip Romero')
+      !result.experienceLinks.some(
+        (link) =>
+          link.text.includes('Microsoft Research') || link.text.includes('+')
       ),
-    'each advisor should be its own link, with Duke University left unlinked'
+    'the co-advised title should link the organization with the first advisor, then each further advisor on their own'
   );
   assert.ok(
     research?.text.includes('Outputs: AI Scientist Summer Workshop (Poster)'),
@@ -3492,6 +3495,44 @@ async function assertExperienceTitleHoverColors(page: Page) {
   assert.equal(teachingHover.text, 'Operating Systems Matthew Lentz');
   assert.equal(teachingHover.titleColor, teachingHover.orangeToken);
   assert.equal(teachingHover.advisorColor, teachingHover.orangeToken);
+
+  // Co-advised row: the organization and first advisor are the title link,
+  // so they hover together; a further advisor hovers on their own.
+  const coAdvisedLink = page.locator('a[data-testid="experience-title-link"]', {
+    hasText: 'Duke University Philip Romero',
+  });
+  const readCoAdvised = () =>
+    coAdvisedLink.evaluate((link) => {
+      const lead = link.querySelector<HTMLElement>(
+        '[data-testid="advisor-label"]'
+      );
+
+      return {
+        linkColor: getComputedStyle(link).color,
+        linkDecoration: getComputedStyle(link).textDecorationLine,
+        leadColor: lead ? getComputedStyle(lead).color : '',
+      };
+    });
+
+  // At rest the link is underlined; on hover the ROYB highlight replaces it.
+  assert.equal((await readCoAdvised()).linkDecoration, 'underline');
+
+  await coAdvisedLink.hover();
+  const coAdvisedHover = await readCoAdvised();
+
+  assert.equal(coAdvisedHover.linkColor, researchHover.orangeToken);
+  assert.equal(coAdvisedHover.leadColor, researchHover.orangeToken);
+
+  await page
+    .locator('#experience a[data-testid="advisor-label"]', {
+      hasText: 'Kevin Yang',
+    })
+    .hover();
+  const coAdvisorHover = await readCoAdvised();
+
+  assert.equal(coAdvisorHover.linkColor, researchHover.foregroundToken);
+  assert.equal(coAdvisorHover.leadColor, researchHover.mutedToken);
+  await page.mouse.move(0, 0);
 }
 
 async function assertHomeRailHoverAccents(page: Page) {
