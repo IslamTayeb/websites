@@ -21,13 +21,13 @@ export const heroParagraphs: TextSegment[][] = [
     },
     { text: 'Duke University', href: profileLinks.dukeUniversity },
     {
-      text: ' in Durham, NC. I build data and eval infrastructure for scientific agents and foundation models, mostly in chemistry. I currently work with ',
+      text: " in Durham, NC. I want AI to be useful for chemistry, so I build the data and eval infrastructure that scientific agents and foundation models need. I'm also interested in systems and verifiers. I currently work with ",
     },
     { text: 'Philip Romero', href: profileLinks.romeroLab },
     { text: ' and ' },
     { text: 'Kevin Yang', href: profileLinks.kevinYang },
     {
-      text: ' on agents for chemical reaction data extraction and analysis.',
+      text: ' on ALEMBIC, an open dataset of chemical reactions extracted from the literature.',
     },
   ],
   [

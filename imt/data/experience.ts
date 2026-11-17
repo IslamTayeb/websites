@@ -71,7 +71,7 @@ export const experienceGroups: ExperienceGroup[] = [
         ],
         date: 'Aug 2025 - Present',
         state: 'present',
-        desc: 'Agents for chemical reaction data extraction and analysis',
+        desc: 'ALEMBIC, an open dataset of chemical reactions extracted from the literature',
         descLines: [
           {
             label: 'Grants',
