@@ -30,7 +30,6 @@ export const newsItems: NewsItem[] = [
         text: 'Anthropic AI for Science program',
         href: 'https://www.anthropic.com/news/ai-for-science-program',
       },
-      { text: ', thx for the compute!' },
     ],
     date: 'Jun 2026',
   },
