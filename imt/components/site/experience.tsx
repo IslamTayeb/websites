@@ -73,7 +73,7 @@ const advisorHoverClassName =
 
 // A co-advised title line. The organization and the first advisor form the
 // row's title link, like a single-advisor row; each further advisor is its own
-// link after a plain " + ". Affiliations stay plain text after their name.
+// link after a plain " + ". An affiliation is part of its advisor's link.
 function CoAdvisedTitle({
   org,
   advisors,
@@ -87,10 +87,12 @@ function CoAdvisedTitle({
 }) {
   const [lead, ...others] = advisors;
   const boxedClassName = boxed && 'inline-block border border-border px-1';
-  const affiliation = (advisor: (typeof advisors)[number]) =>
-    advisor.affiliation ? (
-      <span className={advisorTextClassName}> ({advisor.affiliation})</span>
-    ) : null;
+  // The affiliation belongs to the advisor's link, so it is underlined with
+  // the name.
+  const label = (advisor: (typeof advisors)[number]) =>
+    advisor.affiliation
+      ? `${advisor.name} (${advisor.affiliation})`
+      : advisor.name;
 
   return (
     <span
@@ -114,10 +116,9 @@ function CoAdvisedTitle({
           data-testid="advisor-label"
           data-boxed={boxed ? 'true' : undefined}
         >
-          {lead.name}
+          {label(lead)}
         </span>
       </ExternalLink>
-      {affiliation(lead)}
       {others.map((advisor) => (
         <Fragment key={advisor.name}>
           <span className={advisorTextClassName}> + </span>
@@ -128,9 +129,8 @@ function CoAdvisedTitle({
             data-testid="advisor-label"
             data-boxed={boxed ? 'true' : undefined}
           >
-            {advisor.name}
+            {label(advisor)}
           </ExternalLink>
-          {affiliation(advisor)}
         </Fragment>
       ))}
     </span>
@@ -180,7 +180,9 @@ function RailGroup({
         ) : (
           role.org
         );
-        const connector = index < roles.length - 1 ? 'solid' : 'none';
+        // The last row trails off dashed, like the publications and writing
+        // rails, instead of stopping at its mark.
+        const connector = index < roles.length - 1 ? 'solid' : 'dashed';
 
         return (
           <RailItem

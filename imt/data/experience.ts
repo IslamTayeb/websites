@@ -15,7 +15,7 @@ type DescriptionLine = {
 type Advisor = {
   name: string;
   href: string;
-  // Plain text after the linked name, e.g. an outside affiliation.
+  // Shown in parentheses after the name, inside the advisor's link.
   affiliation?: string;
 };
 

@@ -2319,13 +2319,11 @@ async function assertHome(page: Page) {
     ) &&
       result.experienceLinks.some(
         (link) =>
-          link.text === 'Kevin Yang' && link.href === 'https://kevinkyang.org/'
+          link.text === 'Kevin Yang (Microsoft Research)' &&
+          link.href === 'https://kevinkyang.org/'
       ) &&
-      !result.experienceLinks.some(
-        (link) =>
-          link.text.includes('Microsoft Research') || link.text.includes('+')
-      ),
-    'the co-advised title should link the organization with the first advisor, then each further advisor on their own'
+      !result.experienceLinks.some((link) => link.text.includes('+')),
+    'the co-advised title should link the organization with the first advisor, then each further advisor with their affiliation'
   );
   assert.ok(
     research?.text.includes('Outputs: AI Scientist Summer Workshop (Poster)'),
@@ -3408,6 +3406,55 @@ async function assertExperienceGroupLabelHoverHighlight(page: Page) {
     'category leader hover'
   );
   await page.mouse.move(0, 0);
+}
+
+async function assertExperienceLastRowConnectors(page: Page) {
+  const groups = await page.evaluate(() =>
+    [
+      ...document.querySelectorAll<HTMLElement>(
+        '#experience [data-testid="experience-group"]'
+      ),
+    ].map((group) => ({
+      kind: group.dataset.group ?? '',
+      rows: [...group.querySelectorAll<HTMLElement>('li')].map((row) => {
+        const connector = row.querySelector<HTMLElement>(
+          ':scope > [data-testid="rail-connector"]'
+        );
+
+        return connector
+          ? {
+              dashed: getComputedStyle(connector).backgroundImage.includes(
+                'repeating-linear-gradient'
+              ),
+              height: connector.getBoundingClientRect().height,
+            }
+          : null;
+      }),
+    }))
+  );
+
+  assert.equal(groups.length, 4);
+  for (const group of groups) {
+    assert.ok(group.rows.length > 0, `${group.kind} should have rows`);
+    assert.ok(
+      group.rows.every((row) => row !== null),
+      `every ${group.kind} row should draw a connector`
+    );
+    assert.deepEqual(
+      group.rows.map((row) => row?.dashed),
+      group.rows.map((_, index) => index === group.rows.length - 1),
+      `only the last ${group.kind} row should have a dashed connector`
+    );
+  }
+
+  const researchLast = groups
+    .find((group) => group.kind === 'research')
+    ?.rows.at(-1);
+
+  assert.ok(
+    (researchLast?.height ?? 0) > 20,
+    'the open research group should show its trailing dashed connector'
+  );
 }
 
 async function assertExperienceTitleHoverColors(page: Page) {
@@ -5340,6 +5387,7 @@ async function main() {
     await screenshot(home, 'home-desktop');
     await assertExperienceInteractions(home);
     await screenshot(home, 'home-experience-expanded');
+    await assertExperienceLastRowConnectors(home);
     await assertExperienceTitleHoverColors(home);
 
     const darkHome = await browser.newPage({

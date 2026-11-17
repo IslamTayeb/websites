@@ -109,8 +109,9 @@ Use meaningful commit messages that describe the why.
   remains plain text. When a role has more than one advisor, use `advisors`
   instead: the organization and the first advisor form the row's title link
   (to the first advisor's `href`), like a single-advisor row, and each further
-  advisor links on their own name after a plain ` + `. An optional
-  `affiliation` renders as plain text after its name.
+  advisor links on their own name after a plain `+`. An optional
+  `affiliation` renders in parentheses after its name, inside that advisor's
+  link.
 - **Experience teaching labels:** Teaching rows use `piName` for role labels
   like `TA` or `Tutor`. Put collaborator/program context in the description as
   linked `descLinks`, e.g. `with Matthew Lentz, ...` or `with SAGE, ...`.
