@@ -71,7 +71,7 @@ export const experienceGroups: ExperienceGroup[] = [
         ],
         date: 'Aug 2025 - Present',
         state: 'present',
-        desc: 'How data affects foundation models, extracting and building it at scale',
+        desc: 'Extracting data at scale and studying how it affects chemistry foundation models',
         descLines: [
           {
             label: 'Grants',

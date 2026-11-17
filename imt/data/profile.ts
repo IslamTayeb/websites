@@ -27,7 +27,7 @@ export const heroParagraphs: TextSegment[][] = [
     { text: ' and ' },
     { text: 'Kevin Yang', href: profileLinks.kevinYang },
     {
-      text: ' on how data affects foundation models, and I extract and build that data at scale.',
+      text: ' to extract and build data at scale and study how it affects chemistry foundation models.',
     },
   ],
   [
