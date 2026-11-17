@@ -75,10 +75,10 @@ export const experienceGroups: ExperienceGroup[] = [
         descLines: [
           {
             label: 'Grants',
-            text: 'Anthropic (AI for Science Program)',
+            text: 'Anthropic AI for Science Program',
             links: [
               {
-                text: 'Anthropic (AI for Science Program)',
+                text: 'Anthropic AI for Science Program',
                 href: 'https://www.anthropic.com/news/ai-for-science-program',
               },
             ],

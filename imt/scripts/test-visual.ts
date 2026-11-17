@@ -2305,7 +2305,7 @@ async function assertHome(page: Page) {
         'Duke University Philip Romero + Kevin Yang (Microsoft Research)'
     ) &&
       !research?.text.includes('Co-advisor') &&
-      research?.text.includes('Grants: Anthropic (AI for Science Program)') &&
+      research?.text.includes('Grants: Anthropic AI for Science Program') &&
       !research?.text.includes('Microsoft Research +'),
     'the Romero row should name both advisors on its title line'
   );
@@ -2331,7 +2331,7 @@ async function assertHome(page: Page) {
   assert.ok(
     result.experienceLinks.some(
       (link) =>
-        link.text === 'Anthropic (AI for Science Program)' &&
+        link.text === 'Anthropic AI for Science Program' &&
         link.href === 'https://www.anthropic.com/news/ai-for-science-program'
     ),
     'the whole Anthropic run should link to the program page'
