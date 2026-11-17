@@ -27,7 +27,7 @@ export const heroParagraphs: TextSegment[][] = [
     { text: ' and ' },
     { text: 'Kevin Yang', href: profileLinks.kevinYang },
     {
-      text: ' on ALEMBIC, an open dataset of chemical reactions extracted from the literature.',
+      text: ' on extracting chemical reactions from the scientific literature.',
     },
   ],
   [
