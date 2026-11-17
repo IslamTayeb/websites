@@ -114,7 +114,7 @@ export const experienceGroups: ExperienceGroup[] = [
         org: 'Duke University',
         orgKey: 'duke',
         piName: 'Navid NaderiAlizadeh',
-        date: 'Oct 2024 - Apr 2025',
+        date: 'Dec 2024 - Apr 2025',
         href: 'https://sites.duke.edu/navid/',
         state: 'ended',
         desc: 'Continual learning for antibody affinity prediction',

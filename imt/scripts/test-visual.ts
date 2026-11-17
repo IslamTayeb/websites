@@ -5338,7 +5338,7 @@ async function main() {
       selector:
         '#experience [data-testid="rail-title"] + span, #writing [data-testid="rail-title"] + span, #publications [data-testid="publication-title-wrap"] + span',
       label: 'mobile home rail dates',
-      singleLineDates: ['Oct 2024 - Apr 2025', 'Sep 2025'],
+      singleLineDates: ['Dec 2024 - Apr 2025', 'Sep 2025'],
     });
     await assertMobileFooterAlignment(mobile);
     await assertPostTagTypographyAndAlignment(mobile, 'mobile home');
