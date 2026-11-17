@@ -2284,8 +2284,8 @@ async function assertHome(page: Page) {
     result.advisorGapCount === 0 &&
       result.experienceLinks.some(
         (link) =>
-          link.text === 'Duke University Philip Romero' &&
-          link.rawText === 'Duke University Philip Romero' &&
+          link.text === 'Duke University Matthew Lentz' &&
+          link.rawText === 'Duke University Matthew Lentz' &&
           link.whiteSpace === 'break-spaces'
       ),
     'advisor organization and PI labels should be one inline underlined text run with one breakable space'
@@ -2299,17 +2299,30 @@ async function assertHome(page: Page) {
   assert.ok(research?.text.includes('Aug 2025 - Present'));
   assert.ok(!research?.text.includes('Aug 2025 - present'));
   assert.ok(
-    research?.text.includes('Co-advisor: Kevin Yang (Microsoft Research)') &&
+    result.experienceTitleRuns.some(
+      (run) =>
+        run.text ===
+        'Duke University Philip Romero + Kevin Yang (Microsoft Research)'
+    ) &&
+      !research?.text.includes('Co-advisor') &&
       research?.text.includes('Grants: Anthropic (AI for Science Program)') &&
       !research?.text.includes('Microsoft Research +'),
-    'the Romero row should name Kevin Yang as co-advisor, not MSR as a collab'
+    'the Romero row should name both advisors on its title line'
   );
   assert.ok(
     result.experienceLinks.some(
       (link) =>
-        link.text === 'Kevin Yang' && link.href === 'https://kevinkyang.org/'
-    ),
-    'the co-advisor line should link to Kevin Yang'
+        link.text === 'Philip Romero' &&
+        link.href === 'https://www.romerolab.org/'
+    ) &&
+      result.experienceLinks.some(
+        (link) =>
+          link.text === 'Kevin Yang' && link.href === 'https://kevinkyang.org/'
+      ) &&
+      !result.experienceLinks.some((link) =>
+        link.text.startsWith('Duke University Philip Romero')
+      ),
+    'each advisor should be its own link, with Duke University left unlinked'
   );
   assert.ok(
     research?.text.includes('Outputs: AI Scientist Summer Workshop (Poster)'),
@@ -2364,14 +2377,7 @@ async function assertHome(page: Page) {
   );
   assert.deepEqual(
     result.experienceLineLabels,
-    [
-      'Co-advisor:',
-      'Grants:',
-      'Outputs:',
-      'Outputs:',
-      'Collabs & Grants:',
-      'Outputs:',
-    ],
+    ['Grants:', 'Outputs:', 'Outputs:', 'Collabs & Grants:', 'Outputs:'],
     'research description lines should carry lead-in labels'
   );
   assert.ok(
@@ -3447,14 +3453,14 @@ async function assertExperienceTitleHoverColors(page: Page) {
 
   const researchTitle = page
     .locator('[data-testid="experience-title-run"]', {
-      hasText: 'Duke University Philip Romero',
+      hasText: 'Duke University Matthew Lentz',
     })
     .first();
 
   await researchTitle.locator('[data-testid="advisor-label"]').hover();
   const researchHover = await readHover();
 
-  assert.equal(researchHover.text, 'Duke University Philip Romero');
+  assert.equal(researchHover.text, 'Duke University Matthew Lentz');
   assert.equal(researchHover.titleColor, researchHover.orangeToken);
   assert.equal(researchHover.advisorColor, researchHover.orangeToken);
 

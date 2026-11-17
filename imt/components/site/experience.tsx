@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { experienceGroups, type ExperienceGroup } from '@/data/experience';
 import { ExternalLink } from '@/components/primitives/external-link';
 import {
@@ -65,6 +65,47 @@ function AdvisorLabel({
   );
 }
 
+const advisorTextClassName =
+  'reading-copy text-base font-normal leading-tight text-muted-foreground';
+
+// Several advisors on one title line: each name is its own link, joined by
+// plain " + ", with any affiliation as plain text after the name.
+function AdvisorLinks({
+  advisors,
+  boxed,
+}: {
+  advisors: NonNullable<ExperienceGroup['roles'][number]['advisors']>;
+  boxed: boolean;
+}) {
+  return (
+    <>
+      {advisors.map((advisor, index) => (
+        <Fragment key={advisor.name}>
+          {index > 0 ? <span className={advisorTextClassName}> + </span> : null}
+          <ExternalLink
+            href={advisor.href}
+            section="o"
+            className={cn(
+              advisorTextClassName,
+              boxed && 'inline-block border border-border px-1'
+            )}
+            data-testid="advisor-label"
+            data-boxed={boxed ? 'true' : undefined}
+          >
+            {advisor.name}
+          </ExternalLink>
+          {advisor.affiliation ? (
+            <span className={advisorTextClassName}>
+              {' '}
+              ({advisor.affiliation})
+            </span>
+          ) : null}
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
 function RailGroup({
   group,
   boxedAdvisorLabels,
@@ -101,7 +142,12 @@ function RailGroup({
             className="block max-w-none shrink-0"
           />
         ) : undefined;
-        const titleContent: ReactNode = role.piName ? (
+        const titleContent: ReactNode = role.advisors?.length ? (
+          <>
+            {role.org}{' '}
+            <AdvisorLinks advisors={role.advisors} boxed={boxedAdvisorLabels} />
+          </>
+        ) : role.piName ? (
           <>
             {role.org} <AdvisorLabel role={role} boxed={boxedAdvisorLabels} />
           </>

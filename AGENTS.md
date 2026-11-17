@@ -106,7 +106,10 @@ Use meaningful commit messages that describe the why.
 - **Experience advisor links:** In `imt/data/experience.ts`, use
   `href` when the whole experience title should link. Use `piHref` only when
   the advisor/mentor label should link while the organization/course title
-  remains plain text.
+  remains plain text. When a role has more than one advisor, use `advisors`
+  instead: each name links on its own, joined by ` + ` on the title line, with
+  an optional plain-text `affiliation` after the name, and the organization
+  stays unlinked.
 - **Experience teaching labels:** Teaching rows use `piName` for role labels
   like `TA` or `Tutor`. Put collaborator/program context in the description as
   linked `descLinks`, e.g. `with Matthew Lentz, ...` or `with SAGE, ...`.

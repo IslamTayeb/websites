@@ -12,11 +12,21 @@ type DescriptionLine = {
   links?: DescriptionLink[];
 };
 
+type Advisor = {
+  name: string;
+  href: string;
+  // Plain text after the linked name, e.g. an outside affiliation.
+  affiliation?: string;
+};
+
 type ExperienceRole = {
   org: string;
   orgKey?: OrgKey;
   piName?: string;
   piHref?: string;
+  // Two or more advisors, each linked on their own name; the organization
+  // stays plain text. Use instead of `href` + `piName`.
+  advisors?: Advisor[];
   date: string;
   desc: string;
   descLinks?: DescriptionLink[];
@@ -51,22 +61,18 @@ export const experienceGroups: ExperienceGroup[] = [
       {
         org: 'Duke University',
         orgKey: 'duke',
-        piName: 'Philip Romero',
+        advisors: [
+          { name: 'Philip Romero', href: 'https://www.romerolab.org/' },
+          {
+            name: 'Kevin Yang',
+            href: 'https://kevinkyang.org/',
+            affiliation: 'Microsoft Research',
+          },
+        ],
         date: 'Aug 2025 - Present',
-        href: 'https://www.romerolab.org/',
         state: 'present',
         desc: 'Agents for chemical reaction data extraction and analysis',
         descLines: [
-          {
-            label: 'Co-advisor',
-            text: 'Kevin Yang (Microsoft Research)',
-            links: [
-              {
-                text: 'Kevin Yang',
-                href: 'https://kevinkyang.org/',
-              },
-            ],
-          },
           {
             label: 'Grants',
             text: 'Anthropic (AI for Science Program)',
