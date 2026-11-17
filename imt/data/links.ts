@@ -37,6 +37,7 @@ export const profileLinks = {
   skinOne: 'https://skins.osuck.net/skins/1762?v=0',
   skinTwo: 'https://skins.osuck.net/skins/1464?v=0',
   romeroLab: 'https://www.romerolab.org/',
+  kevinYang: 'https://kevinkyang.org/',
   soff: 'https://www.ycombinator.com/companies/westgate',
   westgateSupply: 'https://westgatesupply.com/',
   scholar: 'https://scholar.google.com/citations?hl=en&user=2ZrlBUcAAAAJ',
